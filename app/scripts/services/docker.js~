@@ -1,0 +1,47 @@
+(function(){
+  
+  "use strict";
+
+  var app = angular.module('docker-service', []);
+  
+  // This is the main entrypoint to interact with the Docker registry.
+  
+  app.factory('docker', ['$http', '$log', function($http, $log){
+    
+    var url = 'http://localhost/';
+
+    var repositories = ['repo1', 'repo2', 'repo3'];
+
+    var selectedRepo = 'repo1';
+    
+    var selectRepository = function(repo){
+      if (repo) {
+        selectedRepo = repo;
+      }
+    };
+    
+    var isSelectedRepository = function(repo) {
+      return selectedRepo === repo;
+    }
+    
+    var getSelectedRepository = function(){
+      return selectedRepo;
+    };
+    
+    var getRepositories = function(){
+      return repositories;
+    }
+    
+    var data = {
+      'url': url,
+      'getRepositories': getRepositories,
+      'selectRepository': selectRepository,
+      'isSelectedRepository': isSelectedRepository,
+      'getSelectedRepository': getSelectedRepository,
+    };
+    
+    return data;
+    
+  }]);
+
+})();

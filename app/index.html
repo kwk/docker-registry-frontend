@@ -1,54 +1,87 @@
 <!doctype html>
-<html class="no-js">
-  <head>
+<html class="no-js" ng-app="docker-registry-frontend">
+  <head ng-controller="MainController as main">
     <meta charset="utf-8">
-    <title></title>
+    <title>Docker registry {{main.$location.path()}}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="dockerRegistryFrontendApp">
+  <body>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
+    
+    <a href="https://github.com/kwk/docker-registry-frontend">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="images/fork_me_on_github.png" alt="Fork me on GitHub">
+    </a>    
+    
     <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a ng-href="#">Home</a></li>
-          <li><a ng-href="#/about">About</a></li>
-          <li><a ng-href="#">Contact</a></li>
-        </ul>
-        <h3 class="text-muted">dockerRegistryFrontend</h3>
-      </div>
-
-      <div ng-view=""></div>
-
-      <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+      <div class="masthead">
+        <h3 class="text-muted"><img src="images/docker.png" height="50px"/> Registry</h3>
+        
+        <!--<ul class="nav nav-justified">
+          <li class="active"><a href="#">Home</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Links to Paderwiki <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="http://paderwiki.corp.nai.org/Docker">Wikipage</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Sections on the Wiki</li>
+              <li><a href="http://paderwiki.corp.nai.org/Docker#Tips.27n.27Tricks">Tips'n'Tricks</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Docker Docs<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li class="dropdown-header">Frequently useful references</li>
+              <li><a href="https://docs.docker.com/reference/api/registry_api/">Registry API</a></li>
+              <li><a href="https://docs.docker.com/reference/commandline/cli/">Command line</a></li>
+              <li><a href="https://docs.docker.com/reference/builder/">Dockerfile</a></li>
+              <li><a href="https://docs.docker.com/reference/run/">Run reference</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">General topics</li>
+              <li><a href="https://docs.docker.com/faq/">Docker FAQ</a></li>
+              <li><a href="https://docs.docker.com/userguide/">Docker User Guide</a></li>
+              <li><a href="https://docs.docker.com/">About Docker</a></li>
+            </ul>
+          </li>
+        </ul>-->
       </div>
     </div>
+    
+    <div class="container">
+      <div ng-view></div>
+    </div>    
+    
+    <!-- Footer -->
+    <div class="footer">
+      <div class="container">
+        <p class="text-muted">Proudly presented by the <a href="https://github.com/kwk/docker-registry-frontend">docker-registry-frontend</a>.</p>
+        <p class="text-muted">Built with
+        <a href="http://bower.io" alt="Bower"><img src="images/tool-bower.png" alt="Bower" /></a>,
+        <a href="http://gruntjs.com" alt="Grunt"><img src="images/tool-grunt.png" alt="Grunt" /></a>,
+        <a href="http://yeoman.io/" alt="YEOMAN"><img src="images/tool-yo.png" alt="YEOMAN" /></a>,
+        <a href="http://angularjs.org" alt="AngularJS"><img src="images/tool-angularjs.png" alt="AngularJS" /></a>,
+        <a href="http://getbootstrap.com">Bootstrap</a>,
+        <a href="http://codeseven.github.io/toastr/" alt="Toastr"><img src="images/tool-toastr.png" alt="Toastr" /></a>,
+        <a href="http://jquery.com/">jQuery</a>.</p>
 
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+<!--        <p><button type="button" id="registry_status_btn" data-loading-text="Loading..." class="btn btn-default btn-xs pull-right">Check registry status <span class="glyphicon glyphicon-globe"></span></button></p> -->
+        
+      </div>
+    </div>
 
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
@@ -68,13 +101,17 @@
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/toastr/toastr.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/repository-controller.js"></script>
+        <script src="scripts/controllers/main-controller.js"></script>
+        <script src="scripts/directives/repository-selector-directive.js"></script>
+        <script src="scripts/directives/repository-list-directive.js"></script>
+        <script src="scripts/services/docker-service.js"></script>
         <!-- endbuild -->
 </body>
 </html>

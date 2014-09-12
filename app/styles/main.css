@@ -1,79 +1,168 @@
-/* Space out content a bit */
+/*.ng-invalid.ng-dirty {
+  border-color: #FA787E;
+}
+
+.ng-valid.ng-dirty {
+  border-color: #78FA89;
+}
+
+.selected {
+  font-weight: bold;
+}
+
+body {
+  padding-top: 50px;
+}
+
+#tab_images {
+  margin-top: 50px;
+}
+
+.footer {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
+}
+
+.container {
+  width: auto;
+  max-width: 1600px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+[class*="col-"] {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 0px solid #ddd;
+  border: 0px solid rgba(86,61,124,.2);
+}
+
+#bgcontainer {
+    height: 800px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+.rand_image_1 {  background: url('../images/ship12.jpg') no-repeat center center fixed; }
+.rand_image_2 {  background: url('../images/ship5.jpg') no-repeat center center fixed; }
+.rand_image_3 {  background: url('../images/ship8.jpg') no-repeat center center fixed; }
+
+.rand_image_4 {  background: url('../images/ship1.jpg') no-repeat center center fixed; }
+.rand_image_5 {  background: url('../images/ship2.jpg') no-repeat center center fixed; }
+.rand_image_6 {  background: url('../images/ship3.jpg') no-repeat center center fixed; }
+.rand_image_7 {  background: url('../images/ship4.jpg') no-repeat center center fixed; }
+.rand_image_8 {  background: url('../images/ship5.jpg') no-repeat center center fixed; }
+.rand_image_9 {  background: url('../images/ship7.jpg') no-repeat center center fixed; }
+.rand_image_10 {  background: url('../images/ship9.jpg') no-repeat center center fixed; }
+.rand_image_11 {  background: url('../images/ship10.jpg') no-repeat center center fixed; }
+.rand_image_12 {  background: url('../images/ship11.jpg') no-repeat center center fixed; }
+*/
 body {
   padding-top: 20px;
-  padding-bottom: 20px;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
+.container {
+  margin-top: 10px;
+}
+
+ol.breadcrumb {
+  margin-top: 20px;
+}
+
 .footer {
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
+  text-align: center;
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-}
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
-}
-
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
-}
-
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-}
-.container-narrow > hr {
-  margin: 30px 0;
+.footer img {
+   max-height: 50px;
 }
 
 /* Main marketing message and sign up button */
 .jumbotron {
   text-align: center;
-  border-bottom: 1px solid #e5e5e5;
+  background-color: transparent;
 }
 .jumbotron .btn {
-  font-size: 21px;
   padding: 14px 24px;
+  font-size: 21px;
 }
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
+/* Customize the nav-justified links to be fill the entire space of the .navbar */
+
+.nav-justified {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
-.marketing p + h4 {
-  margin-top: 28px;
+.nav-justified > li > a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 0;
+  font-weight: bold;
+  color: #777;
+  text-align: center;
+  background-color: #e5e5e5; /* Old browsers */
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#e5e5e5));
+  background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+  background-image:      -o-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(0%, #f5f5f5), to(#e5e5e5));
+  background-image:         linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+  background-repeat: repeat-x; /* Repeat the gradient */
+  border-bottom: 1px solid #d5d5d5;
+}
+.nav-justified > .active > a,
+.nav-justified > .active > a:hover,
+.nav-justified > .active > a:focus {
+  background-color: #ddd;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
+          box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
+}
+.nav-justified > li:first-child > a {
+  border-radius: 5px 5px 0 0;
+}
+.nav-justified > li:last-child > a {
+  border-bottom: 0;
+  border-radius: 0 0 5px 5px;
+}
+
+@media (min-width: 768px) {
+  .nav-justified {
+    max-height: 52px;
+  }
+  .nav-justified > li > a {
+    border-right: 1px solid #d5d5d5;
+    border-left: 1px solid #fff;
+  }
+  .nav-justified > li:first-child > a {
+    border-left: 0;
+    border-radius: 5px 0 0 5px;
+  }
+  .nav-justified > li:last-child > a {
+    border-right: 0;
+    border-radius: 0 5px 5px 0;
+  }
 }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   /* Remove the padding we set earlier */
-  .header,
+  .masthead,
   .marketing,
   .footer {
-    padding-left: 0;
     padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
+    padding-left: 0;
   }
 }

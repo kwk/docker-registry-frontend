@@ -1,0 +1,23 @@
+<p>
+  <div class="input-group">
+    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+    <input type="search" placeholder="Search for a repository" ng-model="searchTerm" class="form-control">
+  </div>
+  Found {{filteredRepositories.length}}
+  <span ng-if="filteredRepositories.length > 1 || filteredRepositories.length == 0">repositories.</span>
+  <span ng-if="filteredRepositories.length == 1">repository.</span>
+</p>
+<div class="list-group">
+  <a href="#/repository/{{repo.name}}" class="list-group-item" ng-repeat="repo in filteredRepositories=(getRepositories() | filter:searchTerm)">
+    <h4 class="list-group-item-heading">
+      <span class="glyphicon glyphicon-inbox"></span> {{repo.name}}
+    </h4>
+    <p class="list-group-item-text" ng-if="repo.description.length > 0">
+      {{repo.description}}
+    </p>
+  </a>
+  <a href="#/repository/{{repo.name}}" class="list-group-item" ng-if="filteredRepositories.length == 0">
+    <h4 class="list-group-item-heading">Sorry!</h4>
+    <p class="list-group-item-text">No repositories match the given searchTerm: "{{searchTerm}}".</p>
+  </a>
+</div>
