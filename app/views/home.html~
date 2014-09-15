@@ -1,9 +1,0 @@
-<ol class="breadcrumb">
-    <li class="active"><a href="#/home">Home</a></li>
-</ol>
-
-<div class="jumbotron">
-  <h1>Welcome, to the Docker registry!</h1>
-  <p class="lead">Proudly serving your Docker images.</p>
-  <p><a class="btn btn-lg btn-primary" href="#/repositories" role="button">Browse repositories</a></p>
-</div>
