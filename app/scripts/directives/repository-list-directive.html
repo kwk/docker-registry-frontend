@@ -8,7 +8,7 @@
   <span ng-if="filteredRepositories.length == 1">repository.</span>
 </p>
 <div class="list-group">
-  <a href="#/repository/{{repo.name}}" class="list-group-item" ng-repeat="repo in filteredRepositories=(getRepositories() | filter:searchTerm)">
+  <a href="#/repository/{{repo.name}}" class="list-group-item" ng-repeat="repo in filteredRepositories=(repositories | filter:searchTerm)">
     <h4 class="list-group-item-heading">
       <span class="glyphicon glyphicon-inbox"></span> {{repo.name}}
     </h4>

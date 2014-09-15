@@ -17,6 +17,7 @@ angular
     'ngSanitize',
     'ngTouch',    
     'docker-service', // TODO: Maybe the following dependencies are not needed? At least they weren't in the "yo angular" output.
+    'registry-services',
     'main-controller',
     'repository-controller',
     'repository-selector-directive',
