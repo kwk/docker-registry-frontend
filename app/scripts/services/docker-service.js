@@ -6,7 +6,7 @@
 angular.module('docker-service', [])
   .factory('docker', ['$http', '$log', function($http, $log){
 
-    var urlPrefix = 'http://path-to-your-registry';
+    var urlPrefix = '';
 
     var repositories = [];
 

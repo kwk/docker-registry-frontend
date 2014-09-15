@@ -15,6 +15,8 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  grunt.loadNpmTasks('grunt-connect-proxy');
+
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
@@ -71,18 +73,37 @@ module.exports = function (grunt) {
         hostname: 'localhost',
         livereload: 35729
       },
+      proxies: [
+        {
+          context: '/v1',
+          host: 'path-to-your-registry',
+          port: 80,
+          https: false,
+          xforward: false,
+          headers: {
+            "x-custom-added-header": 'custom-value'
+          }
+        }
+      ],
       livereload: {
         options: {
           open: true,
-          middleware: function (connect) {
-            return [
+          middleware: function(connect) {
+            var middlewares = [];
+            // Setup the proxy
+            middlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest);
+
+            // Serve static files
+            middlewares.push(
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
                 connect.static('./bower_components')
               ),
               connect.static(appConfig.app)
-            ];
+            );
+
+            return middlewares;
           }
         }
       },
@@ -365,6 +386,7 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'autoprefixer',
+      'configureProxies:server',
       'connect:livereload',
       'watch'
     ]);
