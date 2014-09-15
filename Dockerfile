@@ -26,7 +26,7 @@ RUN grunt build --allow-root
 # Install
 ########################################################
 
-ADD dist $NGX_ROOT
+ADD /tmp/source/dist $NGX_ROOT
 
 # Don't daemonize nginx
 echo "\ndaemon off;" >> /etc/nginx/nginx.conf
