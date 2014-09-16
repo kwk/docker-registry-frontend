@@ -35,6 +35,9 @@ angular
       when('/repository/:repositoryUser/:repositoryName/:searchName?', {
         templateUrl: 'views/repository-detail.html',
       }).
+	    when('/about', {
+        templateUrl: 'views/about.html',
+      }).
       otherwise({
         redirectTo: '/home'
       });
