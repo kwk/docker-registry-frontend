@@ -8,61 +8,22 @@
 // https://docs.angularjs.org/api/ngResource/service/$resource
 
 angular.module('registry-services', ['ngResource'])
-  .factory('Repository', ['$resource', '$log',  function($resource){
-    var url = '/v1/search?q=:searchTerm';
-    var paramDefaults = {
-        searchTerm: ''
-    };
-    var actions = {
-      query: {
-        method:'GET',
-        params:{searchTerm:''},
-        isArray: true,
-        transformResponse: function(data, headers){
-          return angular.fromJson(data).results;
+  .factory('Repository', ['$resource', '$log',  function($resource, $log){
+    return $resource('/v1/search?q=:searchTerm', {}, {
+      query: { method:'GET', params:{searchTerm:''}, isArray: true, transformResponse: function(data, headers){
+        return angular.fromJson(data).results;
+      }},
+    });
+  }])
+  .factory('Tag', ['$resource', '$log',  function($resource, $log){
+    return $resource('/v1/repositories/:repo/tags', {}, {
+      query: { method:'GET', params:{repo:''}, isArray: true, transformResponse: function(data, headers){
+        var res = [];
+        var resp = angular.fromJson(data);
+        for (var i in resp){
+          res.push({name: i, imageId: resp[i]});
         }
-      }
-    };
-    return $resource(url, paramDefaults, actions);
+        return res;
+      }},
+    });
   }]);
-
-/*
-    
-    function fetchTags(repoPath) {
-      $log.info('Searching for tags in repository = '+ repoPath);
-      $http.get(urlPrefix+'/v1/repositories/'+repoPath+'/tags').
-      success(function(data, status) {
-        $log.info('Successfully fetched tags');
-        tags[repoPath] = data;
-      }).
-      error(function(data, status) {
-        $log.error('Failed to fetch tags. status='+status+' data='+data);
-      });
-    }
-    
-    function getTagsForRepo(repoPath){
-      if (repoPath && tags.hasOwnProperty(repoPath)) {
-        return tags[repoPath];
-      }
-      return {};
-    }
-    
-    var data = {
-      'urlPrefix': urlPrefix,
-      'getRepositories': getRepositories,
-      'selectRepository': selectRepository,
-      'isSelectedRepository': isSelectedRepository,
-      'getSelectedRepository': getSelectedRepository,
-      'fetchRepositories': fetchRepositories,
-      'getSearchTerm': getSearchTerm,
-      'fetchTags': fetchTags,
-      'getTagsForRepo': getTagsForRepo,
-    };
-    
-    // This initalizes the docker repo data
-    fetchRepositories('');
-    
-    return data;
-    
-  }]);
-*/

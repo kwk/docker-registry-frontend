@@ -1,0 +1,27 @@
+<p>
+  <div class="input-group">
+    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+    <input type="search" placeholder="Search for a tag" ng-model="searchName" class="form-control">
+  </div>
+  
+  Search for "{{searchName}}" found {{filteredTags.length}}
+  <span ng-if="filteredTags.length > 1 || filteredTags.length == 0">tags.</span>
+  <span ng-if="filteredTags.length == 1">tag.</span>
+</p>
+<table class="table" summary="Shows the list of tags associated with the repo {{repositoryUser}}/{{repositoryName}}">
+<thead>
+  <tr>
+    <th>Tag</th>
+    <th>Image ID</th>
+  </tr>
+</thead>
+<tbody>
+  <tr ng-repeat="tag in filteredTags = (tags | filter:searchName)">
+    <td><span class="glyphicon glyphicon-tag"></span> {{tag.name}}</td>
+    <td>{{tag.imageId}}</td>
+  </tr>
+  <tr ng-if="filteredTags.length == 0">
+    <td colspan="2">Sorry, but no tags match the search term: "".</td>
+  </tr>
+</tbody>
+</table>

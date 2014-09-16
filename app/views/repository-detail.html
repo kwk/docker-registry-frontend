@@ -7,31 +7,6 @@
 
 <h1>Details for repository <a href="#/repositories/{{repositoryUser}}">{{repositoryUser}}</a>/<a href="#/repositories/{{repositoryName}}">{{repositoryName}}</a></h1>
 
-<p>
-  <div class="input-group">
-    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-    <input type="search" placeholder="Search for a tag" ng-model="q" class="form-control">
-  </div>
-  
-  Found {{$(filteredTags).length}}
-  <span ng-if="filteredTags.length > 1 || filteredTags.length == 0">tags.</span>
-  <span ng-if="filteredTags.length == 1">tag.</span>
-</p>
-<table class="table" summary="Shows the list of tags associated with the repo {{repositoryUser}}/{{repositoryName}}" ng-init="fetchTags(repository)">
-<thead>
-  <tr>
-    <th>Tag</th>
-    <th>Image ID</th>
-  </tr>
-</thead>
-<tbody>
-  <tr ng-repeat="(tag, imageId) in filteredTags = (getTagsForRepo(repository) | filter:q)">
-    <td>{{tag}}</td>
-    <td>{{imageId}}</td>
-  </tr>
-  <tr ng-if="filteredTags.length == 0">
-    <td colspan="2">Sorry, but no tags match the search term: "".</td>
-  </tr>
-</tbody>
-</table>
+<tag-list></tag-list>
+
 

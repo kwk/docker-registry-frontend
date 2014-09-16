@@ -16,12 +16,13 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',    
-    'docker-service', // TODO: Maybe the following dependencies are not needed? At least they weren't in the "yo angular" output.
-    'registry-services',
+    'registry-services', // TODO: Maybe the following dependencies are not needed? At least they weren't in the "yo angular" output.
     'main-controller',
     'repository-controller',
+    'tag-controller',
     'repository-selector-directive',
     'repository-list-directive',
+    'tag-list-directive',
   ])
   .config(['$routeProvider', function($routeProvider){
     $routeProvider.
@@ -30,11 +31,9 @@ angular
       }).
       when('/repositories/:searchTerm?', {
         templateUrl: 'views/repository-list.html',
-        controller: 'RepositoryController',
       }).
-      when('/repository/:repositoryUser/:repositoryName', {
+      when('/repository/:repositoryUser/:repositoryName/:searchName?', {
         templateUrl: 'views/repository-detail.html',
-        controller: 'RepositoryController',
       }).
       otherwise({
         redirectTo: '/home'

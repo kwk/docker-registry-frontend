@@ -7,9 +7,9 @@
  * # RepositoryController
  * Controller of the docker-registry-frontend
  */
-angular.module('repository-controller', ['docker-service', 'registry-services'])
-  .controller('RepositoryController', ['$scope', '$route', '$routeParams', '$location', '$log', 'docker', 'Repository',
-  function($scope, $route, $routeParams, $location, $log, docker, Repository){ 
+angular.module('repository-controller', ['registry-services'])
+  .controller('RepositoryController', ['$scope', '$route', '$routeParams', '$location', '$log', 'Repository', 'Tag',
+  function($scope, $route, $routeParams, $location, $log, Repository, Tag){ 
   
     $scope.$route = $route;
     $scope.$location = $location;
