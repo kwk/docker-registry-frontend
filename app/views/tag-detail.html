@@ -1,0 +1,23 @@
+<ol class="breadcrumb">
+    <li><a href="#/home">Home</a></li>
+    <li><a href="#/repositories/">Repositories</a></li>
+    <li><a href="#/repositories/{{repositoryUser}}">{{repositoryUser}}</a></li>
+    <li><a href="#/repository/{{repositoryUser}}/{{repositoryName}}">{{repositoryName}}</a></li>
+    <li><a href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tagName}}/{{imageId}}">{{tagName}}</a></li>
+</ol>
+
+<h1>
+  Details for tag 
+  <a href="#/repositories/{{repositoryUser}}">{{repositoryUser}}</a> /
+  <a href="#/repository/{{repositoryUser}}/{{repositoryName}}">{{repositoryName}}</a> /
+  <a href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tagName}}/{{imageId}}">{{tagName}}</a>
+  <div class="pull-right">
+  <a class="btn btn-danger" href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tagName}}/{{imageId}}/delete" alt="Delete tag">
+    <span class="glyphicon glyphicon-trash"></span>
+  </a>
+  </div>
+</h1>
+
+<div class="well">docker pull {{repositoryUser}}/{{repositoryName}}/{{tagName}}</div>
+
+<image-details></image-details>

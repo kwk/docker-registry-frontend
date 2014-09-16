@@ -8,13 +8,8 @@
  * Controller of the docker-registry-frontend
  */
 angular.module('main-controller', [])
-  .controller('MainController', [
-    '$scope',
-    '$route',
-    '$routeParams',
-    '$location',
-    '$log',
-    function($scope, $route, $routeParams, $location, $log){
+  .controller('MainController', ['$scope', '$route', '$routeParams', '$location',
+  function($scope, $route, $routeParams, $location){
       this.$route = $route;
       this.$location = $location;
       this.$routeParams = $routeParams;

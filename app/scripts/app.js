@@ -23,6 +23,11 @@ angular
     'repository-selector-directive',
     'repository-list-directive',
     'tag-list-directive',
+    'image-details-directive',
+    'tag-detail-controller',
+    'image-controller',
+    'create-tag-controller',
+    'delete-tag-controller',
   ])
   .config(['$routeProvider', function($routeProvider){
     $routeProvider.
@@ -37,6 +42,22 @@ angular
       }).
 	    when('/about', {
         templateUrl: 'views/about.html',
+      }).
+      when('/tag/:repositoryUser/:repositoryName/:tagName/:imageId', {
+        templateUrl: 'views/tag-detail.html',
+        controller: 'TagDetailController',
+      }).
+      when('/tag/:repositoryUser/:repositoryName/:tagName/:imageId/delete', {
+        templateUrl: 'views/delete-tag.html',
+        controller: 'DeleteTagController',
+      }).
+      when('/image/:imageId', {
+        templateUrl: 'views/image-detail.html',
+        controller: 'ImageController',
+      }).
+      when('/image/:imageId/tag', {
+        templateUrl: 'views/create-tag.html',
+        controller: 'CreateTagController',
       }).
       otherwise({
         redirectTo: '/home'

@@ -1,0 +1,82 @@
+<ol class="breadcrumb">
+    <li><a href="#/home">Home</a></li>
+    <li><a href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tagName}}/{{imageId}}/delete">Delete tag {{tagName}}</a></li>
+</ol>
+
+<h1 class="danger">
+  Confirm deletion of tag 
+  <a href="#/repositories/{{repositoryUser}}">{{repositoryUser}}</a> /
+  <a href="#/repository/{{repositoryUser}}/{{repositoryName}}">{{repositoryName}}</a> /
+  <a href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tagName}}/{{imageId}}">{{tagName}}</a>
+</h1>
+
+<div class="panel panel-danger">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Confirm deleteion</div>
+  <div class="panel-body">
+    <p>
+      Are you sure, that you want to delete the tag
+      <a href="#/repositories/{{repositoryUser}}">{{repositoryUser}}</a> /
+      <a href="#/repository/{{repositoryUser}}/{{repositoryName}}">{{repositoryName}}</a> /
+      <a href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tagName}}/{{imageId}}">{{tagName}}</a>?
+    </p>
+    <p>
+      This operation cannot be undone!
+    </p>
+    <p class="pull-left text-muted">
+      <input type="checkbox" ng-model="unlockDeleteButton"> Check to unlock delete button.    
+    </p>
+    <p class="pull-right">
+      <button type="submit" class="btn btn-danger" ng-click="deleteTag({repoUser: repositoryUser, repoName: repositoryName, tagName: tagName})" ng-disabled="!unlockDeleteButton">
+        <span class="glyphicon glyphicon-trash"></span> Delete Tag
+      </button>
+      <button type="button" onclick="window.history.go(-1); return false;" class="btn btn-default">Cancel and go back</button>
+    </p>
+  </div>
+</div>
+
+<!--
+<form name="createTagForm" novalidate class="form-horizontal" role="form" class="css-form">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Image ID</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><a href="#/image/{{imageId}}">{{imageId | limitTo: 12}}</a></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="repoUser" class="col-sm-2 control-label">User</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="repoUser" ng-model="tag.repoUser" placeholder="Your name" required="required">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="repoName" class="col-sm-2 control-label">Repository</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="repoName" ng-model="tag.repoName" placeholder="Your repository" required="required">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="tagName" class="col-sm-2 control-label">Tag Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="tagName" ng-model="tag.tagName" placeholder="Enter your tag name" required="required">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="forceOverwrite"> Overwrite the tag if it already exists?
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary" ng-click="createTag(tag, forceOverwrite)"
+        ng-disabled="createTagForm.$invalid || isUnchanged(user)">
+        <span class="glyphicon glyphicon-plus"></span> Create Tag
+      </button>
+      <button type="button" onclick="window.history.go(-1); return false;" class="btn btn-default">Cancel and go back</button>
+    </div>
+  </div>
+</form>-->

@@ -17,7 +17,7 @@
 </thead>
 <tbody>
   <tr ng-repeat="tag in filteredTags = (tags | filter:searchName)">
-    <td><span class="glyphicon glyphicon-tag"></span> {{tag.name}}</td>
+    <td><span class="glyphicon glyphicon-tag"></span> <a href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}/{{tag.imageId}}">{{tag.name}}</a></td>
     <td>{{tag.imageId}}</td>
   </tr>
   <tr ng-if="filteredTags.length == 0">

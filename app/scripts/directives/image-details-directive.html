@@ -1,0 +1,25 @@
+<table class="table">
+  <tr><td><span class="glyphicon glyphicon-cog"></span></td><th>Image Actions</th><td>
+    <a href="#/image/{{imageDetails.id}}/tag" class="btn btn-default">
+      <span class="glyphicon glyphicon-plus"></span>
+      Create a tag for this image
+    </a>
+  </td></tr>      
+  <tr><td><span class="glyphicon glyphicon-user"></span></td><th>Author</th><td>{{imageDetails.author}}</td></tr>
+  <tr><td><span class="glyphicon glyphicon-comment"></span></td><th>Comment</th><td>{{imageDetails.comment}}</td></tr>
+  <tr><td><span class="glyphicon glyphicon-calendar"></span></td><th>Created</th><td>{{imageDetails.created | date}}</td></tr>
+  <tr><td><span class="glyphicon glyphicon-eye-open"></span></td><th>Docker version</th><td>{{imageDetails.docker_version}}</td></tr>
+  <tr><td><span class="glyphicon glyphicon-cog"></span></td><th>OS</th><td>{{imageDetails.os}}/{{imageDetails.architecture}}</td></tr>
+  <tr><td><span class="glyphicon glyphicon-qrcode"></span></td><th>ID</th><td><a href="#/image/{{imageDetails.id}}">{{imageDetails.id | limitTo: 12}}</a></td></tr>
+  <tr><td><span class="glyphicon glyphicon-random"></span></td><th>Parent's ID</th><td><a href="#/image/{{imageDetails.parent}}">{{imageDetails.parent | limitTo: 12}}</a></td></tr>
+  <tr><td><span class="glyphicon glyphicon-compressed"></span></td><th>Size in Bytes<br /><small>Not including base image sizes.</small></th><td>{{imageDetails.Size}}</td></tr>
+  <tr><td><span class="glyphicon glyphicon-tree-deciduous"></span></td><th>Ancestory</th>
+  <td>
+    <div class="list-group">
+      <a ng-repeat="img in imageAncestry" href="#/image/{{img}}" class="list-group-item" ng-class="{active: imageDetails.id==img}">
+        <span class="glyphicon" ng-class="{'glyphicon-arrow-down': ($first&&!$last)||$middle}"></span>
+        {{img | limitTo:12}}
+      </a>
+    </div>      
+  </td></tr>
+</table>
