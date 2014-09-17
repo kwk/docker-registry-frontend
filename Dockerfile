@@ -38,7 +38,7 @@ RUN chown -R www-data:www-data $NGX_ROOT
 # Don't daemonize nginx
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 
-# Modify the default enabled site to forward requests
+# Modify the our custom nginx site to forward requests
 # to /v1/ to the docker registry host. We have to do this
 # on every start of the container since nginx has no
 # built-in mechanisms to read from environment variables.
