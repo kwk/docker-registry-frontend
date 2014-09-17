@@ -3,7 +3,7 @@ README
 
 The `docker-registry-frontend` is a pure web-based solution for browsing any private Docker repository that you can reach via a URL.
 
-To follow the philosophy of Docker, this application is available in the form of an image that you can run as a container by executing this command:
+This application is available in the form of a Docker image that you can run as a container by executing this command:
 
     sudo docker run -d -e DOCKER_REGISTRY_URL=http://path-to-your-registry -p 8080:80 konradkleine/docker-registry-frontend
 
@@ -13,5 +13,5 @@ If you like the application, I invite you to contribute and report bugs or featu
 
 Thank you for your interest!
 
-Konrad
+ -- Konrad
 
