@@ -45,7 +45,7 @@ RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 # It has other mechanisms (with Lua or Perl) but they are
 # too complicated.
 ADD nginx-site.conf /root/nginx-site.conf
-RUN echo "#!/bin/sh -x\ncat /root/nginx-site.conf | DOCKER_REGISTRY_URL=\$DOCKER_REGISTRY_URL envsubst '\$DOCKER_REGISTRY_URL' > /etc/nginx/sites-available/custom && ln -sf /etc/nginx/sites-available/custom /etc/nginx/sites-enabled/custom && rm -f /etc/nginx/sites-enabled/default && nginx -t && nginx" >> /root/start-nginx.sh
+RUN echo "#!/bin/sh \ncat /root/nginx-site.conf | DOCKER_REGISTRY_URL=\$DOCKER_REGISTRY_URL envsubst '\$DOCKER_REGISTRY_URL' > /etc/nginx/sites-available/custom && ln -sf /etc/nginx/sites-available/custom /etc/nginx/sites-enabled/custom && rm -f /etc/nginx/sites-enabled/default && nginx -t && nginx" >> /root/start-nginx.sh
 RUN chmod +x /root/start-nginx.sh
 
 ########################################################
