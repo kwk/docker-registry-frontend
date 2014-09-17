@@ -45,7 +45,24 @@ RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 # It has other mechanisms (with Lua or Perl) but they are
 # too complicated.
 ADD nginx-site.conf /root/nginx-site.conf
-RUN echo "#!/bin/sh \ncat /root/nginx-site.conf | DOCKER_REGISTRY_URL=\$DOCKER_REGISTRY_URL envsubst '\$DOCKER_REGISTRY_URL' > /etc/nginx/sites-available/custom && ln -sf /etc/nginx/sites-available/custom /etc/nginx/sites-enabled/custom && rm -f /etc/nginx/sites-enabled/default && nginx -t && nginx" >> /root/start-nginx.sh
+ADD nginx-site-ssl.conf /root/nginx-site-ssl.conf
+
+ENV START_SCRIPT /root/start-nginx.sh
+RUN echo "#!/bin/sh" > $START_SCRIPT
+# Remove default site
+RUN echo "rm -f /etc/nginx/sites-enabled/*" >> $START_SCRIPT
+# Substitute URL to docker registry
+RUN echo "cat /root/nginx-site.conf | DOCKER_REGISTRY_URL=\$DOCKER_REGISTRY_URL envsubst '\$DOCKER_REGISTRY_URL' > /etc/nginx/sites-available/registry" >> $START_SCRIPT
+# If SSL is requested, copy config to /etc/nginx/conf.d/
+# directory from which everyting gets included automatically.
+RUN echo "if [ -n \"\$ENABLE_SSL\" ]; then" >> $START_SCRIPT
+RUN echo "   cat /root/nginx-site-ssl.conf | DOCKER_REGISTRY_URL=\$DOCKER_REGISTRY_URL envsubst '\$DOCKER_REGISTRY_URL' > /etc/nginx/conf.d/registry-ssl" >> $START_SCRIPT
+RUN echo "fi" >> $START_SCRIPT
+# Enable the "registry" site
+RUN echo "ln -sf /etc/nginx/sites-available/registry /etc/nginx/sites-enabled/registry && \\" >> $START_SCRIPT
+# Check nginx config and start it
+RUN echo "nginx -t && nginx" >> $START_SCRIPT
+
 RUN chmod +x /root/start-nginx.sh
 
 ########################################################
@@ -57,6 +74,11 @@ RUN apt-get purge -y --auto-remove git nodejs nodejs-legacy npm
 
 # Expose ports.
 EXPOSE 80
+
+# If you wish to run the registry container with SSL,
+# you can provide your own SSL server key and your
+# SSL server certificate.
+VOLUME ["/etc/nginx/ssl/server.crt", "/etc/nginx/ssl/server.key"]
 
 # Define default command.
 CMD ["/root/start-nginx.sh"]
