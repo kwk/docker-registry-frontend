@@ -10,21 +10,36 @@
 angular.module('registry-services', ['ngResource'])
   .factory('Repository', ['$resource', '$log',  function($resource, $log){
     return $resource('/v1/search?q=:searchTerm', {}, {
-      query: { method:'GET', params:{searchTerm:''}, isArray: true, transformResponse: function(data, headers){
-        return angular.fromJson(data).results;
-      }},
+      'query': {
+        method:'GET',
+        params:{searchTerm:''},
+        isArray: true,
+        transformResponse: function(data, headers){
+          return angular.fromJson(data).results;
+        }
+      },
+      'delete': {
+        url: '/v1/repositories/:repoUser/:repoName',
+        method: 'DELETE',
+        params: {repoUser:'', repoName: ''},
+      },
     });
   }])
   .factory('Tag', ['$resource', '$log',  function($resource, $log){
     return $resource('/v1/repositories/:repo/tags', {}, {
-      'query': { method:'GET', params:{repo:''}, isArray: true, transformResponse: function(data, headers){
-        var res = [];
-        var resp = angular.fromJson(data);
-        for (var i in resp){
-          res.push({name: i, imageId: resp[i]});
-        }
-        return res;
-      }},
+      'query': {
+        method:'GET',
+        params:{repo:''},
+        isArray: true,
+        transformResponse: function(data, headers){
+          var res = [];
+          var resp = angular.fromJson(data);
+          for (var i in resp){
+            res.push({name: i, imageId: resp[i]});
+          }
+          return res;
+        },
+      },
       'delete': {
         url: '/v1/repositories/:repoUser/:repoName/tags/:tagName',
         method: 'DELETE',
@@ -32,14 +47,12 @@ angular.module('registry-services', ['ngResource'])
       },
       'exists': {
         url: '/v1/repositories/:repoUser/:repoName/tags/:tagName',
-        method: 'GET', params: {repoUser:'', repoName: '', tagName: ''},
+        method: 'GET',
+        params: {repoUser:'', repoName: '', tagName: ''},
         transformResponse: function(data, headers){
-          var resp = angular.fromJson(data);
-          if (angular.isObject(resp)) { // e.g. {"error": "Tag not found"}
-            console.log(resp);
-            return false;
-          }
-          return true;
+          // data will be the image ID if successful or an error object.
+          data = angular.isString(angular.fromJson(data));
+          return data;
         },
       },
       // Usage: Tag.save({repoUser:'someuser', repoName: 'someRepo', tagName: 'someTagName'}, imageId);

@@ -4,7 +4,7 @@
  * @ngdoc function
  * @name docker-registry-frontend.controller:DeleteTagController
  * @description
- * # DeleteController
+ * # DeleteTagController
  * Controller of the docker-registry-frontend
  */
 angular.module('delete-tag-controller', ['registry-services'])
@@ -14,18 +14,15 @@ angular.module('delete-tag-controller', ['registry-services'])
     $scope.repositoryName = $route.current.params['repositoryName'];
     $scope.tagName = $route.current.params['tagName'];
     $scope.imageId = $route.current.params['imageId'];
-
-    $scope.master = {};
     
-    $scope.deleteTag = function(tag, forceOverwrite) {
-      $scope.master = angular.copy(tag);
+    $scope.deleteTag = function(tag) {
       var tagStr = tag.repoUser + '/' + tag.repoName + ':' + tag.tagName;
       if (!Tag.exists(tag)) {
         toastr.warning('Tag does no longer exist: ' + tagStr);
         return;
       }
       
-      Tag.delete(tag, '"'+$scope.imageId+'"',
+      Tag.delete(tag,
         // success
         function(value, responseHeaders) {
           toastr.success('Deleted tag: ' + tagStr);

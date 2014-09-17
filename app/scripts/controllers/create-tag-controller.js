@@ -23,25 +23,35 @@ angular.module('create-tag-controller', ['registry-services'])
         $scope.tag.repoName = res[1]; 
     };
     
-    $scope.createTag = function(tag, forceOverwrite) {
-      $scope.master = angular.copy(tag);
+    $scope.doCreateTag = function(tag) {
       var tagStr = tag.repoUser + '/' + tag.repoName + ':' + tag.tagName;
-      var testForExistence = !forceOverwrite;
-      if (testForExistence && Tag.exists(tag)) {
-        toastr.warning('Tag already exists: ' + tagStr);
-        return;
-      }
-      
       Tag.save(tag, '"'+$scope.imageId+'"',
         // success
         function(value, responseHeaders) {
           toastr.success('Created tag: ' + tagStr);
           // Redirect to new tag page
-          $window.location.href = '#/tag/'+tagStr+'/'.$scope.imageId;
+          $window.location.href = '#/tag/' + tag.repoUser + '/' + tag.repoName + '/' + tag.tagName + '/' + $scope.imageId;
         },
         // error
         function(httpResponse) {
           toastr.error('Failed to create tag: ' + tagStr + ' Response: ' + httpResponse);
+        }
+      );
+    };
+    
+    $scope.createTag = function(tag, forceOverwrite) {
+      $scope.master = angular.copy(tag);
+      var tagStr = tag.repoUser + '/' + tag.repoName + ':' + tag.tagName;
+      var tagExists = Tag.exists(tag,
+        function(value, responseHeaders) {
+          if (!forceOverwrite) {
+            toastr.warning('Tag already exists: ' + tagStr);
+            return;
+          }
+          $scope.doCreateTag(tag);
+        },
+        function(httpResponse) {
+          $scope.doCreateTag(tag);
         }
       );
     };

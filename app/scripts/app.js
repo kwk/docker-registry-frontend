@@ -28,6 +28,7 @@ angular
     'image-controller',
     'create-tag-controller',
     'delete-tag-controller',
+    'delete-repository-controller',
   ])
   .config(['$routeProvider', function($routeProvider){
     $routeProvider.
@@ -37,8 +38,15 @@ angular
       when('/repositories/:searchTerm?', {
         templateUrl: 'views/repository-list.html',
       }).
-      when('/repository/:repositoryUser/:repositoryName/:searchName?', {
+      when('/repository/:repositoryUser/:repositoryName/', {
         templateUrl: 'views/repository-detail.html',
+      }).
+      when('/repository/:repositoryUser/:repositoryName/tags/:searchName?', {
+        templateUrl: 'views/repository-detail.html',
+      }).
+      when('/repository/:repositoryUser/:repositoryName/delete', {
+        templateUrl: 'views/delete-repository.html',
+        controller: 'DeleteRepositoryController',
       }).
 	    when('/about', {
         templateUrl: 'views/about.html',

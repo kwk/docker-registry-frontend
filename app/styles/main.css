@@ -10,6 +10,10 @@ ol.breadcrumb {
   margin-top: 20px;
 }
 
+ol.breadcrumb li:first-child::before {
+  	content: "You are here: ";
+}
+
 .footer {
   padding-top: 40px;
   padding-bottom: 40px;
