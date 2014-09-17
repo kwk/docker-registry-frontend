@@ -17,7 +17,10 @@
     <div class="col-sm-10">
       <div class="btn-group">
         <button name="repoSelector" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-          <span class="glyphicon glyphicon-briefcase"></span> Select Docker repository <span class="caret"></span>
+          <span class="glyphicon glyphicon-briefcase"></span>
+          <span ng-if="!tag.repoUser">Select Docker repository</span>
+          <span ng-if="tag.repoUser">{{tag.repoUser}}/{{tag.repoName}}</span>
+          <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu">
           <li ng-repeat="repo in repositories">
@@ -29,7 +32,7 @@
       </div>
     </div>
   </div>
-  <div class="form-group">
+  <!--<div class="form-group">
     <label for="repoUser" class="col-sm-2 control-label">User</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" id="repoUser" ng-model="tag.repoUser" placeholder="Repository user / namespace" required="required" disabled="disabled">
@@ -40,7 +43,7 @@
     <div class="col-sm-10">
       <input type="text" class="form-control" id="repoName" ng-model="tag.repoName" placeholder="Repository name" required="required" disabled="disabled">
     </div>
-  </div>
+  </div>-->
   <div class="form-group">
     <label for="tagName" class="col-sm-2 control-label">Tag Name</label>
     <div class="col-sm-10">
@@ -59,7 +62,7 @@
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn btn-primary" ng-click="createTag(tag, forceOverwrite)"
-        ng-disabled="createTagForm.$invalid || isUnchanged(user)">
+        ng-disabled="createTagForm.$invalid || !tag.repoUser || !tag.repoName">
         <span class="glyphicon glyphicon-plus"></span> Create Tag
       </button>
       <button type="button" onclick="window.history.go(-1); return false;" class="btn btn-default">Cancel and go back</button>

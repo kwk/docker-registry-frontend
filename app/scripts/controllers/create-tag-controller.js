@@ -16,7 +16,7 @@ angular.module('create-tag-controller', ['registry-services'])
     
     $scope.repositories = Repository.query();
     
-    $scope.tag = { repoUser: '', repoName: '' };
+    $scope.tag = { repoUser: null, repoName: null};
     $scope.selectRepo = function(repoStr) {
         var res = repoStr.split('/');
         $scope.tag.repoUser = res[0];
