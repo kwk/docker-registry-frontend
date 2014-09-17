@@ -21,10 +21,10 @@ If you want to run the application with SSL enabled, you can do the following:
       -v /path/to/your/server.crt:/etc/nginx/ssl/server.crt:ro \
       -v /path/to/your/server.key:/etc/nginx/ssl/server.key:ro \
       -e DOCKER_REGISTRY_URL=http://path-to-your-registry \
-      -p 8080:443 \
+      -p 443:443 \
       konradkleine/docker-registry-frontend
 
-Note that the application still serves the port `80` but it is simply not exposed ;). Instead we route the containers SSL port `443` to our previous port `8080`.
+Note that the application still serves the port `80` but it is simply not exposed ;).
 
 When the application runs with SSL you can open your browser and navigate to [https://localhost:8080][2].
 
