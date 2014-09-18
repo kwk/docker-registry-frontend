@@ -26,7 +26,7 @@ If you want to run the application with SSL enabled, you can do the following:
 
 Note that the application still serves the port `80` but it is simply not exposed ;).
 
-When the application runs with SSL you can open your browser and navigate to [https://localhost:8080][2].
+When the application runs with SSL you can open your browser and navigate to [https://localhost][2].
 
 If you like the application, I invite you to contribute and report bugs or feature request on the project's github page: [https://github.com/kwk/docker-registry-frontend][3].
 
@@ -36,5 +36,5 @@ Thank you for your interest!
 
 
   [1]: http://localhost:8080
-  [2]: https://localhost:8080
+  [2]: https://localhost
   [3]: http://%20https://github.com/kwk/docker-registry-frontend
