@@ -5,19 +5,48 @@ ENV NGX_ROOT /usr/share/nginx/html
 ENV SOURCE_DIR /tmp/source
 ENV START_SCRIPT /root/start-nginx.sh
 
-# This adds everything to the build root except those
-# element that are matched by .dockerignore
-ADD . $SOURCE_DIR
+############################################################
+# This adds everything we need to the build root except those
+# element that are matched by .dockerignore.
+# We explicitly list every directory and file that is involved
+# in the build process but. All config files (like nginx) are
+# not listed to speed up the build process. 
+############################################################
 
-# This is written so compact, to reduce the size of the final container
-# and its layers. We have to install build dependencies, build the app,
-# deploy the app to the web root, remove the source code, and 
-# then uninstall the build dependencies. When packed into one RUN
-# instruction, the resulting layer will only be comprised of the
+# Create dirs
+RUN mkdir -p $SOURCE_DIR/dist
+RUN mkdir -p $SOURCE_DIR/app
+RUN mkdir -p $SOURCE_DIR/test
+
+# Add dirs
+ADD app $SOURCE_DIR/app
+ADD test $SOURCE_DIR/test
+
+# Dot files
+ADD .jshintrc $SOURCE_DIR/
+ADD .bowerrc $SOURCE_DIR/
+ADD .editorconfig $SOURCE_DIR/
+ADD .travis.yml $SOURCE_DIR/
+
+# Other files
+ADD bower.json $SOURCE_DIR/
+ADD Gruntfile.js $SOURCE_DIR/
+ADD LICENSE $SOURCE_DIR/
+ADD package.json $SOURCE_DIR/
+ADD README.md $SOURCE_DIR/
+
+############################################################
+# This is written so compact, to reduce the size of the
+# final container and its layers. We have to install build
+# dependencies, build the app, deploy the app to the web
+# root, remove the source code, and then uninstall the build
+# dependencies. When packed into one RUN instruction, the
+# resulting layer will hopefully only be comprised of the
 # installed app artifacts.
+############################################################
+
 RUN apt-get update && \
     apt-get -y install git nodejs nodejs-legacy npm nginx gettext-base && \
-    mkdir -p $SOURCE_DIR && \
     cd $SOURCE_DIR && \
     npm install -g yo && \
     npm install && \
