@@ -16,8 +16,8 @@
       {{repo.description}}
     </p>
   </a>
-  <a href="#/repository/{{repo.name}}" class="list-group-item" ng-if="filteredRepositories.length == 0">
+  <span class="list-group-item" ng-if="filteredRepositories.length == 0">
     <h4 class="list-group-item-heading">Sorry!</h4>
-    <p class="list-group-item-text">No repositories match the given searchTerm: "{{searchTerm}}".</p>
-  </a>
+    <p class="list-group-item-text">No repositories match the given search term: "{{searchTerm}}".</p>
+  </span>
 </div>

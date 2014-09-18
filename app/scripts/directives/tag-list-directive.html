@@ -8,20 +8,14 @@
   <span ng-if="filteredTags.length > 1 || filteredTags.length == 0">tags.</span>
   <span ng-if="filteredTags.length == 1">tag.</span>
 </p>
-<table class="table" summary="Shows the list of tags associated with the repo {{repositoryUser}}/{{repositoryName}}">
-<thead>
-  <tr>
-    <th>Tag</th>
-    <th>Image ID</th>
-  </tr>
-</thead>
-<tbody>
-  <tr ng-repeat="tag in filteredTags = (tags | filter:searchName)">
-    <td><span class="glyphicon glyphicon-tag"></span> <a href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}/{{tag.imageId}}">{{tag.name}}</a></td>
-    <td>{{tag.imageId}}</td>
-  </tr>
-  <tr ng-if="filteredTags.length == 0">
-    <td colspan="2">Sorry, but no tags match the search term: "".</td>
-  </tr>
-</tbody>
-</table>
+
+<div class="list-group">
+  <a ng-repeat="tag in filteredTags = (tags | filter:searchName)" href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}/{{tag.imageId}}" class="list-group-item">
+    <span class="badge">{{tag.imageId|limitTo: 12}}</span>
+    <span><span class="glyphicon glyphicon-tag"></span> {{tag.name}}</span>
+  </a>
+  <span class="list-group-item" ng-if="filteredTags.length == 0">
+    <p class="list-group-item-heading">Sorry!</p>
+    <span class="list-group-item-text">No tags match the given search term: "{{searchName}}".</span>
+  </span>
+</div>
