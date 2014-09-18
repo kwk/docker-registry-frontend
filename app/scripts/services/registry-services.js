@@ -12,24 +12,22 @@ angular.module('registry-services', ['ngResource'])
     return $resource('/v1/search?q=:searchTerm', {}, {
       'query': {
         method:'GET',
-        params:{searchTerm:''},
         isArray: true,
         transformResponse: function(data, headers){
           return angular.fromJson(data).results;
         }
       },
       'delete': {
-        url: '/v1/repositories/:repoUser/:repoName',
+        url: '/v1/repositories/:repoUser/:repoName/',
         method: 'DELETE',
-        params: {repoUser:'', repoName: ''},
       },
     });
   }])
   .factory('Tag', ['$resource', '$log',  function($resource, $log){
+    // TODO: rename :repo to repoUser/repoString for convenience.
     return $resource('/v1/repositories/:repo/tags', {}, {
       'query': {
         method:'GET',
-        params:{repo:''},
         isArray: true,
         transformResponse: function(data, headers){
           var res = [];
@@ -43,12 +41,10 @@ angular.module('registry-services', ['ngResource'])
       'delete': {
         url: '/v1/repositories/:repoUser/:repoName/tags/:tagName',
         method: 'DELETE',
-        params: {repoUser:'', repoName: '', tagName: ''},
       },
       'exists': {
         url: '/v1/repositories/:repoUser/:repoName/tags/:tagName',
         method: 'GET',
-        params: {repoUser:'', repoName: '', tagName: ''},
         transformResponse: function(data, headers){
           // data will be the image ID if successful or an error object.
           data = angular.isString(angular.fromJson(data));
@@ -59,17 +55,16 @@ angular.module('registry-services', ['ngResource'])
       'save': {
         method:'PUT',
         url: '/v1/repositories/:repoUser/:repoName/tags/:tagName',
-        params:{repoUser:'', repoName: '', tagName: ''},
       },
     });
   }])
   .factory('Image', ['$resource', '$log',  function($resource, $log){
     return $resource('/v1/images/:imageId/json', {}, {
-      query: { method:'GET', params:{imageId:''}, isArray: false},
+      'query': { method:'GET', isArray: false},
     });
   }])
   .factory('Ancestry', ['$resource', '$log',  function($resource, $log){
     return $resource('/v1/images/:imageId/ancestry', {}, {
-      query: { method:'GET', params:{imageId:''}, isArray: true},
+      'query': { method:'GET', isArray: true},
     });
   }]);
