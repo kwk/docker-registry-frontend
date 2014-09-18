@@ -30,7 +30,11 @@ angular
     'delete-tag-controller',
     'delete-repository-controller',
   ])
-  .config(['$routeProvider', function($routeProvider){
+  .config(['$routeProvider', '$resourceProvider', function($routeProvider, $resourceProvider){
+    
+    // Don't strip trailing slashes from calculated URLs
+    $resourceProvider.defaults.stripTrailingSlashes = false;    
+    
     $routeProvider.
       when('/home', {
         templateUrl: 'views/home.html',
