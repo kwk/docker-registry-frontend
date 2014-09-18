@@ -12,8 +12,7 @@
     "angular-animate": "~1.2.0",
     "angular-touch": "~1.2.0",
     "angular-route": "~1.2.0",
-    "toastr": "~2.0.3",
-    "angular-bootstrap": "~0.11.0"
+    "toastr": "~2.0.3"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",
