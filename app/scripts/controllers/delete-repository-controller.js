@@ -14,7 +14,7 @@ angular.module('delete-repository-controller', ['registry-services'])
     $scope.repositoryName = $route.current.params['repositoryName'];
 
     $scope.deleteRepo = function() {
-      var repoStr = $scope.repositoryUser + '/' + $scope.repoName;
+      var repoStr = $scope.repositoryUser + '/' + $scope.repositoryName;
       
       Repository.delete({repoUser: $scope.repositoryUser, repoName: $scope.repositoryName},
         // success
