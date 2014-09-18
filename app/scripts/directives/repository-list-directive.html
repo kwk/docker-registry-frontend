@@ -10,7 +10,7 @@
 <div class="list-group">
   <a href="#/repository/{{repo.name}}" class="list-group-item" ng-repeat="repo in filteredRepositories=(repositories | filter:searchTerm)">
     <h4 class="list-group-item-heading">
-      <span class="glyphicon glyphicon-briefcase"></span> {{repo.name}}
+      <span class="glyphicon glyphicon-book"></span> {{repo.name}}
     </h4>
     <p class="list-group-item-text" ng-if="repo.description.length > 0">
       {{repo.description}}
