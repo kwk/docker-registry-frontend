@@ -45,14 +45,20 @@ ADD README.md $SOURCE_DIR/
 # installed app artifacts.
 ############################################################
 
-RUN apt-get -y update && \
-    apt-get -y install git nodejs nodejs-legacy npm nginx gettext-base && \
+RUN apt-get -y update
+RUN apt-get -y install \
+      git \
+      nodejs \
+      nodejs-legacy \
+      npm nginx \
+      gettext-base && \
     cd $SOURCE_DIR && \
     npm install -g yo && \
     npm install && \
     bower install --allow-root && \
     grunt build --allow-root && \
     cp -rf $SOURCE_DIR/dist/* $NGX_ROOT && \
+    npm uninstall yo && \
     rm -rf $SOURCE_DIR && \
     apt-get -y --auto-remove purge git nodejs nodejs-legacy npm && \
     apt-get -y clean
