@@ -29,8 +29,15 @@ angular
     'create-tag-controller',
     'delete-tag-controller',
     'delete-repository-controller',
+    'ui.bootstrap',
+    'angular-loading-bar',
   ])
-  .config(['$routeProvider', '$resourceProvider', function($routeProvider, $resourceProvider){
+  .config(['$routeProvider', '$resourceProvider', 'cfpLoadingBarProvider', function($routeProvider, $resourceProvider, cfpLoadingBarProvider){
+
+    // Don't show the spinner when making XHR requests.
+    // Also, show the bar only if an XHR request takes longer than 50ms.    
+    cfpLoadingBarProvider.includeSpinner = false;
+    cfpLoadingBarProvider.latencyThreshold = 10; 
     
     // Don't strip trailing slashes from calculated URLs
     $resourceProvider.defaults.stripTrailingSlashes = false;    

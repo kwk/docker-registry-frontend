@@ -9,13 +9,16 @@
   <span ng-if="filteredTags.length == 1">tag.</span>
 </p>
 
-<div class="list-group">
-  <a ng-repeat="tag in filteredTags = (tags | filter:searchName)" href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}/{{tag.imageId}}" class="list-group-item">
-    <span class="badge">{{tag.imageId|limitTo: 12}}</span>
-    <span><span class="glyphicon glyphicon-tag"></span> {{tag.name}}</span>
-  </a>
-  <span class="list-group-item" ng-if="filteredTags.length == 0">
-    <p class="list-group-item-heading">Sorry!</p>
-    <span class="list-group-item-text">No tags match the given search term: "{{searchName}}".</span>
-  </span>
+<div class="panel panel-default">
+  <div class="panel-heading">Tags<span ng-if="searchName"> filtered by "{{searchName}}"</span>:</div>
+  <div class="list-group">
+    <a ng-repeat="tag in filteredTags = (tags | filter:searchName | orderBy:-name)" href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}/{{tag.imageId}}" class="list-group-item">
+      <span class="badge">{{tag.imageId|limitTo: 12}}</span>
+      <span><span class="glyphicon glyphicon-tag"></span> {{tag.name}}</span>
+    </a>
+    <span class="list-group-item" ng-if="filteredTags.length == 0">
+      <p class="list-group-item-heading">Sorry!</p>
+      <span class="list-group-item-text">No tags match the given search term: "{{searchName}}".</span>
+    </span>
+  </div>
 </div>

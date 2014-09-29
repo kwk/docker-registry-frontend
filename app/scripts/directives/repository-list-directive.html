@@ -7,17 +7,21 @@
   <span ng-if="filteredRepositories.length > 1 || filteredRepositories.length == 0">repositories.</span>
   <span ng-if="filteredRepositories.length == 1">repository.</span>
 </p>
-<div class="list-group">
-  <a href="#/repository/{{repo.name}}" class="list-group-item" ng-repeat="repo in filteredRepositories=(repositories | filter:searchTerm)">
-    <h4 class="list-group-item-heading">
-      <span class="glyphicon glyphicon-book"></span> {{repo.name}}
-    </h4>
-    <p class="list-group-item-text" ng-if="repo.description.length > 0">
-      {{repo.description}}
-    </p>
-  </a>
-  <span class="list-group-item" ng-if="filteredRepositories.length == 0">
-    <h4 class="list-group-item-heading">Sorry!</h4>
-    <p class="list-group-item-text">No repositories match the given search term: "{{searchTerm}}".</p>
-  </span>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Repositories<span ng-if="searchTerm"> filtered by "{{searchTerm}}"</span>:</div>
+  <div class="list-group">  
+    <a href="#/repository/{{repo.name}}" class="list-group-item" ng-repeat="repo in filteredRepositories=(repositories | filter:searchTerm)">
+      <span class="list-group-item-heading">
+        <span class="glyphicon glyphicon-book"></span> {{repo.name}}
+      </span>
+      <p class="list-group-item-text" ng-if="repo.description.length > 0">
+        {{repo.description}}
+      </p>
+    </a>
+    <span class="list-group-item" ng-if="filteredRepositories.length == 0">
+      <h4 class="list-group-item-heading">Sorry!</h4>
+      <p class="list-group-item-text">No repositories match the given search term: "{{searchTerm}}".</p>
+    </span>
+  </div>
 </div>

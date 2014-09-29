@@ -3,11 +3,7 @@ body {
 }
 
 .container {
-  margin-top: 10px;
-}
-
-ol.breadcrumb {
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 ol.breadcrumb li:first-child::before {
@@ -104,6 +100,10 @@ ol.breadcrumb li:first-child::before {
     padding-right: 0;
     padding-left: 0;
   }
+}
+
+.panel-heading {
+  font-weight: bold;
 }
 
 
