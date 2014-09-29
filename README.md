@@ -4,9 +4,11 @@ README
 The `docker-registry-frontend` is a pure web-based solution for browsing and modifying any private Docker repository that you can reach via a URL.
 
 This application is available in the form of a Docker image that you can run as a container by executing this command:
-
-    sudo docker run -d \
-      -e DOCKER_REGISTRY_URL=http://path-to-your-registry \
+    
+    sudo docker run \
+      -d \
+      -e ENV_DOCKER_REGISTRY_HOST=ENTER-YOUR-REGISTRY-HOST-HERE \
+      -e ENV_DOCKER_REGISTRY_PORT=ENTER-PORT-TO-YOUR-REGISTRY-HOST-HERE \
       -p 8080:80 \
       konradkleine/docker-registry-frontend
 
@@ -16,17 +18,35 @@ When the application runs you can open your browser and navigate to [http://loca
 
 If you want to run the application with SSL enabled, you can do the following:
     
-    sudo docker run -d \
-      -e ENABLE_SSL=yes \
-      -v /path/to/your/server.crt:/etc/nginx/ssl/server.crt:ro \
-      -v /path/to/your/server.key:/etc/nginx/ssl/server.key:ro \
-      -e DOCKER_REGISTRY_URL=http://path-to-your-registry \
+    sudo docker run \
+      -d \
+      -e ENV_DOCKER_REGISTRY_HOST=ENTER-YOUR-REGISTRY-HOST-HERE \
+      -e ENV_DOCKER_REGISTRY_PORT=ENTER-PORT-TO-YOUR-REGISTRY-HOST-HERE \
+      -e ENV_USE_SSL=yes \
+      -v $PWD/server.crt:/etc/apache2/server.crt:ro \
+      -v $PWD/server.key:/etc/apache2/server.key:ro \
       -p 443:443 \
       konradkleine/docker-registry-frontend
+    
+Note that the application still serves the port `80` but it is simply not exposed ;). Enable it at your own will. When the application runs with SSL you can open your browser and navigate to [https://localhost][2].
 
-Note that the application still serves the port `80` but it is simply not exposed ;).
+If you want to use Kerberos to protect access to the registry frontend, you can
+do the followiung:
 
-When the application runs with SSL you can open your browser and navigate to [https://localhost][2].
+    sudo docker run \
+      -d \
+      -e ENV_DOCKER_REGISTRY_HOST=ENTER-YOUR-REGISTRY-HOST-HERE \
+      -e ENV_DOCKER_REGISTRY_PORT=ENTER-PORT-TO-YOUR-REGISTRY-HOST-HERE \
+      -e ENV_AUTH_USE_KERBEROS=yes \
+      -e ENV_AUTH_NAME="Kerberos login" \
+      -e ENV_AUTH_KRB5_KEYTAB=/etc/apache2/krb5.keytab \
+      -v $PWD/krb5.keytab:/etc/apache2/krb5.keytab:ro \
+      -e ENV_AUTH_KRB_REALMS="ENTER.YOUR.REALMS.HERE" \
+      -e ENV_AUTH_KRB_SERVICE_NAME=HTTP \
+      -p 80:80 \
+      konradkleine/docker-registry-frontend
+
+You can of course combine SSL and Kerberos.
 
 If you like the application, I invite you to contribute and report bugs or feature request on the project's github page: [https://github.com/kwk/docker-registry-frontend][3].
 
