@@ -8,8 +8,8 @@
  * Controller of the docker-registry-frontend
  */
 angular.module('tag-detail-controller', [])
-  .controller('TagDetailController', ['$scope', '$route', '$routeParams', '$location',
-  function($scope, $route, $routeParams, $location){
+  .controller('TagDetailController', ['$scope', '$route', '$routeParams', '$location', 'RegistryHost',
+  function($scope, $route, $routeParams, $location, RegistryHost){
   
     $scope.$route = $route;
     $scope.$location = $location;
@@ -20,6 +20,6 @@ angular.module('tag-detail-controller', [])
     $scope.repositoryUser = $route.current.params['repositoryUser'];
     $scope.repositoryName = $route.current.params['repositoryName'];
     $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
-  
-    /*$scope.imageDetails = Image.query( {imageId: $scope.imageId} );*/
+    
+    $scope.registryHost = RegistryHost.query();
   }]);

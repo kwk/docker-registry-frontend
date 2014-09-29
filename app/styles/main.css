@@ -102,10 +102,6 @@ ol.breadcrumb li:first-child::before {
   }
 }
 
-.panel-heading {
-  font-weight: bold;
-}
-
 
 /** Form validation */
 

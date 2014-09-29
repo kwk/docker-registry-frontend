@@ -1,0 +1,4 @@
+{
+  "host": "path-to-your-registry",
+  "port": 80
+}

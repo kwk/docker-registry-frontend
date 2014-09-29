@@ -3,13 +3,12 @@
     <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
     <input type="search" placeholder="Search for a repository" ng-model="searchTerm" class="form-control">
   </div>
-  Search for "{{searchTerm}}" found {{filteredRepositories.length}}
-  <span ng-if="filteredRepositories.length > 1 || filteredRepositories.length == 0">repositories.</span>
-  <span ng-if="filteredRepositories.length == 1">repository.</span>
 </p>
 
 <div class="panel panel-default">
-  <div class="panel-heading">Repositories<span ng-if="searchTerm"> filtered by "{{searchTerm}}"</span>:</div>
+  <div class="panel-heading">
+    Repositories ({{filteredRepositories.length}}):
+  </div>
   <div class="list-group">  
     <a href="#/repository/{{repo.name}}" class="list-group-item" ng-repeat="repo in filteredRepositories=(repositories | filter:searchTerm)">
       <span class="list-group-item-heading">
@@ -19,7 +18,7 @@
         {{repo.description}}
       </p>
     </a>
-    <span class="list-group-item" ng-if="filteredRepositories.length == 0">
+    <span class="list-group-item" ng-if="filteredRepositories.length == 0 && searchTerm">
       <h4 class="list-group-item-heading">Sorry!</h4>
       <p class="list-group-item-text">No repositories match the given search term: "{{searchTerm}}".</p>
     </span>

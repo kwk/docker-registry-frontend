@@ -9,7 +9,7 @@
 <h1>
   Details for tag 
   <a href="#/repositories/{{repositoryUser}}">{{repositoryUser}}</a> /
-  <a href="#/repository/{{repositoryUser}}/{{repositoryName}}">{{repositoryName}}</a> /
+  <a href="#/repository/{{repositoryUser}}/{{repositoryName}}">{{repositoryName}}</a> :
   <a href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tagName}}/{{imageId}}">{{tagName}}</a>
   <div class="pull-right">
     <a class="btn btn-danger" href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tagName}}/{{imageId}}/delete" alt="Delete tag">
@@ -18,7 +18,9 @@
   </div>
 </h1>
 
-<div class="well">docker pull {{repositoryUser}}/{{repositoryName}}:{{tagName}}</div>
+<div class="well">
+  docker pull {{registryHost.host}}<span ng-if="registryHost.port != 80">:{{registryHost.port}}</span>/{{repositoryUser}}/{{repositoryName}}:{{tagName}}
+</div>
 
 <image-details></image-details>
 

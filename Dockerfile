@@ -1,9 +1,30 @@
 FROM ubuntu:14.04
 MAINTAINER "Konrad Kleine"
 
-ENV NGX_ROOT /usr/share/nginx/html
+USER root
+
+############################################################
+# Setup environment variables
+############################################################
+
+ENV WWW_DIR /var/www/html
 ENV SOURCE_DIR /tmp/source
-ENV START_SCRIPT /root/start-nginx.sh
+ENV START_SCRIPT /root/start-apache.sh
+
+############################################################
+# Install and configure webserver software and Vim (sorry,
+# I cannot live without it)
+############################################################
+
+RUN apt-get -y update
+RUN apt-get -y install \
+      apache2 \
+      libapache2-mod-auth-kerb \
+      libapache2-mod-proxy-html \
+      vim
+
+RUN a2enmod proxy
+RUN a2enmod proxy_http
 
 ############################################################
 # This adds everything we need to the build root except those
@@ -45,52 +66,40 @@ ADD README.md $SOURCE_DIR/
 # installed app artifacts.
 ############################################################
 
-RUN apt-get -y update
 RUN apt-get -y install \
       git \
       nodejs \
       nodejs-legacy \
-      npm nginx \
+      npm \
       gettext-base && \
     cd $SOURCE_DIR && \
     npm install -g yo && \
     npm install && \
     bower install --allow-root && \
     grunt build --allow-root && \
-    cp -rf $SOURCE_DIR/dist/* $NGX_ROOT && \
+    cp -rf $SOURCE_DIR/dist/* $WWW_DIR && \
     npm uninstall yo && \
     rm -rf $SOURCE_DIR && \
     apt-get -y --auto-remove purge git nodejs nodejs-legacy npm && \
     apt-get -y clean
 
-# Add nginx config files for HTTP and HTTPS
-ADD nginx-site.conf /root/nginx-site.conf
-ADD nginx-site-ssl.conf /root/nginx-site-ssl.conf
+############################################################
+# Add and enable the apache site and disable all other sites
+############################################################
 
-# Final touches on the app artifacts.
-RUN find $NGX_ROOT -type d -exec chmod 755 {} \; && \
-    find $NGX_ROOT -type f -exec chmod 755 {} \; && \
-    chown -R www-data:www-data $NGX_ROOT && \
-    echo "\ndaemon off;" >> /etc/nginx/nginx.conf
+RUN a2dissite 000*
+ADD apache-site.conf /etc/apache2/sites-available/docker-site.conf
+RUN a2ensite docker-site.conf
 
-# Build the start script
-RUN echo "#!/bin/sh" > $START_SCRIPT && \
-    echo "rm -f /etc/nginx/sites-enabled/*" >> $START_SCRIPT && \
-    echo "cat /root/nginx-site.conf | DOCKER_REGISTRY_URL=\$DOCKER_REGISTRY_URL envsubst '\$DOCKER_REGISTRY_URL' > /etc/nginx/sites-available/registry" >> $START_SCRIPT && \
-    echo "if [ -n \"\$ENABLE_SSL\" ]; then" >> $START_SCRIPT && \
-    echo "   cat /root/nginx-site-ssl.conf | DOCKER_REGISTRY_URL=\$DOCKER_REGISTRY_URL envsubst '\$DOCKER_REGISTRY_URL' > /etc/nginx/conf.d/registry-ssl" >> $START_SCRIPT && \
-    echo "fi" >> $START_SCRIPT && \
-    echo "ln -sf /etc/nginx/sites-available/registry /etc/nginx/sites-enabled/registry && \\" >> $START_SCRIPT && \
-    echo "nginx -t && nginx" >> $START_SCRIPT && \
-    chmod +x /root/start-nginx.sh
+ADD start-apache.sh $START_SCRIPT
+RUN chmod +x $START_SCRIPT
+
+# Let people know how this was built
+ADD Dockerfile /root/Dockerfile
 
 # Exposed ports
 EXPOSE 80 443
 
-# If you wish to run the registry container with SSL,
-# you can provide your own SSL server key and your
-# SSL server certificate.
-VOLUME ["/etc/nginx/ssl/server.crt", "/etc/nginx/ssl/server.key"]
+VOLUME ["/etc/apache2/server.crt", "/etc/apache2/server.key"]
 
-# Define default command.
-CMD ["/root/start-nginx.sh"]
+CMD $START_SCRIPT

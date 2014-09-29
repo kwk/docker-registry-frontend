@@ -8,6 +8,14 @@
 // https://docs.angularjs.org/api/ngResource/service/$resource
 
 angular.module('registry-services', ['ngResource'])
+  .factory('RegistryHost', ['$resource', '$log',  function($resource, $log){
+    return $resource('/registry-host.json', {}, {
+      'query': {
+        method:'GET',
+        isArray: false,
+      },
+    });
+  }])
   .factory('Repository', ['$resource', '$log',  function($resource, $log){
     return $resource('/v1/search?q=:searchTerm', {}, {
       'query': {
@@ -25,7 +33,7 @@ angular.module('registry-services', ['ngResource'])
   }])
   .factory('Tag', ['$resource', '$log',  function($resource, $log){
     // TODO: rename :repo to repoUser/repoString for convenience.
-    return $resource('/v1/repositories/:repo/tags', {}, {
+    return $resource('/v1/repositories/:repoUser/:repoName/tags', {}, {
       'query': {
         method:'GET',
         isArray: true,
