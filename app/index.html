@@ -2,7 +2,7 @@
 <html class="no-js" ng-app="docker-registry-frontend">
   <head ng-controller="MainController as main">
     <meta charset="utf-8">
-    <title>Docker registry {{main.$location.path()}}</title>
+    <title ng-bind-template="Docker registry {{main.$location.path()}}">Docker registry</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
