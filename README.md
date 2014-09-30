@@ -53,6 +53,10 @@ do the followiung:
 
 You can of course combine SSL and Kerberos.
 
+# Features
+
+For a list of all the features, please see the [Wiki][features].
+
 # Contributions are welcome!
 
 If you like the application, I invite you to contribute and report bugs or feature request on the project's github page: [https://github.com/kwk/docker-registry-frontend][3].
@@ -65,3 +69,4 @@ Thank you for your interest!
   [1]: http://localhost:8080
   [2]: https://localhost
   [3]: http://%20https://github.com/kwk/docker-registry-frontend
+  [features]: https://github.com/kwk/docker-registry-frontend/wiki/Features
