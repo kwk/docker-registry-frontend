@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM debian:jessie
 MAINTAINER "Konrad Kleine"
 
 USER root
@@ -12,16 +12,15 @@ ENV SOURCE_DIR /tmp/source
 ENV START_SCRIPT /root/start-apache.sh
 
 ############################################################
-# Install and configure webserver software and Vim (sorry,
-# I cannot live without it)
+# Install and configure webserver software
 ############################################################
 
-RUN apt-get -y update
-RUN apt-get -y install \
+RUN apt-get update && \
+    apt-get -y install \
       apache2 \
       libapache2-mod-auth-kerb \
       libapache2-mod-proxy-html \
-      vim
+      --no-install-recommends
 
 RUN a2enmod proxy
 RUN a2enmod proxy_http
@@ -66,12 +65,14 @@ ADD README.md $SOURCE_DIR/
 # installed app artifacts.
 ############################################################
 
+RUN mkdir -pv $WWW_DIR
 RUN apt-get -y install \
       git \
       nodejs \
       nodejs-legacy \
       npm \
-      gettext-base && \
+      gettext-base \ 
+      --no-install-recommends && \
     cd $SOURCE_DIR && \
     npm install -g yo && \
     npm install && \
@@ -93,6 +94,10 @@ RUN a2ensite docker-site.conf
 
 ADD start-apache.sh $START_SCRIPT
 RUN chmod +x $START_SCRIPT
+
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
 
 # Let people know how this was built
 ADD Dockerfile /root/Dockerfile
