@@ -15,7 +15,7 @@ ENV START_SCRIPT /root/start-apache.sh
 # Install and configure webserver software
 ############################################################
 
-RUN apt-get update && \
+RUN apt-get -y update && \
     apt-get -y install \
       apache2 \
       libapache2-mod-auth-kerb \
