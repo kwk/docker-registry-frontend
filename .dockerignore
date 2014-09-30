@@ -4,5 +4,6 @@ dist
 .tmp
 .saas-cache
 bower_components
+screenshots
 *~
 *.swp
