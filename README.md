@@ -2,6 +2,10 @@
 
 The `docker-registry-frontend` is a pure web-based solution for browsing and modifying any private Docker repository that you can reach via a URL.
 
+# Features
+
+For a list of all the features, please see the [Wiki][features].
+
 # Usage
 
 This application is available in the form of a Docker image that you can run as a container by executing this command:
@@ -52,10 +56,6 @@ do the followiung:
       konradkleine/docker-registry-frontend
 
 You can of course combine SSL and Kerberos.
-
-# Features
-
-For a list of all the features, please see the [Wiki][features].
 
 # Contributions are welcome!
 
