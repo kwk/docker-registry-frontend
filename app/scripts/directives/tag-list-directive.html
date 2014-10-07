@@ -6,9 +6,16 @@
 </p>
 
 <div class="panel panel-default">
-  <div class="panel-heading">Tags ({{filteredTags.length}}):</div>
+  <div class="panel-heading">
+    Tags <span ng-bind-template="({{filteredTags.length}}/{{tags.length}})"></span>:
+     <a href="" ng-init="reverse=false" ng-click="reverse=!reverse" class="btn btn-default btn-sm">
+       <span class="glyphicon" ng-class="{'glyphicon-sort-by-alphabet':reverse==true, 'glyphicon-sort-by-alphabet-alt':reverse==false}"></span>
+       <span ng-if="reverse==true">List in alphabetical order</span>
+       <span ng-if="reverse==false">List in reverse alphabetical order</span>
+     </a>
+  </div>
   <div class="list-group">
-    <a ng-repeat="tag in filteredTags = (tags | filter:searchName | orderBy:-name)" href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}/{{tag.imageId}}" class="list-group-item">
+    <a ng-repeat="tag in filteredTags = (tags | filter:searchName | orderBy:'name':reverse)" href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}/{{tag.imageId}}" class="list-group-item">
       <span class="badge">{{tag.imageId|limitTo: 12}}</span>
       <span><span class="glyphicon glyphicon-tag"></span> {{tag.name}}</span>
     </a>
