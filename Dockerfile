@@ -71,15 +71,12 @@ RUN apt-get -y install \
       nodejs \
       nodejs-legacy \
       npm \
-      gettext-base \ 
       --no-install-recommends && \
     cd $SOURCE_DIR && \
-    npm install -g yo && \
     npm install && \
-    bower install --allow-root && \
-    grunt build --allow-root && \
+    node_modules/bower/bin/bower install --allow-root && \
+    node_modules/grunt-cli/bin/grunt build --allow-root && \
     cp -rf $SOURCE_DIR/dist/* $WWW_DIR && \
-    npm uninstall yo && \
     rm -rf $SOURCE_DIR && \
     apt-get -y --auto-remove purge git nodejs nodejs-legacy npm && \
     apt-get -y clean
