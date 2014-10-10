@@ -23,7 +23,7 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu">
-          <li ng-repeat="repo in repositories">
+          <li ng-repeat="repo in (repositories | orderBy:'name')">
             <a ng-click="selectRepo('{{repo.name}}')">
               {{repo.name}}
             </a>

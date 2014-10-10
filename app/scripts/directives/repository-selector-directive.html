@@ -3,7 +3,7 @@
     <span class="glyphicon glyphicon-briefcase"></span> Jump to Docker repository <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" role="menu">
-    <li ng-repeat="repo in repositories">
+    <li ng-repeat="repo in (repositories | orderBy:'name')">
       <a href="#/repository/({{repo.name}})">
         {{repo.name}}
       </a>
