@@ -61,7 +61,7 @@
       <div class="form-group">
         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-compressed"></span> Size <small>(not including base image sizes)</small></label>
         <div class="col-sm-10">
-          <p class="form-control-static">{{imageDetails.Size/1024/1024 | number: 2}} <b>MB</b> {{imageDetails.Size / 1024 | number: 2}} <b>KB</b>, {{imageDetails.Size}} <b>B</b></p>
+          <p class="form-control-static">{{imageDetails.Size/1024/1024 | number: 2}} <b>MB</b> {{imageDetails.Size / 1024 | number: 2}} <b>KB</b> {{imageDetails.Size}} <b>B</b></p>
         </div>
       </div>
       <div class="form-group">
@@ -69,7 +69,7 @@
         <div class="col-sm-10">
           <p class="form-control-static">
             <span ng-show="totalImageSize!==null">
-              {{totalImageSize/1024/1024 | number: 2}} <b>MB</b> {{totalImageSize / 1024 | number: 2}} <b>KB</b>, {{totalImageSize}} <b>B</b>
+              {{totalImageSize/1024/1024 | number: 2}} <b>MB</b> {{totalImageSize / 1024 | number: 2}} <b>KB</b> {{totalImageSize}} <b>B</b>
             </span>
             <button type="submit" class="btn btn-default" ng-click="calculateTotalImageSize()" ng-show="totalImageSize===null">
               <span class="glyphicon glyphicon-stats"></span> Calculate
