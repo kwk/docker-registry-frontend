@@ -92,7 +92,8 @@ RUN apt-get -y install \
     cp -rf $SOURCE_DIR/dist/* $WWW_DIR && \
     rm -rf $SOURCE_DIR && \
     apt-get -y --auto-remove purge git nodejs nodejs-legacy npm && \
-    apt-get -y clean
+    apt-get -y clean && \
+    rm -rf /var/lib/apt/lists/*
 
 ############################################################
 # Add and enable the apache site and disable all other sites

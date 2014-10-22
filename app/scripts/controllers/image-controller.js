@@ -21,6 +21,7 @@ angular.module('image-controller', ['registry-services'])
     $scope.calculateTotalImageSize = function() {
       $scope.totalImageSize = 0;
       angular.forEach($scope.imageAncestry, function (id, key) {
+        /* We have to use the $promise object here to be sure the result is accessible */
         Image.get( {imageId: id} ).$promise.then(function (result) {
           if (!isNaN(result.Size-0)) {    
             $scope.totalImageSize += result.Size;
