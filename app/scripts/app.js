@@ -31,6 +31,7 @@ angular
     'delete-repository-controller',
     'ui.bootstrap',
     'angular-loading-bar',
+    'angularMoment',
   ])
   .config(['$routeProvider', '$resourceProvider', 'cfpLoadingBarProvider', function($routeProvider, $resourceProvider, cfpLoadingBarProvider){
 
