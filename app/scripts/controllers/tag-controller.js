@@ -24,4 +24,7 @@ angular.module('tag-controller', ['registry-services'])
       repoUser: $scope.repositoryUser,
       repoName: $scope.repositoryName
     });
+    
+    // Copy collection for rendering in a smart-table
+    $scope.displayedTags = [].concat($scope.tags);
   }]);

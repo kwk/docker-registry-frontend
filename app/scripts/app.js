@@ -25,6 +25,7 @@ angular
     'tag-list-directive',
     'image-details-directive',
     'tag-detail-controller',
+    'tag-item-controller',    
     'image-controller',
     'create-tag-controller',
     'delete-tag-controller',
@@ -33,6 +34,7 @@ angular
     'angular-loading-bar',
     'angularMoment',
     'app-version-services',
+    'smart-table',
   ])
   .config(['$routeProvider', '$resourceProvider', 'cfpLoadingBarProvider', function($routeProvider, $resourceProvider, cfpLoadingBarProvider){
 

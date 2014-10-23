@@ -74,7 +74,7 @@
             <span ng-show="totalImageSize!==null">
               {{totalImageSize/1024/1024 | number: 2}} <b>MB</b> {{totalImageSize / 1024 | number: 2}} <b>KB</b> {{totalImageSize}} <b>B</b>
             </span>
-            <button type="submit" class="btn btn-default" ng-click="calculateTotalImageSize()" ng-show="totalImageSize===null">
+            <button type="submit" class="btn btn-info" ng-click="calculateTotalImageSize()" ng-show="totalImageSize===null">
               <span class="glyphicon glyphicon-stats"></span> Calculate
             </button>
           </p>

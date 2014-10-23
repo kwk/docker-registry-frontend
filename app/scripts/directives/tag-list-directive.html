@@ -1,27 +1,46 @@
-<p>
-  <div class="input-group">
-    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-    <input type="search" placeholder="Search for a tag" ng-model="searchName" class="form-control">
-  </div>
-</p>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    Tags <span ng-bind-template="({{filteredTags.length}}/{{tags.length}})"></span>:
-     <a href="" ng-init="reverse=false" ng-click="reverse=!reverse" class="btn btn-default btn-sm">
-       <span class="glyphicon" ng-class="{'glyphicon-sort-by-alphabet':reverse==true, 'glyphicon-sort-by-alphabet-alt':reverse==false}"></span>
-       <span ng-if="reverse==true">List in alphabetical order</span>
-       <span ng-if="reverse==false">List in reverse alphabetical order</span>
-     </a>
-  </div>
-  <div class="list-group">
-    <a ng-repeat="tag in filteredTags = (tags | filter:searchName | orderBy:'name':reverse)" href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}/{{tag.imageId}}" class="list-group-item">
-      <span class="badge">{{tag.imageId|limitTo: 12}}</span>
-      <span><span class="glyphicon glyphicon-tag"></span> {{tag.name}}</span>
-    </a>
-    <span class="list-group-item" ng-if="filteredTags.length == 0 && searchName">
-      <p class="list-group-item-heading">Sorry!</p>
-      <span class="list-group-item-text">No tags match the given search term: "{{searchName}}".</span>
-    </span>
-  </div>
+<div class="table-responsive">
+  <table st-table="displayedTags" st-safe-src="tags" class="table table-striped table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th class="" st-sort="name" st-sort-default=""><span class="glyphicon glyphicon-tag"></span> Tag</th>
+        <th class="" st-sort="imageId"><span class="glyphicon glyphicon-qrcode"></span> Image ID</th>
+        <th class="" st-sort="details.created"><span class="glyphicon glyphicon-calendar"></span> Created</th>
+        <th class="" st-sort="details.author"><span class="glyphicon glyphicon-user"></span> Author</th>
+        <th class="" st-sort="details.docker_version"><span class="glyphicon glyphicon-eye-open"></span> Docker version</th>
+        <th class="" st-sort="details.parent"><span class="glyphicon glyphicon-arrow-up"></span> Parent's ID</th>
+        <th class="" st-sort="details.Size"><span class="glyphicon glyphicon-compressed"></span> Size (MB)</th>
+      </tr>
+      <tr>
+  			<th><input st-search="'name'" class="input-sm form-control" placeholder="Tag" type="search"/></th>
+  			<th><input st-search="'imageId'" class="input-sm form-control" placeholder="Image ID" type="search"/></th>
+  			<th colspan="5">&nbsp;</th>
+        <!--<th><input st-search="'details.created'" class="input-sm form-control" placeholder="Created" type="search"/></th>
+        <th><input st-search="'details.author'" class="input-sm form-control" placeholder="Author" type="search"/></th>
+        <th><input st-search="'details.docker_version'" class="input-sm form-control" placeholder="Docker version" type="search"/></th>
+        <th><input st-search="'details.parent'" class="input-sm form-control" placeholder="Parent's ID" type="search"/></th>
+        <th><input st-search="'details.Size'" class="input-sm form-control" placeholder="Size" type="search"/></th>-->
+		  </tr>
+    </thead>
+    <tbody>
+      <tr
+        ng-repeat="tag in displayedTags"
+        ng-controller="TagItemController">
+        <td><a href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}/{{tag.imageId}}" ng-bind-html="tag.name"></a></td>
+        <td><a href="#/image/{{tag.imageId}}" ng-bind-html="tag.imageId | limitTo: 12"></a></td>
+        <td am-time-ago="tag.details.created"></td>
+        <td><span ng-bind-html="tag.details.author | linky"></span></td>
+        <td ng-bind-html="tag.details.docker_version"></td>
+        <td><a href="#/image/{{tag.details.parent}}" ng-bind-html="tag.details.parent | limitTo: 12"></a></td>
+        <td>
+          <button type="submit" class="btn btn-info btn-xs" ng-click="calculateTotalImageSize()" ng-show="totalImageSize===null" title="Calculate total image size">
+            <span class="glyphicon glyphicon-stats"></span>
+          </button>
+          <span  ng-show="totalImageSize===null" ng-bind-html="tag.details.Size / 1024 / 1024 | number: 2"></span>
+          <span ng-show="totalImageSize!==null">
+            {{totalImageSize / 1024 / 1024 | number: 2}}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

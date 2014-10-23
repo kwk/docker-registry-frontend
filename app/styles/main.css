@@ -102,7 +102,6 @@ ol.breadcrumb li:first-child::before {
   }
 }
 
-
 /** Form validation */
 
 .css-form input.ng-invalid.ng-dirty {
