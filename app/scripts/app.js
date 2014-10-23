@@ -32,6 +32,7 @@ angular
     'ui.bootstrap',
     'angular-loading-bar',
     'angularMoment',
+    'app-version-services',
   ])
   .config(['$routeProvider', '$resourceProvider', 'cfpLoadingBarProvider', function($routeProvider, $resourceProvider, cfpLoadingBarProvider){
 

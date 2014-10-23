@@ -12,6 +12,8 @@ ENV WWW_DIR /var/www/html
 ENV SOURCE_DIR /tmp/source
 ENV START_SCRIPT /root/start-apache.sh
 
+RUN mkdir -pv $WWW_DIR
+
 ############################################################
 # Speedup DPKG and don't use cache for packages
 ############################################################
@@ -68,6 +70,17 @@ ADD LICENSE $SOURCE_DIR/
 ADD package.json $SOURCE_DIR/
 ADD README.md $SOURCE_DIR/
 
+# Add Git version information to it's own json file app-version.json
+RUN mkdir -p $SOURCE_DIR/.git
+ADD .git/HEAD $SOURCE_DIR/.git/HEAD
+ADD .git/refs $SOURCE_DIR/.git/refs
+RUN cd $SOURCE_DIR && \
+    export GITREF=$(cat .git/HEAD | cut -d" " -f2) && \
+    export GITSHA1=$(cat .git/$GITREF) && \
+    echo "{\"git\": {\"sha1\": \"$GITSHA1\", \"ref\": \"$GITREF\"}}" > $WWW_DIR/app-version.json && \
+    cd $SOURCE_DIR && \
+    rm -rf $SOURCE_DIR/.git
+
 ############################################################
 # This is written so compact, to reduce the size of the
 # final container and its layers. We have to install build
@@ -78,7 +91,6 @@ ADD README.md $SOURCE_DIR/
 # installed app artifacts.
 ############################################################
 
-RUN mkdir -pv $WWW_DIR
 RUN apt-get -y install \
       git \
       nodejs \
