@@ -11,6 +11,12 @@ die() {
 echo "export DOCKER_REGISTRY_HOST=$ENV_DOCKER_REGISTRY_HOST" >> /etc/apache2/envvars
 echo "export DOCKER_REGISTRY_PORT=$ENV_DOCKER_REGISTRY_PORT" >> /etc/apache2/envvars
 
+if [ -n "$ENV_DOCKER_REGISTRY_USE_SSL" ]; then
+   echo "export DOCKER_REGISTRY_SCHEME=https" >> /etc/apache2/envvars
+else
+   echo "export DOCKER_REGISTRY_SCHEME=http" >> /etc/apache2/envvars
+fi
+
 # Build the JSON file which is read by JS to retrieve
 # information about how to contact the registry.
 echo "{\"host\": \"$ENV_DOCKER_REGISTRY_HOST\", \"port\": $ENV_DOCKER_REGISTRY_PORT}" > /var/www/html/registry-host.json

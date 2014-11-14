@@ -21,6 +21,18 @@ This command starts the container and forwards the container's private port `80`
 
 When the application runs you can open your browser and navigate to [http://localhost:8080][1].
 
+## Docker registry using SSL encryption
+
+If the Docker registry enabled SSL connection, you can run the following command:
+
+    sudo docker run \
+      -d \
+      -e ENV_DOCKER_REGISTRY_HOST=ENTER-YOUR-REGISTRY-HOST-HERE \
+      -e ENV_DOCKER_REGISTRY_PORT=ENTER-PORT-TO-YOUR-REGISTRY-HOST-HERE \
+      -e ENV_DOCKER_USE_SSL=1 \
+      -p 8080:80 \
+      konradkleine/docker-registry-frontend
+
 ## SSL encryption
 
 If you want to run the application with SSL enabled, you can do the following:
