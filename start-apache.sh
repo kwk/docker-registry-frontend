@@ -11,10 +11,12 @@ die() {
 echo "export DOCKER_REGISTRY_HOST=$ENV_DOCKER_REGISTRY_HOST" >> /etc/apache2/envvars
 echo "export DOCKER_REGISTRY_PORT=$ENV_DOCKER_REGISTRY_PORT" >> /etc/apache2/envvars
 
+needModSsl=0
 if [ -n "$ENV_DOCKER_REGISTRY_USE_SSL" ]; then
-   echo "export DOCKER_REGISTRY_SCHEME=https" >> /etc/apache2/envvars
+  echo "export DOCKER_REGISTRY_SCHEME=https" >> /etc/apache2/envvars
+  needModSsl=1
 else
-   echo "export DOCKER_REGISTRY_SCHEME=http" >> /etc/apache2/envvars
+  echo "export DOCKER_REGISTRY_SCHEME=http" >> /etc/apache2/envvars
 fi
 
 # Build the JSON file which is read by JS to retrieve
@@ -42,13 +44,17 @@ fi
 
 # Optionally enable SSL
 if [ -n "$ENV_USE_SSL" ]; then
+  useSsl="-D USE_SSL"
 
   [[ ! -e /etc/apache2/server.crt ]] && die "/etc/apache2/server.crt is missing"
   [[ ! -e /etc/apache2/server.key ]] && die "/etc/apache2/server.key is missing"
+  needModSsl=1
+fi
 
+if [ $needModSsl -ne 0 ]; then
   a2enmod ssl 
 else
   a2dismod ssl
 fi
 
-/usr/sbin/apache2ctl -D FOREGROUND
+/usr/sbin/apache2ctl -D FOREGROUND ${useSsl}
