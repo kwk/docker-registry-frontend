@@ -29,7 +29,7 @@ If the Docker registry enabled SSL connection, you can run the following command
       -d \
       -e ENV_DOCKER_REGISTRY_HOST=ENTER-YOUR-REGISTRY-HOST-HERE \
       -e ENV_DOCKER_REGISTRY_PORT=ENTER-PORT-TO-YOUR-REGISTRY-HOST-HERE \
-      -e ENV_DOCKER_USE_SSL=1 \
+      -e ENV_DOCKER_REGISTRY_USE_SSL=1 \
       -p 8080:80 \
       konradkleine/docker-registry-frontend
 
