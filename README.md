@@ -23,7 +23,7 @@ When the application runs you can open your browser and navigate to [http://loca
 
 ## Docker registry using SSL encryption
 
-If the Docker registry enabled SSL connection, you can run the following command:
+If the Docker registry is only reachable via HTTPs (e.g. if it sits behind a proxy) , you can run the following command:
 
     sudo docker run \
       -d \
