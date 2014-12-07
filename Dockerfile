@@ -1,7 +1,6 @@
 FROM debian:jessie
 MAINTAINER "Konrad Kleine"
 
-
 USER root
 
 ############################################################
@@ -11,8 +10,12 @@ USER root
 ENV WWW_DIR /var/www/html
 ENV SOURCE_DIR /tmp/source
 ENV START_SCRIPT /root/start-apache.sh
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
 
-RUN mkdir -pv $WWW_DIR
+# Create dirs
+RUN mkdir -pv $WWW_DIR $SOURCE_DIR/dist $SOURCE_DIR/app $SOURCE_DIR/test $SOURCE_DIR/.git
 
 ############################################################
 # Speedup DPKG and don't use cache for packages
@@ -48,30 +51,10 @@ RUN a2enmod proxy_http
 # not listed to speed up the build process. 
 ############################################################
 
-# Create dirs
-RUN mkdir -p $SOURCE_DIR/dist
-RUN mkdir -p $SOURCE_DIR/app
-RUN mkdir -p $SOURCE_DIR/test
-
-# Add dirs
-ADD app $SOURCE_DIR/app
-ADD test $SOURCE_DIR/test
-
-# Dot files
-ADD .jshintrc $SOURCE_DIR/
-ADD .bowerrc $SOURCE_DIR/
-ADD .editorconfig $SOURCE_DIR/
-ADD .travis.yml $SOURCE_DIR/
-
-# Other files
-ADD bower.json $SOURCE_DIR/
-ADD Gruntfile.js $SOURCE_DIR/
-ADD LICENSE $SOURCE_DIR/
-ADD package.json $SOURCE_DIR/
-ADD README.md $SOURCE_DIR/
+# Add files
+ADD . $SOURCE_DIR
 
 # Add Git version information to it's own json file app-version.json
-RUN mkdir -p $SOURCE_DIR/.git
 ADD .git/HEAD $SOURCE_DIR/.git/HEAD
 ADD .git/refs $SOURCE_DIR/.git/refs
 RUN cd $SOURCE_DIR && \
@@ -117,13 +100,6 @@ RUN a2ensite docker-site.conf
 
 ADD start-apache.sh $START_SCRIPT
 RUN chmod +x $START_SCRIPT
-
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
-ENV APACHE_LOG_DIR /var/log/apache2
-
-# Let people know how this was built
-ADD Dockerfile /root/Dockerfile
 
 # Exposed ports
 EXPOSE 80 443
