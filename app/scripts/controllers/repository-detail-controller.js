@@ -4,7 +4,7 @@
  * @ngdoc function
  * @name docker-registry-frontend.controller:RepositoryDetailController
  * @description
- * # RepositoryDetailController
+ * # RepositoryController
  * Controller of the docker-registry-frontend
  */
 angular.module('repository-detail-controller', ['app-mode-services'])

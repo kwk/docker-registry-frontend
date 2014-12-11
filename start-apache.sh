@@ -29,7 +29,7 @@ echo "{\"host\": \"$ENV_REGISTRY_PROXY_FQDN\", \"port\": $ENV_REGISTRY_PROXY_POR
 
 # information about browse mode.
 [[ x$ENV_MODE_BROWSE_ONLY =~ ^x(true|false)$ ]] || ENV_MODE_BROWSE_ONLY=false
-echo "{\"browseOnly\":\"$ENV_MODE_BROWSE_ONLY\"}" > /var/www/html/app-mode.json
+echo "{\"browseOnly\":$ENV_MODE_BROWSE_ONLY}" > /var/www/html/app-mode.json
 
 # Optionally enable Kerberos authentication and do some parameter checks
 if [ -n "$ENV_AUTH_USE_KERBEROS" ]; then
