@@ -24,6 +24,7 @@ angular
     'repository-list-directive',
     'tag-list-directive',
     'image-details-directive',
+    'repository-detail-controller',
     'tag-detail-controller',
     'tag-item-controller',    
     'image-controller',
@@ -34,6 +35,7 @@ angular
     'angular-loading-bar',
     'angularMoment',
     'app-version-services',
+    'app-mode-services',
     'smart-table',
   ])
   .config(['$routeProvider', '$resourceProvider', 'cfpLoadingBarProvider', function($routeProvider, $resourceProvider, cfpLoadingBarProvider){
@@ -55,9 +57,11 @@ angular
       }).
       when('/repository/:repositoryUser/:repositoryName/', {
         templateUrl: 'views/repository-detail.html',
+        controller: 'RepositoryDetailController',
       }).
       when('/repository/:repositoryUser/:repositoryName/tags/:searchName?', {
         templateUrl: 'views/repository-detail.html',
+        controller: 'RepositoryDetailController',
       }).
       when('/repository/:repositoryUser/:repositoryName/delete', {
         templateUrl: 'views/delete-repository.html',
