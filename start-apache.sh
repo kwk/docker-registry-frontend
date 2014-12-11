@@ -27,6 +27,10 @@ fi
 # have a different hostname than the registry itself.
 echo "{\"host\": \"$ENV_REGISTRY_PROXY_FQDN\", \"port\": $ENV_REGISTRY_PROXY_PORT}" > /var/www/html/registry-host.json
 
+# information about browse mode.
+[[ -z "$ENV_BROWSE_MODE" ]] && ENV_BROWSE_MODE=false
+echo "{\"browse\":\"$ENV_BROWSE_MODE\"}" > /var/www/html/app-mode.json
+
 # Optionally enable Kerberos authentication and do some parameter checks
 if [ -n "$ENV_AUTH_USE_KERBEROS" ]; then
 

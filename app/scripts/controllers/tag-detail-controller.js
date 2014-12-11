@@ -7,9 +7,9 @@
  * # TagDetailController
  * Controller of the docker-registry-frontend
  */
-angular.module('tag-detail-controller', [])
-  .controller('TagDetailController', ['$scope', '$route', '$routeParams', '$location', 'RegistryHost',
-  function($scope, $route, $routeParams, $location, RegistryHost){
+angular.module('tag-detail-controller', ['app-mode-services'])
+  .controller('TagDetailController', ['$scope', '$route', '$routeParams', '$location', 'RegistryHost', 'AppMode',
+  function($scope, $route, $routeParams, $location, RegistryHost, AppMode){
   
     $scope.$route = $route;
     $scope.$location = $location;
@@ -22,4 +22,5 @@ angular.module('tag-detail-controller', [])
     $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
     
     $scope.registryHost = RegistryHost.query();
+    $scope.appMode = AppMode.query();
   }]);

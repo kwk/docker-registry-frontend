@@ -8,7 +8,7 @@
 <h1>
   Details for repository
   <a href="#/repositories/{{repositoryUser}}">{{repositoryUser}}</a>/<a href="#/repository/{{repositoryUser}}/{{repositoryName}}">{{repositoryName}}</a>
-  <div class="pull-right">
+  <div ng-hide="appMode.browse" class="pull-right">
     <a class="btn btn-danger" href="#/repository/{{repositoryUser}}/{{repositoryName}}/delete" alt="Delete tag">
       <span class="glyphicon glyphicon-trash"></span> Delete Repository
     </a>
@@ -16,5 +16,3 @@
 </h1>
 
 <tag-list></tag-list>
-
-
