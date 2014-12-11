@@ -8,8 +8,16 @@ die() {
 [[ -z "$ENV_DOCKER_REGISTRY_HOST" ]] && die "Missing environment variable: ENV_DOCKER_REGISTRY_HOST=url-to-your-registry" 
 [[ -z "$ENV_DOCKER_REGISTRY_PORT" ]] && ENV_DOCKER_REGISTRY_PORT=80 
 
-echo "export DOCKER_REGISTRY_HOST=$ENV_DOCKER_REGISTRY_HOST" >> /etc/apache2/envvars
-echo "export DOCKER_REGISTRY_PORT=$ENV_DOCKER_REGISTRY_PORT" >> /etc/apache2/envvars
+if [ -z "$REGISTRY_PORT" ]; then
+  echo "export DOCKER_REGISTRY_HOST=$ENV_DOCKER_REGISTRY_HOST" >> /etc/apache2/envvars
+  echo "export DOCKER_REGISTRY_PORT=$ENV_DOCKER_REGISTRY_PORT" >> /etc/apache2/envvars
+else
+  _REGISTRY=${REGISTRY_PORT##*/}
+  _REGISTRY_HOST=${_REGISTRY%:*}
+  _REGISTRY_PORT=${_REGISTRY#*:}
+  echo "export DOCKER_REGISTRY_HOST=$_REGISTRY_HOST" >> /etc/apache2/envvars
+  echo "export DOCKER_REGISTRY_PORT=$_REGISTRY_PORT" >> /etc/apache2/envvars
+fi
 
 needModSsl=0
 if [ -n "$ENV_DOCKER_REGISTRY_USE_SSL" ]; then
