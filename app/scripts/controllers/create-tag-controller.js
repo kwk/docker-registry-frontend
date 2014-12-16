@@ -7,14 +7,15 @@
  * # CreateTagController
  * Controller of the docker-registry-frontend
  */
-angular.module('create-tag-controller', ['registry-services'])
-  .controller('CreateTagController', ['$scope', '$route', '$routeParams', '$location', '$log', '$filter', '$window', 'Tag', 'Repository',
+angular.module('create-tag-controller', ['registry-services', 'app-mode-services'])
+  .controller('CreateTagController', ['$scope', '$route', '$routeParams', '$location', '$log', '$filter', '$window', 'Tag', 'Repository', 'AppMode',
   function($scope, $route, $routeParams, $location, $log, $filter, $window, Tag, Repository){
     $scope.imageId = $route.current.params['imageId'];    
 
     $scope.master = {};
     
     $scope.repositories = Repository.query();
+    $scope.appMode = AppMode.query();
     
     $scope.tag = { repoUser: null, repoName: null};
     $scope.selectRepo = function(repoStr) {

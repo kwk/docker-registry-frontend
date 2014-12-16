@@ -7,11 +7,12 @@
  * # DeleteRepositoryController
  * Controller of the docker-registry-frontend
  */
-angular.module('delete-repository-controller', ['registry-services'])
-  .controller('DeleteRepositoryController', ['$scope', '$route', '$routeParams', '$location', '$log', '$filter', '$window', 'Repository',
+angular.module('delete-repository-controller', ['registry-services', 'app-mode-services'])
+  .controller('DeleteRepositoryController', ['$scope', '$route', '$routeParams', '$location', '$log', '$filter', '$window', 'Repository', 'AppMode',
   function($scope, $route, $routeParams, $location, $log, $filter, $window, Repository){
     $scope.repositoryUser = $route.current.params['repositoryUser'];
     $scope.repositoryName = $route.current.params['repositoryName'];
+    $scope.appMode = AppMode.query();
 
     $scope.deleteRepo = function() {
       var repoStr = $scope.repositoryUser + '/' + $scope.repositoryName;

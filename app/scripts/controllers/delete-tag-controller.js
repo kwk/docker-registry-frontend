@@ -7,13 +7,14 @@
  * # DeleteTagController
  * Controller of the docker-registry-frontend
  */
-angular.module('delete-tag-controller', ['registry-services'])
-  .controller('DeleteTagController', ['$scope', '$route', '$routeParams', '$location', '$log', '$filter', '$window', 'Tag',
+angular.module('delete-tag-controller', ['registry-services', 'app-mode-services'])
+  .controller('DeleteTagController', ['$scope', '$route', '$routeParams', '$location', '$log', '$filter', '$window', 'Tag', 'AppMode',
   function($scope, $route, $routeParams, $location, $log, $filter, $window, Tag){
     $scope.repositoryUser = $route.current.params['repositoryUser'];
     $scope.repositoryName = $route.current.params['repositoryName'];
     $scope.tagName = $route.current.params['tagName'];
     $scope.imageId = $route.current.params['imageId'];
+    $scope.appMode = AppMode.query();
     
     $scope.deleteTag = function(tag) {
       var tagStr = tag.repoUser + '/' + tag.repoName + ':' + tag.tagName;

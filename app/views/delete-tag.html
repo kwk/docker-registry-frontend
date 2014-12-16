@@ -3,7 +3,7 @@
     <li><a href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tagName}}/{{imageId}}/delete">Delete tag {{repositoryUser}}/{{repositoryName}}:{{tagName}}</a></li>
 </ol>
 
-<div class="panel panel-danger">
+<div ng-hide="appMode.browseOnly" class="panel panel-danger">
   <div class="panel-heading">
     Confirm deletion of the tag 
     <a href="#/repositories/{{repositoryUser}}">{{repositoryUser}}</a> /
