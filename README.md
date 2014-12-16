@@ -93,6 +93,20 @@ do the followiung:
 
 You can of course combine SSL and Kerberos.
 
+# Browse only mode
+
+If you want to start applicaton with browse mode which means no repos/tags management feature in the UI, You can specify `ENV_MODE_BROWSE_ONLY` flag as follows:
+
+    sudo docker run \
+      -d \
+      -e ENV_DOCKER_REGISTRY_HOST=ENTER-YOUR-REGISTRY-HOST-HERE \
+      -e ENV_DOCKER_REGISTRY_PORT=ENTER-PORT-TO-YOUR-REGISTRY-HOST-HERE \
+      -e ENV_MODE_BROWSE_ONLY=true \
+      -p 8080:80 \
+      konradkleine/docker-registry-frontend
+
+You can set `true` or `false` to this flag.
+
 # Contributions are welcome!
 
 If you like the application, I invite you to contribute and report bugs or feature request on the project's github page: [https://github.com/kwk/docker-registry-frontend][3].
