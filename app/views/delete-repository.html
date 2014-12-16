@@ -3,7 +3,7 @@
     <li><a href="#/repository/{{repositoryUser}}/{{repositoryName}}/delete">Delete repository {{repositoryUser}}/{{repositoryName}}</a></li>
 </ol>
 
-<div class="panel panel-danger">
+<div ng-hide="appMode.browseOnly" class="panel panel-danger">
   <div class="panel-heading">
     Confirm deletion of the repository
     <a href="#/repositories/{{repositoryUser}}">{{repositoryUser}}</a> /
