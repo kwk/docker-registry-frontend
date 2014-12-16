@@ -25,7 +25,7 @@ echo "{\"host\": \"$ENV_DOCKER_REGISTRY_HOST\", \"port\": $ENV_DOCKER_REGISTRY_P
 
 # information about browse mode.
 [[ x$ENV_MODE_BROWSE_ONLY =~ ^x(true|false)$ ]] || ENV_MODE_BROWSE_ONLY=false
-echo "{\"browse\":\"$ENV_MODE_BROWSE_ONLY\"}" > /var/www/html/app-mode.json
+echo "{\"browseOnly\":\"$ENV_MODE_BROWSE_ONLY\"}" > /var/www/html/app-mode.json
 
 # Optionally enable Kerberos authentication and do some parameter checks
 if [ -n "$ENV_AUTH_USE_KERBEROS" ]; then
