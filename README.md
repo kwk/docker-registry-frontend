@@ -69,7 +69,7 @@ do the followiung:
 
 You can of course combine SSL and Kerberos.
 
-# Browse only mode
+# Browse mode
 
 If you want to start applicaton with browse mode which means no repos/tags management feature in the UI, You can specify `ENV_MODE_BROWSE_ONLY` flag as follows:
 
