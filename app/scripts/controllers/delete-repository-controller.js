@@ -9,7 +9,7 @@
  */
 angular.module('delete-repository-controller', ['registry-services', 'app-mode-services'])
   .controller('DeleteRepositoryController', ['$scope', '$route', '$routeParams', '$location', '$log', '$filter', '$window', 'Repository', 'AppMode',
-  function($scope, $route, $routeParams, $location, $log, $filter, $window, Repository){
+  function($scope, $route, $routeParams, $location, $log, $filter, $window, Repository, AppMode){
     $scope.repositoryUser = $route.current.params['repositoryUser'];
     $scope.repositoryName = $route.current.params['repositoryName'];
     $scope.appMode = AppMode.query();

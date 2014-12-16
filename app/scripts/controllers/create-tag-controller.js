@@ -9,7 +9,7 @@
  */
 angular.module('create-tag-controller', ['registry-services', 'app-mode-services'])
   .controller('CreateTagController', ['$scope', '$route', '$routeParams', '$location', '$log', '$filter', '$window', 'Tag', 'Repository', 'AppMode',
-  function($scope, $route, $routeParams, $location, $log, $filter, $window, Tag, Repository){
+  function($scope, $route, $routeParams, $location, $log, $filter, $window, Tag, Repository, AppMode){
     $scope.imageId = $route.current.params['imageId'];    
 
     $scope.master = {};
