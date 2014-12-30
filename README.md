@@ -49,6 +49,18 @@ If you want to run the application with SSL enabled, you can do the following:
 
 Note that the application still serves the port `80` but it is simply not exposed ;). Enable it at your own will. When the application runs with SSL you can open your browser and navigate to [https://localhost][2].
 
+## Add a banner
+
+You can add an informational banner to every page:
+
+    sudo docker run \
+      -d \
+      -e ENV_DOCKER_REGISTRY_HOST=ENTER-YOUR-REGISTRY-HOST-HERE \
+      -e ENV_DOCKER_REGISTRY_PORT=ENTER-PORT-TO-YOUR-REGISTRY-HOST-HERE \
+      -e ENV_BANNER="Link to <a href='http://yourwiki/Docker'>docs</a>" \
+      -p 8080:80 \
+      konradkleine/docker-registry-frontend
+
 ## Use the application as the registry
 
 If you are running the Docker registry on the same host as the application but only accessible to the application (eg. listening on 127.0.0.1) then you can use the application as the registry itself.
