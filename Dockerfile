@@ -98,6 +98,7 @@ RUN apt-get -y install \
       npm \
       --no-install-recommends && \
     cd $SOURCE_DIR && \
+    git config --global url."https://".insteadOf git:// && \
     npm install && \
     node_modules/bower/bin/bower install --allow-root && \
     node_modules/grunt-cli/bin/grunt build --allow-root && \
