@@ -19,8 +19,7 @@
 </h1>
 
 <div class="well">
-  docker pull {{registryHost.host}}<span ng-if="registryHost.port != 80">:{{registryHost.port}}</span>/{{repositoryUser}}/{{repositoryName}}:{{tagName}}
+  docker pull {{registryHost.host}}<span ng-if="registryHost.port != 80 && registryHost.port != 443">:{{registryHost.port}}</span>/{{repositoryUser}}/{{repositoryName}}:{{tagName}}
 </div>
 
 <image-details></image-details>
-
