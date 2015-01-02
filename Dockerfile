@@ -97,6 +97,7 @@ RUN apt-get -y install \
       nodejs-legacy \
       npm \
       --no-install-recommends && \
+    git config --global url."https://".insteadOf git:// && \
     cd $SOURCE_DIR && \
     npm install && \
     node_modules/bower/bin/bower install --allow-root && \
