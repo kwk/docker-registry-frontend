@@ -51,27 +51,27 @@ Note that the application still serves the port `80` but it is simply not expose
 
 ## Use the application as the registry
 
-If you are running the Docker registry on the same host as the application but only accessible to the application (eg. listening on 127.0.0.1) then you can use the application as the registry itself.
+If you are running the Docker registry on the same host as the application but only accessible to the application (eg. listening on `127.0.0.1`) then you can use the application as the registry itself.
 
 Normally this would then give bad advice on how to access a tag:
 
-docker pull localhost:5000/yourname/imagename:latest
+    docker pull localhost:5000/yourname/imagename:latest
 
 We can override what hostname and port to put here:
 
-sudo docker run \
--d \
--e ENV_DOCKER_REGISTRY_HOST=localhost \
--e ENV_DOCKER_REGISTRY_PORT=5000 \
--e ENV_REGISTRY_PROXY_FQDN=ENTER-YOUR-APPLICATION-HOST-HERE \
--e ENV_REGISTRY_PROXY_PORT=ENTER-PORT-TO-YOUR-APPLICATION-HOST-HERE \
--e ENV_USE_SSL=yes \
--v $PWD/server.crt:/etc/apache2/server.crt:ro \
--v $PWD/server.key:/etc/apache2/server.key:ro \
--p 443:443 \
-konradkleine/docker-registry-frontend
+    sudo docker run \
+     -d \
+     -e ENV_DOCKER_REGISTRY_HOST=localhost \
+     -e ENV_DOCKER_REGISTRY_PORT=5000 \
+     -e ENV_REGISTRY_PROXY_FQDN=ENTER-YOUR-APPLICATION-HOST-HERE \
+     -e ENV_REGISTRY_PROXY_PORT=ENTER-PORT-TO-YOUR-APPLICATION-HOST-HERE \
+     -e ENV_USE_SSL=yes \
+     -v $PWD/server.crt:/etc/apache2/server.crt:ro \
+     -v $PWD/server.key:/etc/apache2/server.key:ro \
+     -p 443:443 \
+     konradkleine/docker-registry-frontend
 
-A value of 80 or 443 for ENV_REGISTRY_PROXY_PORT will not actually be shown as Docker will check 443 then 80 by default.
+A value of `80` or `443` for `ENV_REGISTRY_PROXY_PORT` will not actually be shown as Docker will check `443` and then `80` by default.
 
 ## Kerberos authentication
 
