@@ -23,9 +23,11 @@ else
   echo "export DOCKER_REGISTRY_SCHEME=http" >> /etc/apache2/envvars
 fi
 
+# Build the JSON file which is read by JS to retrieve
+# information about how to contact the registry.
 # docker-registry-frontend acts as a proxy so may well
 # have a different hostname than the registry itself.
-echo "{\"host\": \"$ENV_REGISTRY_PROXY_FQDN\", \"port\": $ENV_REGISTRY_PROXY_PORT}" > /var/www/html/registry-host.json
+echo "{\"host\": \"$ENV_REGISTRY_PROXY_FQDN\", \"port\": $ENV_REGISTRY_PROXY_PORT, \"banner\": \"$ENV_BANNER\"}" > /var/www/html/registry-host.json
 
 # Optionally enable Kerberos authentication and do some parameter checks
 if [ -n "$ENV_AUTH_USE_KERBEROS" ]; then

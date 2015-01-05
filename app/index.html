@@ -26,6 +26,9 @@
     
 
     <div class="container">
+      <div class="alert alert-info" ng-if="registryHost.banner != ''">
+          <p><span class="glyphicon glyphicon-info-sign"></span>&nbsp;<span ng-bind-html="registryHost.banner"></span></p>
+      </div>
 
       <div class="masthead">
         <h3 class="text-muted">Docker Registry Frontend</h3>
