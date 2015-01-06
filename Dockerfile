@@ -31,6 +31,7 @@ RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 ############################################################
 
 RUN apt-get -y update && \
+    export DEBIAN_FRONTEND=noninteractive && \
     apt-get -y install \
       apache2 \
       libapache2-mod-auth-kerb \
