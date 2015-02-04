@@ -11,17 +11,22 @@ angular.module('create-tag-controller', ['registry-services', 'app-mode-services
   .controller('CreateTagController', ['$scope', '$route', '$routeParams', '$location', '$log', '$filter', '$window', 'Tag', 'Repository', 'AppMode',
   function($scope, $route, $routeParams, $location, $log, $filter, $window, Tag, Repository, AppMode){
     $scope.imageId = $route.current.params['imageId'];    
+    $scope.repositoryUser = $route.current.params['repositoryUser'];    
+    $scope.repositoryName = $route.current.params['repositoryName'];    
 
     $scope.master = {};
     
     $scope.repositories = Repository.query();
     $scope.appMode = AppMode.query();
     
-    $scope.tag = { repoUser: null, repoName: null};
+    $scope.tag = {
+      repoUser: $scope.repositoryUser,
+      repoName: $scope.repositoryName
+    };
     $scope.selectRepo = function(repoStr) {
-        var res = repoStr.split('/');
-        $scope.tag.repoUser = res[0];
-        $scope.tag.repoName = res[1]; 
+      var res = repoStr.split('/');
+      $scope.tag.repoUser = res[0];
+      $scope.tag.repoName = res[1]; 
     };
     
     $scope.doCreateTag = function(tag) {
