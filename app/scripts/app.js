@@ -83,7 +83,7 @@ angular
         templateUrl: 'views/image-detail.html',
         controller: 'ImageController',
       }).
-      when('/image/:imageId/tag', {
+      when('/image/:imageId/tag/:repositoryUser?/:repositoryName?', {
         templateUrl: 'views/create-tag.html',
         controller: 'CreateTagController',
       }).
