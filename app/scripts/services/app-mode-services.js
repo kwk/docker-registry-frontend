@@ -9,6 +9,7 @@ angular.module('app-mode-services', ['ngResource'])
       'query': {
         method:'GET',
         isArray: false,
+        cache: false
       },
     });
   }]);
