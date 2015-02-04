@@ -30,6 +30,7 @@ echo "{\"host\": \"$ENV_REGISTRY_PROXY_FQDN\", \"port\": $ENV_REGISTRY_PROXY_POR
 # information about browse mode.
 <<<<<<< HEAD
 [[ x$ENV_MODE_BROWSE_ONLY =~ ^x(true|false)$ ]] || ENV_MODE_BROWSE_ONLY=false
+<<<<<<< HEAD
 echo "{\"browseOnly\":$ENV_MODE_BROWSE_ONLY}" > /var/www/html/app-mode.json
 ||||||| merged common ancestors
 [[ -z "$ENV_MODE_BROWSE_ONLY" ]] && ENV_MODE_BROWSE_ONLY=false
@@ -38,6 +39,11 @@ echo "{\"browse\":\"$ENV_MODE_BROWSE_ONLY\"}" > /var/www/html/app-mode.json
 [[ x$ENV_MODE_BROWSE_ONLY =~ ^x(true|false)$ ]] || ENV_MODE_BROWSE_ONLY=false
 echo "{\"browse\":\"$ENV_MODE_BROWSE_ONLY\"}" > /var/www/html/app-mode.json
 >>>>>>> Check boolean value for ENV_MODE_BROWSE_ONLY
+||||||| merged common ancestors
+echo "{\"browseOnly\":\"$ENV_MODE_BROWSE_ONLY\"}" > /var/www/html/app-mode.json
+=======
+echo "{\"browseOnly\":$ENV_MODE_BROWSE_ONLY}" > /var/www/html/app-mode.json
+>>>>>>> Fix issue with browse mode variable
 
 # Optionally enable Kerberos authentication and do some parameter checks
 if [ -n "$ENV_AUTH_USE_KERBEROS" ]; then
