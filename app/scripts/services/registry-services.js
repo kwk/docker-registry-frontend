@@ -22,7 +22,11 @@ angular.module('registry-services', ['ngResource'])
         method:'GET',
         isArray: true,
         transformResponse: function(data, headers){
-          return angular.fromJson(data).results;
+          var res = angular.fromJson(data).results;
+          angular.forEach(res, function(value, key) {
+            value.username = ""+value.name.split("/")[0];
+          });
+          return res;
         }
       },
       'delete': {
