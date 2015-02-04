@@ -22,6 +22,17 @@ ol.breadcrumb li:first-child::before {
    max-height: 50px;
 }
 
+/* Style the repository list */
+
+.list-group-item-group-header {
+  background-color: #dedede;
+  text-transform: uppercase;
+}
+
+.list-group-item-group-item {
+  padding-left: 2em;
+}
+
 /* Main marketing message and sign up button */
 .jumbotron {
   text-align: center;

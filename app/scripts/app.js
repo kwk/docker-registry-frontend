@@ -37,6 +37,7 @@ angular
     'app-version-services',
     'app-mode-services',
     'smart-table',
+    'angular.filter'
   ])
   .config(['$routeProvider', '$resourceProvider', 'cfpLoadingBarProvider', function($routeProvider, $resourceProvider, cfpLoadingBarProvider){
 
