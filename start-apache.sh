@@ -30,6 +30,9 @@ echo "{\"host\": \"$ENV_REGISTRY_PROXY_FQDN\", \"port\": $ENV_REGISTRY_PROXY_POR
 # information about browse mode.
 [[ x$ENV_MODE_BROWSE_ONLY =~ ^x(true|false)$ ]] || ENV_MODE_BROWSE_ONLY=false
 echo "{\"browseOnly\":$ENV_MODE_BROWSE_ONLY}" > /var/www/html/app-mode.json
+if [ "$ENV_MODE_BROWSE_ONLY" == "true" ]; then
+  echo "export APACHE_ARGUMENTS='-D FRONTEND_BROWSE_ONLY_MODE'" >> /etc/apache2/envvars
+fi
 
 # Optionally enable Kerberos authentication and do some parameter checks
 if [ -n "$ENV_AUTH_USE_KERBEROS" ]; then
