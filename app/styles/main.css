@@ -22,35 +22,6 @@ ol.breadcrumb li:first-child::before {
    max-height: 50px;
 }
 
-/* Animate repository group list items */
-
-.anim-repo-repeat {
-  /*line-height:40px;*/
-  list-style:none;
-  box-sizing:border-box;
-}
-
-.anim-repo-repeat.ng-move,
-.anim-repo-repeat.ng-enter,
-.anim-repo-repeat.ng-leave {
-  -webkit-transition:all linear 0.2s;
-  transition:all linear 0.2s;
-}
-
-.anim-repo-repeat.ng-leave.ng-leave-active,
-.anim-repo-repeat.ng-move,
-.anim-repo-repeat.ng-enter {
-  opacity:0;
-  max-height:0;
-}
-
-.anim-repo-repeat.ng-leave,
-.anim-repo-repeat.ng-move.ng-move-active,
-.anim-repo-repeat.ng-enter.ng-enter-active {
-  opacity:1;
-  /*max-height:40px;*/
-}
-
 /* Style the repository list */
 
 .list-group-item-group-header {

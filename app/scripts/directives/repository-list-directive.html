@@ -16,7 +16,7 @@
       
       <span class="list-group-item-heading"><span class="glyphicon glyphicon-user"></span> {{username}}</span>
     </div>
-    <a class="list-group-item list-group-item-group-item anim-repo-repeat" href="#/repository/{{repo.name}}" ng-repeat="repo in repos">
+    <a class="list-group-item list-group-item-group-item" href="#/repository/{{repo.name}}" ng-repeat="repo in repos">
       <span class="list-group-item-heading">
         <span class="glyphicon glyphicon-book"></span> {{repo.name|trim:username+'/'}}
       </span>
