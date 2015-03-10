@@ -36,9 +36,10 @@ fi
 
 # Optionally enable basic authentication and do some parameter checks
 if [ -n "$ENV_AUTH_USE_BASIC" ]; then
-  useBAuth="-D BASIC_AUTH"
-
+   
    [[ ! -e /etc/apache2/docker-registry.htpasswd ]] && die "/etc/apache2/docker-registry.htpasswd is missing"
+
+  echo "export APACHE_ARGUMENTS='-D BASIC_AUTH'" >> /etc/apache2/envvars
 fi
 
 # Optionally enable Kerberos authentication and do some parameter checks
@@ -75,4 +76,4 @@ else
   a2dismod ssl
 fi
 
-/usr/sbin/apache2ctl -D FOREGROUND ${useSsl} ${useBAuth}
+/usr/sbin/apache2ctl -D FOREGROUND ${useSsl}
