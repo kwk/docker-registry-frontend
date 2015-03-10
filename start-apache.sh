@@ -34,6 +34,13 @@ if [ "$ENV_MODE_BROWSE_ONLY" == "true" ]; then
   echo "export APACHE_ARGUMENTS='-D FRONTEND_BROWSE_ONLY_MODE'" >> /etc/apache2/envvars
 fi
 
+# Optionally enable basic authentication and do some parameter checks
+if [ -n "$ENV_AUTH_USE_BASIC" ]; then
+  useBAuth="-D BASIC_AUTH"
+
+   [[ ! -e /etc/apache2/docker-registry.htpasswd ]] && die "/etc/apache2/docker-registry.htpasswd is missing"
+fi
+
 # Optionally enable Kerberos authentication and do some parameter checks
 if [ -n "$ENV_AUTH_USE_KERBEROS" ]; then
 
@@ -68,4 +75,4 @@ else
   a2dismod ssl
 fi
 
-/usr/sbin/apache2ctl -D FOREGROUND ${useSsl}
+/usr/sbin/apache2ctl -D FOREGROUND ${useSsl} ${useBAuth}
