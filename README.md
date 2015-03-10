@@ -95,7 +95,7 @@ You can of course combine SSL and Kerberos.
 
 ## Basic authentication
 
-If you want to use Basic Authentication to protect repos/tags management feature in the UI, you can specify `ENV_AUTH_USE_BASIC` and volume flags as follows:
+If you want to use Basic Authentication to protect `docker push` and repos/tags management feature in the UI, you can specify `ENV_AUTH_USE_BASIC` and volume flags as follows:
 
     sudo docker run \
       -d \
@@ -105,6 +105,8 @@ If you want to use Basic Authentication to protect repos/tags management feature
       -v $PWD/docker-registry.htpasswd:/etc/apache2/docker-registry.htpasswd:ro \
       -p 8080:80 \
       konradkleine/docker-registry-frontend
+
+`GET` methods is not protected by the Basic Authentication, that is `docker pull` also.
 
 You can of course combine SSL and Basic Authentication.
 
