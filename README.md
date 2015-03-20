@@ -118,5 +118,5 @@ Thank you for your interest!
 
   [1]: http://localhost:8080
   [2]: https://localhost
-  [3]: http://%20https://github.com/kwk/docker-registry-frontend
+  [3]: https://github.com/kwk/docker-registry-frontend
   [features]: https://github.com/kwk/docker-registry-frontend/wiki/Features
