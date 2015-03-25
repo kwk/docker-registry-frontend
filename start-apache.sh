@@ -5,6 +5,14 @@ die() {
   exit 2
 }
 
+if [ -e /etc/apache2/envvars.orig ]; then
+  # On container restart we create a fresh copy of environment variables
+  cp -f /etc/apache2/envvars.orig /etc/apache2/envvars
+else
+  # On a fresh start we save the original environment variables to the side
+  cp -f /etc/apache2/envvars /etc/apache2/envvars.orig
+fi
+
 [[ -z "$ENV_DOCKER_REGISTRY_HOST" ]] && die "Missing environment variable: ENV_DOCKER_REGISTRY_HOST=url-to-your-registry" 
 [[ -z "$ENV_DOCKER_REGISTRY_PORT" ]] && ENV_DOCKER_REGISTRY_PORT=80 
 [[ -z "$ENV_REGISTRY_PROXY_FQDN" ]] && ENV_REGISTRY_PROXY_FQDN=$ENV_DOCKER_REGISTRY_HOST
@@ -67,5 +75,8 @@ if [ $needModSsl -ne 0 ]; then
 else
   a2dismod ssl
 fi
+
+# Stop apache first if is still running from the last time the container was run
+service apache2 stop
 
 /usr/sbin/apache2ctl -D FOREGROUND ${useSsl}
