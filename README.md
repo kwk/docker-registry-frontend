@@ -76,7 +76,7 @@ A value of `80` or `443` for `ENV_REGISTRY_PROXY_PORT` will not actually be show
 ## Kerberos authentication
 
 If you want to use Kerberos to protect access to the registry frontend, you can
-do the followiung:
+do the following:
 
     sudo docker run \
       -d \
