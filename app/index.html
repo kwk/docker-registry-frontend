@@ -31,14 +31,15 @@
         <h3 class="text-muted">Docker Registry Frontend</h3>
       </div>
 
-      <div ng-view></div>
+      <main ng-view></main>
 
-      <div class="footer">
-        <p class="text-muted"><a href="#/about">About the Docker Registry Frontend</a></p>
-        <p><span class="glyphicon glyphicon-fire"></span> <a href="https://github.com/kwk/docker-registry-frontend/issues/new">Report a bug</a></p>
-        <p><span class="glyphicon glyphicon-random"></span> <a href="https://github.com/kwk/docker-registry-frontend">Fork me on GitHub</a></p>
-        <p class="text-muted"><small>This is git revision: <a href="https://github.com/kwk/docker-registry-frontend/commit/{{appVersion.git.sha1}}"><span ng-bind-template="{{appVersion.git.sha1 | limitTo: 7}}">-</span></a></small></p>
-      </div>
+      <footer>
+        <p>
+          <a href="https://github.com/kwk/docker-registry-frontend/issues/new"><small>Report a bug</small></a>
+          <a href="https://github.com/kwk/docker-registry-frontend"><small>Fork me on GitHub</small></a>
+          <a href="#/about"><small>About</small></a>
+        </p>
+      </footer>
 
     </div>
 
@@ -51,7 +52,7 @@
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
