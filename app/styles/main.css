@@ -25,6 +25,10 @@ footer a + a {
     margin-left: 50px;
 }
 
+footer img {
+   max-height: 50px;
+}
+
 /* Style the repository list */
 
 .list-group-item-group-header {

@@ -35,9 +35,10 @@
 
       <footer>
         <p>
-          <a href="https://github.com/kwk/docker-registry-frontend/issues/new"><small>Report a bug</small></a>
-          <a href="https://github.com/kwk/docker-registry-frontend"><small>Fork me on GitHub</small></a>
-          <a href="#/about"><small>About</small></a>
+          <a href="https://github.com/kwk/docker-registry-frontend/issues/new"><span class="glyphicon glyphicon-fire"></span> <small>Report a bug</small></a>
+          <a href="https://github.com/kwk/docker-registry-frontend"><span class="glyphicon glyphicon-random"></span> <small> Fork me on GitHub</small></a>
+          <a href="#/about"><span class="glyphicon glyphicon-question-sign"></span> <small>About</small></a>
+          <a href="https://github.com/kwk/docker-registry-frontend/commit/{{appVersion.git.sha1}}"><span class="glyphicon glyphicon-barcode"></span> <small>This is git revision: <span ng-bind-template="{{appVersion.git.sha1 | limitTo: 7}}">-</span></small></a>
         </p>
       </footer>
 
@@ -52,7 +53,7 @@
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
