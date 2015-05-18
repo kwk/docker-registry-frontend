@@ -31,14 +31,16 @@
         <h3 class="text-muted">Docker Registry Frontend</h3>
       </div>
 
-      <div ng-view></div>
+      <main ng-view></main>
 
-      <div class="footer">
-        <p class="text-muted"><a href="#/about">About the Docker Registry Frontend</a></p>
-        <p><span class="glyphicon glyphicon-fire"></span> <a href="https://github.com/kwk/docker-registry-frontend/issues/new">Report a bug</a></p>
-        <p><span class="glyphicon glyphicon-random"></span> <a href="https://github.com/kwk/docker-registry-frontend">Fork me on GitHub</a></p>
-        <p class="text-muted"><small>This is git revision: <a href="https://github.com/kwk/docker-registry-frontend/commit/{{appVersion.git.sha1}}"><span ng-bind-template="{{appVersion.git.sha1 | limitTo: 7}}">-</span></a></small></p>
-      </div>
+      <footer>
+        <p>
+          <a href="https://github.com/kwk/docker-registry-frontend/issues/new"><span class="glyphicon glyphicon-fire"></span> <small>Report a bug</small></a>
+          <a href="https://github.com/kwk/docker-registry-frontend"><span class="glyphicon glyphicon-random"></span> <small> Fork me on GitHub</small></a>
+          <a href="#/about"><span class="glyphicon glyphicon-question-sign"></span> <small>About</small></a>
+          <a href="https://github.com/kwk/docker-registry-frontend/commit/{{appVersion.git.sha1}}"><span class="glyphicon glyphicon-barcode"></span> <small>This is git revision: <span ng-bind-template="{{appVersion.git.sha1 | limitTo: 7}}">-</span></small></a>
+        </p>
+      </footer>
 
     </div>
 

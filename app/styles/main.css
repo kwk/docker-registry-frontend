@@ -1,24 +1,31 @@
-body {
-  padding-top: 20px;
-}
-
 .container {
   margin-top: 0px;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 ol.breadcrumb li:first-child::before {
-  	content: "You are here: ";
+  content: "You are here: ";
 }
 
-.footer {
-  padding-top: 40px;
-  padding-bottom: 40px;
+main {
+  flex: 1;
+}
+
+footer {
+  padding-top: 20px;
+  padding-bottom: 20px;
   margin-top: 40px;
   border-top: 1px solid #eee;
   text-align: center;
 }
 
-.footer img {
+footer a + a {
+    margin-left: 50px;
+}
+
+footer img {
    max-height: 50px;
 }
 
@@ -107,7 +114,7 @@ ol.breadcrumb li:first-child::before {
   /* Remove the padding we set earlier */
   .masthead,
   .marketing,
-  .footer {
+  footer {
     padding-right: 0;
     padding-left: 0;
   }
