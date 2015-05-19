@@ -50,9 +50,6 @@ angular
     $resourceProvider.defaults.stripTrailingSlashes = false;    
     
     $routeProvider.
-      when('/home', {
-        templateUrl: 'views/home.html',
-      }).
       when('/repositories/:searchTerm?', {
         templateUrl: 'views/repository-list.html',
       }).
@@ -88,6 +85,6 @@ angular
         controller: 'CreateTagController',
       }).
       otherwise({
-        redirectTo: '/home'
+        redirectTo: '/repositories/:searchTerm?'
       });
   }]);
