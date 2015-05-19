@@ -25,6 +25,7 @@ angular.module('registry-services', ['ngResource'])
           var res = angular.fromJson(data).results;
           angular.forEach(res, function(value, key) {
             value.username = ""+value.name.split("/")[0];
+            value.selected = false;
           });
           return res;
         }
@@ -45,7 +46,7 @@ angular.module('registry-services', ['ngResource'])
           var res = [];
           var resp = angular.fromJson(data);
           for (var i in resp){
-            res.push({name: i, imageId: resp[i]});
+            res.push({name: i, imageId: resp[i], selected: false});
           }
           return res;
         },

@@ -1,0 +1,38 @@
+<div class="modal-header">
+
+    <h3 class="modal-title">
+      Confirm deletion of <ng-pluralize count="items.length" when="{'one': 'one item', 'other': '{} items'}"></ng-pluralize>
+    </h3>
+
+</div>
+
+<div class="modal-body">
+
+  <p class="text-justify">{{ information }}</p>
+
+  <ul>
+    <li ng-repeat="item in items">
+      {{ item }}
+    </li>
+  </ul>
+
+  <p><emph>This operation cannot be undone!</emph><p>
+
+</div>
+
+<div class="modal-footer">
+
+  <label>
+    <checkbox ng-model="unlockDeleteButton"></checkbox>
+    <!--<input type="checkbox" ng-model="unlockDeleteButton">-->Check to unlock delete button.
+  </label>
+
+  <button type="button" ng-disabled="!items.length || !unlockDeleteButton" ng-click="ok()" class="btn btn-danger">
+    <span class="glyphicon glyphicon-trash"></span>
+    <ng-pluralize count="items.length" when="{'0': 'No items to delete', 'one': 'Delete one item', 'other': 'Delete {} items'}">
+    </ng-pluralize>
+  </button>
+
+  <button class="btn" ng-click="cancel()">Cancel</button>
+
+</div>

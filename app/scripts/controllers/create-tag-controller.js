@@ -10,9 +10,9 @@
 angular.module('create-tag-controller', ['registry-services', 'app-mode-services'])
   .controller('CreateTagController', ['$scope', '$route', '$routeParams', '$location', '$log', '$filter', '$window', 'Tag', 'Repository', 'AppMode',
   function($scope, $route, $routeParams, $location, $log, $filter, $window, Tag, Repository, AppMode){
-    $scope.imageId = $route.current.params['imageId'];    
-    $scope.repositoryUser = $route.current.params['repositoryUser'];    
-    $scope.repositoryName = $route.current.params['repositoryName'];    
+    $scope.imageId = $route.current.params.imageId;    
+    $scope.repositoryUser = $route.current.params.repositoryUser;    
+    $scope.repositoryName = $route.current.params.repositoryName;    
 
     $scope.master = {};
     
@@ -33,14 +33,14 @@ angular.module('create-tag-controller', ['registry-services', 'app-mode-services
       var tagStr = tag.repoUser + '/' + tag.repoName + ':' + tag.tagName;
       Tag.save(tag, '"'+$scope.imageId+'"',
         // success
-        function(value, responseHeaders) {
+        function() {
           toastr.success('Created tag: ' + tagStr);
           // Redirect to new tag page
           $window.location.href = '#/tag/' + tag.repoUser + '/' + tag.repoName + '/' + tag.tagName + '/' + $scope.imageId;
         },
         // error
         function(httpResponse) {
-          toastr.error('Failed to create tag: ' + tagStr + ' Response: ' + httpResponse);
+          toastr.error('Failed to create tag: ' + tagStr + ' Response: ' + httpResponse.statusText);
         }
       );
     };
@@ -49,7 +49,7 @@ angular.module('create-tag-controller', ['registry-services', 'app-mode-services
       $scope.master = angular.copy(tag);
       var tagStr = tag.repoUser + '/' + tag.repoName + ':' + tag.tagName;
       var tagExists = Tag.exists(tag,
-        function(value, responseHeaders) {
+        function() {
           if (!forceOverwrite) {
             toastr.warning('Tag already exists: ' + tagStr);
             return;

@@ -24,12 +24,10 @@ angular
     'repository-list-directive',
     'tag-list-directive',
     'image-details-directive',
-    'repository-detail-controller',
-    'tag-detail-controller',
     'tag-item-controller',    
     'image-controller',
     'create-tag-controller',
-    'delete-tag-controller',
+    'delete-tags-controller',
     'delete-repository-controller',
     'ui.bootstrap',
     'angular-loading-bar',
@@ -37,7 +35,8 @@ angular
     'app-version-services',
     'app-mode-services',
     'smart-table',
-    'angular.filter'
+    'angular.filter',
+    'ui.checkbox'
   ])
   .config(['$routeProvider', '$resourceProvider', 'cfpLoadingBarProvider', function($routeProvider, $resourceProvider, cfpLoadingBarProvider){
 
@@ -58,26 +57,18 @@ angular
       }).
       when('/repository/:repositoryUser/:repositoryName/', {
         templateUrl: 'views/repository-detail.html',
-        controller: 'RepositoryDetailController',
+        controller: 'RepositoryController',
       }).
       when('/repository/:repositoryUser/:repositoryName/tags/:searchName?', {
         templateUrl: 'views/repository-detail.html',
-        controller: 'RepositoryDetailController',
-      }).
-      when('/repository/:repositoryUser/:repositoryName/delete', {
-        templateUrl: 'views/delete-repository.html',
-        controller: 'DeleteRepositoryController',
+        controller: 'RepositoryController',
       }).
 	    when('/about', {
         templateUrl: 'views/about.html',
       }).
       when('/tag/:repositoryUser/:repositoryName/:tagName/:imageId', {
         templateUrl: 'views/tag-detail.html',
-        controller: 'TagDetailController',
-      }).
-      when('/tag/:repositoryUser/:repositoryName/:tagName/:imageId/delete', {
-        templateUrl: 'views/delete-tag.html',
-        controller: 'DeleteTagController',
+        controller: 'TagController',
       }).
       when('/image/:imageId', {
         templateUrl: 'views/image-detail.html',

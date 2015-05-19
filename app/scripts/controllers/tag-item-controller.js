@@ -38,10 +38,10 @@ angular.module('tag-item-controller', ['registry-services'])
             }
           });
           
-        });        
+        });
         
         
       });
-    };    
+    };
     
   }]);
