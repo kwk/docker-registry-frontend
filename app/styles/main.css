@@ -5,6 +5,21 @@
   flex-direction: column;
 }
 
+/* Display all links inside tables as blocks which should make them easier to click*/
+table a {
+  display: block;
+}
+
+/* Apply this class a table column (td) that shall grow */
+.grow {
+  width: 100%;
+}
+
+/* A separate style to create free space below repository search box*/
+.repository-list-search {
+  margin-bottom: 1em;
+}
+
 ol.breadcrumb li:first-child::before {
   content: "You are here: ";
 }

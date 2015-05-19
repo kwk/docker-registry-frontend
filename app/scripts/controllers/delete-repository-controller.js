@@ -7,27 +7,45 @@
  * # DeleteRepositoryController
  * Controller of the docker-registry-frontend
  */
-angular.module('delete-repository-controller', ['registry-services', 'app-mode-services'])
-  .controller('DeleteRepositoryController', ['$scope', '$route', '$routeParams', '$location', '$log', '$filter', '$window', 'Repository', 'AppMode',
-  function($scope, $route, $routeParams, $location, $log, $filter, $window, Repository, AppMode){
-    $scope.repositoryUser = $route.current.params['repositoryUser'];
-    $scope.repositoryName = $route.current.params['repositoryName'];
-    $scope.appMode = AppMode.query();
-
-    $scope.deleteRepo = function() {
-      var repoStr = $scope.repositoryUser + '/' + $scope.repositoryName;
+angular.module('delete-repository-controller', ['registry-services'])
+  .controller('DeleteRepositoryController', ['$scope', '$route', '$modalInstance', '$window', 'Repository', 'items', 'information',
+  function($scope, $route, $modalInstance, $window, Repository, items, information){
+    $scope.items = items;
+    $scope.information = information;
+    
+    // Callback that triggers deletion of tags and reloading of page
+    $scope.ok = function () {
+      angular.forEach($scope.items, function(value, key) {
+        var repoStr = value;
+        var repoUser = value.split("/")[0];
+        var repoName = value.split("/")[1];
       
-      Repository.delete({repoUser: $scope.repositoryUser, repoName: $scope.repositoryName},
-        // success
-        function(value, responseHeaders) {
-          toastr.success('Deleted repository: ' + repoStr);
-          // Redirect to new tag page
-          $window.location.href = '#/repositories';
-        },
-        // error
-        function(httpResponse) {
-          toastr.error('Failed to delete repository: ' + repoStr + ' Response: ' + httpResponse);
-        }
-      );
+        var repo = {
+          repoUser: repoUser,
+          repoName: repoName
+        };
+        
+        Repository.delete(repo,
+          // success
+          function(value, responseHeaders) {
+            toastr.success('Deleted repository: ' + repoStr);
+          },
+          // error
+          function(httpResponse) {
+            toastr.error('Failed to delete repository: ' + repoStr + ' Response: ' + httpResponse.statusText);
+          }
+        );
+      });
+      
+      $modalInstance.close();
+      
+      // Go to the repositories page
+      $window.location.href = '#/repositories';
+      $route.reload();
     };
+
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel');
+    };
+    
   }]);

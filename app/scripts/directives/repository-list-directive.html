@@ -1,31 +1,49 @@
-<p>
-  <div class="input-group">
+<div class="input-group repository-list-search">
     <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
     <input type="search" placeholder="Search for a repository" ng-model="searchTerm" class="form-control">
-  </div>
-</p>
-
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    Repositories <span ng-bind-template="({{filteredRepositories.length}}/{{repositories.length}})"></span>:
-  </div>
-  <div class="list-group">
-    <div class="list-group-item list-group-item-group-header" ng-repeat-start="(username, repos) in (filteredRepositories=(repositories | filter:searchTerm) | groupBy: 'username')">
-      <span class="badge">{{repos.length}}</span>
-      
-      <span class="list-group-item-heading"><span class="glyphicon glyphicon-user"></span> {{username}}</span>
-    </div>
-    <a class="list-group-item list-group-item-group-item" href="#/repository/{{repo.name}}" ng-repeat="repo in repos">
-      <span class="list-group-item-heading">
-        <span class="glyphicon glyphicon-book"></span> {{repo.name|trim:username+'/'}}
-      </span>
-    </a>
-    <span ng-repeat-end></span>
-    <span class="list-group-item" ng-if="filteredRepositories.length == 0 && searchTerm">
-      <h4 class="list-group-item-heading">Sorry!</h4>
-      <p class="list-group-item-text">No repositories match the given search term: "{{searchTerm}}".</p>
-    </span>
-  </div>
+    <span class="input-group-addon">Repositories <span ng-bind-template="({{filteredRepositories.length}}/{{repositories.length}})"></span></span>
 </div>
 
+<div ng-hide="appMode.browseOnly">
+  <!-- Maybe put this into its own directive? -->
+  <button type="button" ng-disabled="!selectedRepositories.length" ng-click="openConfirmRepoDeletionDialog()" class="btn btn-danger">
+    <span class="glyphicon glyphicon-trash"></span>
+    <ng-pluralize count="selectedRepositories.length"
+                 when="{'0': 'Select repositores to delete', 'one': 'Delete one repository', 'other': 'Delete {} repositories'}">
+    </ng-pluralize>
+  </button>
+<div>
+
+<span ng-repeat-start="(username, repos) in (filteredRepositories=(repositories | filter:searchTerm) | groupBy: 'username')"></span>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+        <th colspan="2">
+          <!--<span class="glyphicon glyphicon-user"></span>--> {{username}}
+          <span class="badge pull-right">{{repos.length}}</span>
+        </th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="repo in repos" ng-class="{warning: repo.selected}">
+        <td>
+          <checkbox name="selectedRepositories[]" value="{{repo.name}}" ng-model="repo.selected" ng-hide="appMode.browseOnly"></checkbox>
+          <!--<input type="checkbox" name="selectedRepos[]" value="{{repo.name}}" ng-model="repo.selected" ng-hide="appMode.browseOnly">-->
+        </td>
+        <td class="grow">
+          <a href="#/repository/{{repo.name}}"><!--<span class="glyphicon glyphicon-book"></span>--> {{repo.name|trim:username+'/'}}</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<span ng-repeat-end></span>
+
+<!-- Maybe put this into its own directive? -->
+<button type="button" ng-disabled="!selectedRepositories.length" ng-click="openConfirmRepoDeletionDialog()" class="btn btn-danger" ng-hide="appMode.browseOnly">
+  <span class="glyphicon glyphicon-trash"></span>
+  <ng-pluralize count="selectedRepositories.length"
+               when="{'0': 'Select repositores to delete', 'one': 'Delete one repository', 'other': 'Delete {} repositories'}">
+  </ng-pluralize>
+</button>

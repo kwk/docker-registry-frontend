@@ -1,8 +1,17 @@
+<!-- Maybe put this into its own directive? -->
+<button type="button" ng-disabled="!selection.length" ng-click="openConfirmTagDeletionDialog()" class="btn btn-danger" ng-hide="appMode.browseOnly">
+  <span class="glyphicon glyphicon-trash"></span>
+  <ng-pluralize count="selection.length"
+               when="{'0': 'Select tags to delete', 'one': 'Delete one tag', 'other': 'Delete {} tags'}">
+  </ng-pluralize>
+</button>
+
 <div class="table-responsive">
-  <table st-table="displayedTags" st-safe-src="tags" class="table table-striped table-bordered table-condensed">
+  <table st-table="displayedTags" st-safe-src="tags" class="table table-hover">
     <thead>
       <tr>
-        <th class="" st-sort="name" st-sort-default=""><span class="glyphicon glyphicon-tag"></span> Tag</th>
+        <th><span class="glyphicon glyphicon-check" ng-hide="appMode.browseOnly"></span></th>
+        <th class="" ng-class="{strike: deleted}" st-sort="name" st-sort-default=""><span class="glyphicon glyphicon-tag"></span> Tag</th>
         <th class="" st-sort="imageId"><span class="glyphicon glyphicon-qrcode"></span> Image ID</th>
         <th class="" st-sort="details.created"><span class="glyphicon glyphicon-calendar"></span> Created</th>
         <th class="" st-sort="details.author"><span class="glyphicon glyphicon-user"></span> Author</th>
@@ -11,6 +20,7 @@
         <th class="" st-sort="details.Size"><span class="glyphicon glyphicon-compressed"></span> Size (MB)</th>
       </tr>
       <tr>
+        <th>&nbsp;</th>
   			<th><input st-search="'name'" class="input-sm form-control" placeholder="Tag" type="search"/></th>
   			<th><input st-search="'imageId'" class="input-sm form-control" placeholder="Image ID" type="search"/></th>
   			<th colspan="5">&nbsp;</th>
@@ -24,7 +34,12 @@
     <tbody>
       <tr
         ng-repeat="tag in displayedTags"
-        ng-controller="TagItemController">
+        ng-controller="TagItemController"
+        ng-class="{warning: tag.selected}">
+        <td>
+          <checkbox name="selectedTags[]" value="{{tag.name}}" ng-model="tag.selected" ng-hide="appMode.browseOnly"></checkbox>
+          <!--<input type="checkbox" name="selectedTags[]" value="{{tag.name}}" ng-model="tag.selected" ng-hide="appMode.browseOnly">-->
+        </td>
         <td><a href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}/{{tag.imageId}}" ng-bind-html="tag.name"></a></td>
         <td><a href="#/image/{{tag.imageId}}" ng-bind-html="tag.imageId | limitTo: 12"></a></td>
         <td am-time-ago="tag.details.created"></td>
@@ -44,3 +59,10 @@
     </tbody>
   </table>
 </div>
+<!-- Maybe put this into its own directive? -->
+<button type="button" ng-disabled="!selection.length" ng-click="openConfirmTagDeletionDialog()" class="btn btn-danger" ng-hide="appMode.browseOnly">
+  <span class="glyphicon glyphicon-trash"></span>
+  <ng-pluralize count="selection.length"
+               when="{'0': 'Select tags to delete', 'one': 'Delete one tag', 'other': 'Delete {} tags'}">
+  </ng-pluralize>
+</button>
