@@ -1,0 +1,13 @@
+frontend:
+  build: .
+  links:
+    - registry:path-to-your-registry
+  ports:
+    - "9000:9000"
+  volumes:
+    - ../:/source:rw
+    - start-develop.sh:/root/start-develop.sh:ro
+registry:
+  image: registry:0.9.1
+  ports:
+    - "5000:5000"

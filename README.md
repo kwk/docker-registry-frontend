@@ -6,6 +6,11 @@ The `docker-registry-frontend` is a pure web-based solution for browsing and mod
 
 For a list of all the features, please see the [Wiki][features].
 
+# Development
+
+To learn how to develop for the docker-registry-frontend, see
+[here](develop/README.md).
+
 # Usage
 
 This application is available in the form of a Docker image that you can run as a container by executing this command:
@@ -110,6 +115,7 @@ You can set `true` or `false` to this flag.
 # Contributions are welcome!
 
 If you like the application, I invite you to contribute and report bugs or feature request on the project's github page: [https://github.com/kwk/docker-registry-frontend][3].
+To learn how to develop for the docker-registry-frontend, see [here](develop/README.md).
 
 Thank you for your interest!
 
