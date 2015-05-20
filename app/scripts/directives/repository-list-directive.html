@@ -12,7 +12,7 @@
                  when="{'0': 'Select repositores to delete', 'one': 'Delete one repository', 'other': 'Delete {} repositories'}">
     </ng-pluralize>
   </button>
-<div>
+</div>
 
 <span ng-repeat-start="(username, repos) in (filteredRepositories=(repositories | filter:searchTerm) | groupBy: 'username')"></span>
 
