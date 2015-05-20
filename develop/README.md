@@ -17,7 +17,7 @@ This method shows how you can code on the angularJS frontend code and directly s
 
 1. Navigate to [http://localhost:9000](http://localhost:9000) on your development machine and see the docker-registry-frontend in action. Note, that the testing registry does not persistently store changes and when started for the first time, it will not contain any repository nor image.
 
-Now you can edit the code under `docker-registry-frontend/app`. Most of the time when you edit something, your browser will automatically update to reflect your changes. Sometimes you might need to reload the browser to see your changes.
+Now you can edit the code under `docker-registry-frontend/app` **on your development host**. Most of the time when you edit something, your browser will automatically update to reflect your changes. Sometimes you might need to reload the browser to see your changes. Cool, eh?
 
 ### How to connect to your own registry?
 
