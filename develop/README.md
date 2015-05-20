@@ -15,9 +15,50 @@ This method shows how you can code on the angularJS frontend code and directly s
 
    `docker-compose -f docker-registry-frontend/develop/docker-compose.yml up -d`
 
-1. Navigate to [http://localhost:9000](http://localhost:9000) on your development machine and see the docker-registry-frontend in action.
+1. Navigate to [http://localhost:9000](http://localhost:9000) on your development machine and see the docker-registry-frontend in action. Note, that the testing registry does not persistently store changes and when started for the first time, it will not contain any repository nor image.
 
 Now you can edit the code under `docker-registry-frontend/app`. Most of the time when you edit something, your browser will automatically update to reflect your changes. Sometimes you might need to reload the browser to see your changes.
+
+### How to connect to your own registry?
+
+If you want to use your own hosted registry with your development environment, make sure that your registry is reachable without authentication from your development host.
+
+Kill all potentially running frontend or registry containers:
+
+    docker-compose -f docker-registry-frontend/develop/docker-compose.yml kill
+
+Then open (develop/docker-compose.yml)[develop/docker-compose.yml] and paste this into the file:
+
+    frontend:
+      build: .
+      ports:
+        - "9000:9000"
+      volumes:
+        - ../:/source:rw
+        - start-develop.sh:/root/start-develop.sh:ro
+
+Notice that we removed the `links` section from the `frontend` section and that the `registry` section is completely gone.
+
+Now open [Grundfile.js](Gruntfile.js) and find these lines:
+
+        {
+          context: '/v1',
+          host: 'path-to-your-registry',
+          port: 80,
+          https: false,
+          xforward: false,
+          headers: {
+            "x-custom-added-header": 'custom-value'
+          }
+        }
+
+Adjust them to your liking and replace `path-to-your-registry` with the IP address or hostname of your own registry. I suggest to use the IP address; otherwise your development container might have hard time resolving the domain.
+
+Now, setup your containers again:
+
+   `docker-compose -f docker-registry-frontend/develop/docker-compose.yml up -d`
+
+Finally, browse to [http://localhost:9000](http://localhost:9000) to see the frontend serving your registry.
 
 ### Things not covered by this method
 
