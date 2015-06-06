@@ -14,7 +14,7 @@ To learn how to develop for the docker-registry-frontend, see
 # Usage
 
 This application is available in the form of a Docker image that you can run as a container by executing this command:
-    
+
     sudo docker run \
       -d \
       -e ENV_DOCKER_REGISTRY_HOST=ENTER-YOUR-REGISTRY-HOST-HERE \
@@ -41,7 +41,7 @@ If the Docker registry is only reachable via HTTPs (e.g. if it sits behind a pro
 ## SSL encryption
 
 If you want to run the application with SSL enabled, you can do the following:
-    
+
     sudo docker run \
       -d \
       -e ENV_DOCKER_REGISTRY_HOST=ENTER-YOUR-REGISTRY-HOST-HERE \
@@ -51,7 +51,7 @@ If you want to run the application with SSL enabled, you can do the following:
       -v $PWD/server.key:/etc/apache2/server.key:ro \
       -p 443:443 \
       konradkleine/docker-registry-frontend
-    
+
 Note that the application still serves the port `80` but it is simply not exposed ;). Enable it at your own will. When the application runs with SSL you can open your browser and navigate to [https://localhost][2].
 
 ## Use the application as the registry
