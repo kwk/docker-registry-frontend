@@ -76,6 +76,9 @@ else
   a2dismod ssl
 fi
 
+# Enable mod_rewrite
+a2enmod rewrite
+
 # Stop apache first if is still running from the last time the container was run
 service apache2 stop
 
