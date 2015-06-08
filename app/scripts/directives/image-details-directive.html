@@ -1,7 +1,7 @@
 <h2>
   Image Details
   <div ng-hide="appMode.browseOnly" class="pull-right">
-    <a href="#/image/{{imageDetails.id}}/tag/{{repositoryUser}}/{{repositoryName}}" class="btn btn-default">
+    <a href="image/{{imageDetails.id}}/tag/{{repositoryUser}}/{{repositoryName}}" class="btn btn-default">
       <span class="glyphicon glyphicon-plus"></span>
       Create a tag for this image
     </a>
@@ -52,13 +52,13 @@
       <div class="form-group">
         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-qrcode"></span> ID</label>
         <div class="col-sm-10">
-          <p class="form-control-static"><a href="#/image/{{imageDetails.id}}">{{imageDetails.id | limitTo: 12}}</a></p>
+          <p class="form-control-static"><a href="image/{{imageDetails.id}}">{{imageDetails.id | limitTo: 12}}</a></p>
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-arrow-up"></span> Parent's ID</label>
         <div class="col-sm-10">
-          <p class="form-control-static"><a href="#/image/{{imageDetails.parent}}">{{imageDetails.parent | limitTo: 12}}</a></p>
+          <p class="form-control-static"><a href="image/{{imageDetails.parent}}">{{imageDetails.parent | limitTo: 12}}</a></p>
         </div>
       </div>
       <div class="form-group">
@@ -87,7 +87,7 @@
       Image Ancestry
     </tab-heading>
     <div class="list-group">
-      <a ng-repeat="img in imageAncestry" href="#/image/{{img}}" class="list-group-item" ng-class="{active: imageDetails.id==img}">
+      <a ng-repeat="img in imageAncestry" href="image/{{img}}" class="list-group-item" ng-class="{active: imageDetails.id==img}">
         <span class="glyphicon" ng-class="{'glyphicon-arrow-down': ($first&&!$last)||$middle}"></span>
         {{img | limitTo:12}}
       </a>

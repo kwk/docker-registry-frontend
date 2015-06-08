@@ -40,12 +40,12 @@
           <checkbox name="selectedTags[]" value="{{tag.name}}" ng-model="tag.selected" ng-hide="appMode.browseOnly"></checkbox>
           <!--<input type="checkbox" name="selectedTags[]" value="{{tag.name}}" ng-model="tag.selected" ng-hide="appMode.browseOnly">-->
         </td>
-        <td><a href="#/tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}/{{tag.imageId}}" ng-bind-html="tag.name"></a></td>
-        <td><a href="#/image/{{tag.imageId}}" ng-bind-html="tag.imageId | limitTo: 12"></a></td>
+        <td><a href="tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}/{{tag.imageId}}" ng-bind-html="tag.name"></a></td>
+        <td><a href="image/{{tag.imageId}}" ng-bind-html="tag.imageId | limitTo: 12"></a></td>
         <td am-time-ago="tag.details.created"></td>
         <td><span ng-bind-html="tag.details.author | linky"></span></td>
         <td ng-bind-html="tag.details.docker_version"></td>
-        <td><a href="#/image/{{tag.details.parent}}" ng-bind-html="tag.details.parent | limitTo: 12"></a></td>
+        <td><a href="image/{{tag.details.parent}}" ng-bind-html="tag.details.parent | limitTo: 12"></a></td>
         <td>
           <button type="submit" class="btn btn-info btn-xs" ng-click="calculateTotalImageSize()" ng-show="totalImageSize===null" title="Calculate total image size">
             <span class="glyphicon glyphicon-stats"></span>

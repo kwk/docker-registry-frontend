@@ -4,7 +4,7 @@
   </button>
   <ul class="dropdown-menu" role="menu">
     <li ng-repeat="repo in (repositories | orderBy:'name')">
-      <a href="#/repository/({{repo.name}})">
+      <a href="repository/({{repo.name}})">
         {{repo.name}}
       </a>
     </li>

@@ -38,7 +38,10 @@ angular
     'angular.filter',
     'ui.checkbox'
   ])
-  .config(['$routeProvider', '$resourceProvider', 'cfpLoadingBarProvider', function($routeProvider, $resourceProvider, cfpLoadingBarProvider){
+  .config(['$routeProvider', '$resourceProvider', 'cfpLoadingBarProvider', '$locationProvider',
+      function($routeProvider, $resourceProvider, cfpLoadingBarProvider, $locationProvider){
+
+     $locationProvider.html5Mode(true);
 
     // Don't show the spinner when making XHR requests.
     // Also, show the bar only if an XHR request takes longer than 50ms.    

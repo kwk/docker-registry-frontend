@@ -1,6 +1,7 @@
 <!doctype html>
 <html class="no-js" ng-app="docker-registry-frontend" ng-controller="MainController as main">
   <head>
+    <base href="/">
     <meta charset="utf-8">
     <title ng-bind-template="Docker registry {{main.$location.path()}}">Docker registry</title>
     <meta name="description" content="">
@@ -37,7 +38,7 @@
         <p>
           <a href="https://github.com/kwk/docker-registry-frontend/issues/new"><span class="glyphicon glyphicon-fire"></span> <small>Report a bug</small></a>
           <a href="https://github.com/kwk/docker-registry-frontend"><span class="glyphicon glyphicon-random"></span> <small> Fork me on GitHub</small></a>
-          <a href="#/about"><span class="glyphicon glyphicon-question-sign"></span> <small>About</small></a>
+          <a href="about"><span class="glyphicon glyphicon-question-sign"></span> <small>About</small></a>
           <a href="https://github.com/kwk/docker-registry-frontend/commit/{{appVersion.git.sha1}}"><span class="glyphicon glyphicon-barcode"></span> <small>This is git revision: <span ng-bind-template="{{appVersion.git.sha1 | limitTo: 7}}">-</span></small></a>
         </p>
       </footer>
