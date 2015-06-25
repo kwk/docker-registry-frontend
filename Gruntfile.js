@@ -408,7 +408,9 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'wiredep',
+    // Somehow wiredep seems to kick out bootstrap CSS See
+    // docker-registry-frontend issue #53
+    //'wiredep',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
