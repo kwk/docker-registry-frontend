@@ -49,7 +49,7 @@ angular.module('delete-tags-controller', ['registry-services'])
           // error
           function(httpResponse) {
             toastr.error('Failed to delete tag: ' + tagStr + ' Response: ' + httpResponse.statusText);
-            $modalInstance.close();
+            done();
           }
         );
       });
