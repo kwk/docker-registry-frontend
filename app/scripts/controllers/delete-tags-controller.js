@@ -33,21 +33,26 @@ angular.module('delete-tags-controller', ['registry-services'])
          return;
         }
         
+        var done = function() {
+          // Go to the repositories page
+          $modalInstance.close();
+          $window.location.href = '#/repositories';
+          $route.reload();
+        }
+        
         Tag.delete(tag,
           // success
           function(value, responseHeaders) {
             toastr.success('Deleted tag: ' + tagStr);
+            done();
           },
           // error
           function(httpResponse) {
             toastr.error('Failed to delete tag: ' + tagStr + ' Response: ' + httpResponse.statusText);
+            $modalInstance.close();
           }
         );
       });
-      $modalInstance.close();
-      
-      // Go to the repositories page
-      $window.location.href = '#/repositories';
     };
 
     $scope.cancel = function () {
