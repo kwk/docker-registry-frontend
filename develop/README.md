@@ -13,7 +13,7 @@ This method shows how you can code on the angularJS frontend code and directly s
 
 1. Start a frontend container and a testing registry container in the background:
 
-   `docker-compose -f docker-registry-frontend/develop/docker-compose.yml up -d`
+   `cd docker-registry-frontend/develop && docker-compose up`
 
 1. Navigate to [http://localhost:9000](http://localhost:9000) on your development machine and see the docker-registry-frontend in action. Note, that the testing registry does not persistently store changes and when started for the first time, it will not contain any repository nor image.
 
