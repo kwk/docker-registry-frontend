@@ -12,40 +12,45 @@ angular.module('delete-repository-controller', ['registry-services'])
   function($scope, $route, $modalInstance, $window, Repository, items, information){
     $scope.items = items;
     $scope.information = information;
-    
+
     // Callback that triggers deletion of tags and reloading of page
     $scope.ok = function () {
       angular.forEach($scope.items, function(value, key) {
         var repoStr = value;
         var repoUser = value.split("/")[0];
         var repoName = value.split("/")[1];
-      
+
         var repo = {
           repoUser: repoUser,
           repoName: repoName
         };
-        
+
+        var done = function() {
+          // Go to the repositories page
+          $window.location.href = '#/repositories';
+          $route.reload();
+        }
+
         Repository.delete(repo,
           // success
           function(value, responseHeaders) {
             toastr.success('Deleted repository: ' + repoStr);
+            done();
           },
           // error
           function(httpResponse) {
             toastr.error('Failed to delete repository: ' + repoStr + ' Response: ' + httpResponse.statusText);
+            done();
           }
         );
       });
-      
+
       $modalInstance.close();
-      
-      // Go to the repositories page
-      $window.location.href = '#/repositories';
-      $route.reload();
+
     };
 
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
     };
-    
+
   }]);
