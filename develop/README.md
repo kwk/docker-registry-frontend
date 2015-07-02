@@ -1,6 +1,6 @@
 # Setup development environment
 
-These sections show how you can get started to develop for the docker-registry-frontend on various platforms.
+These sections show how you can get started to develop for the docker-registry-frontend.
 
 ## Quick and dirty frontend development
 
