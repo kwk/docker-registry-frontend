@@ -25,7 +25,7 @@ If you want to use your own hosted registry with your development environment, m
 
 Kill all potentially running frontend or registry containers:
 
-    docker-compose -f docker-registry-frontend/develop/docker-compose.yml kill
+    cd docker-registry-frontend/develop && docker-compose kill
 
 Then open (develop/docker-compose.yml)[develop/docker-compose.yml] and paste this into the file:
 
@@ -56,7 +56,7 @@ Adjust them to your liking and replace `path-to-your-registry` with the IP addre
 
 Now, setup your containers again:
 
-   `docker-compose -f docker-registry-frontend/develop/docker-compose.yml up -d`
+   `cd docker-registry-frontend/develop && docker-compose up`
 
 Finally, browse to [http://localhost:9000](http://localhost:9000) to see the frontend serving your registry.
 
