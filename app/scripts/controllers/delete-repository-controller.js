@@ -45,7 +45,7 @@ angular.module('delete-repository-controller', ['registry-services'])
       });
       $q.all(requests).then(function(){
         $modalInstance.close();
-        $window.location.href = '#/repositories';
+        $window.location.href = '/repositories';
         $route.reload();
       });
 
