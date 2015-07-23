@@ -17,6 +17,8 @@ angular.module('registry-services', ['ngResource'])
     });
   }])
   .factory('Repository', ['$resource', '$log',  function($resource, $log){
+    console.log("API VERSION IS:");
+    console.log(RegistryHost());
     return $resource('/v1/search?q=:searchTerm', {}, {
       'query': {
         method:'GET',
