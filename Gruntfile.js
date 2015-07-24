@@ -81,7 +81,7 @@ module.exports = function (grunt) {
           https: false,
           xforward: false,
           headers: {
-            "x-custom-added-header": 'custom-value'
+            'x-custom-added-header': 'custom-value'
           }
         }
       ],
@@ -408,9 +408,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    // Somehow wiredep seems to kick out bootstrap CSS See
-    // docker-registry-frontend issue #53
-    //'wiredep',
+    'wiredep',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
