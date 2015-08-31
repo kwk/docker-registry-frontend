@@ -96,7 +96,7 @@ module.exports = function (grunt) {
 
             // enable Angular's HTML5 mode
             // http://stackoverflow.com/questions/17080494/using-grunt-server-how-can-i-redirect-all-requests-to-root-url
-            middlewares.push(modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png$ /index.html [L]']));
+            middlewares.push(modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png|\\.woff2|\\.woff|\\.ttf|\\.jpg$ /index.html [L]']));
 
             // Setup the proxy
             middlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest);
