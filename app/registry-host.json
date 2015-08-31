@@ -1,5 +1,4 @@
 {
   "host": "path-to-your-registry",
   "port": 80
-  "apiVersion": "v1"
 }

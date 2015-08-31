@@ -31,12 +31,9 @@ else
   echo "export DOCKER_REGISTRY_SCHEME=http" >> /etc/apache2/envvars
 fi
 
-# Allow either v1 or v2 Docker Registry API version (defaults to "v1")
-[[ x$ENV_DOCKER_REGISTRY_API_VERSION =~ ^xv(1|2)$ ]] || ENV_DOCKER_REGISTRY_API_VERSION="v1"
-
 # docker-registry-frontend acts as a proxy so may well
 # have a different hostname than the registry itself.
-echo "{\"host\": \"$ENV_REGISTRY_PROXY_FQDN\", \"port\": $ENV_REGISTRY_PROXY_PORT, \"apiVersion\": \"$ENV_DOCKER_REGISTRY_API_VERSION\"}" > /var/www/html/registry-host.json
+echo "{\"host\": \"$ENV_REGISTRY_PROXY_FQDN\", \"port\": $ENV_REGISTRY_PROXY_PORT}" > /var/www/html/registry-host.json
 
 # information about browse mode.
 [[ x$ENV_MODE_BROWSE_ONLY =~ ^x(true|false)$ ]] || ENV_MODE_BROWSE_ONLY=false
