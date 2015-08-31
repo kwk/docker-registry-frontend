@@ -39,7 +39,7 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        files: ['<%= yeoman.app %>/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -78,9 +78,9 @@ module.exports = function (grunt) {
       },
       proxies: [
         {
-          context: '/v1',
-          host: 'path-to-your-registry',
-          port: 80,
+          context: '/v2',
+          host: 'path-to-your-registry-v2',
+          port: 5000,
           https: false,
           xforward: false,
           headers: {
@@ -201,7 +201,7 @@ module.exports = function (grunt) {
     filerev: {
       dist: {
         src: [
-          '<%= yeoman.dist %>/scripts/{,*/}*.js',
+          '<%= yeoman.dist %>/{,*/}*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css',
           '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
           '<%= yeoman.dist %>/styles/fonts/*'
@@ -297,7 +297,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.dist %>',
-          src: ['*.html', 'views/{,*/}*.html', 'scripts/directives/{,*/}*.html'],
+          src: ['*.html', '{,*/}*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
@@ -335,8 +335,7 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
-            'views/{,*/}*.html',
-            'scripts/directives/{,*/}*.html',
+            '{,*/}*.html',
             'images/{,*/}*.{webp}',
             'fonts/*'
           ]

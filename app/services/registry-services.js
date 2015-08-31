@@ -3,46 +3,62 @@
 // This is the main entrypoint to interact with the Docker registry.
 
 // Helpful resources
-// 
+//
 // https://docs.angularjs.org/tutorial/step_11
 // https://docs.angularjs.org/api/ngResource/service/$resource
 
 angular.module('registry-services', ['ngResource'])
-  .factory('RegistryHost', ['$resource', '$log',  function($resource, $log){
-    return $resource('/registry-host.json', {}, {
+  .factory('RegistryHost', ['$resource', function($resource){
+    return $resource('registry-host.json', {}, {
       'query': {
         method:'GET',
         isArray: false,
       },
     });
   }])
-  .factory('Repository', ['$resource', '$log',  function($resource, $log){
-    return $resource('/v1/search?q=:searchTerm', {}, {
+  // Repository returns:
+  //   {
+  //     repos: [
+  //       {username: 'SomeNamespace', name: 'SomeNamespace/SomeRepo1', selected: true|false},
+  //       {username: 'SomeOtherNamespace', name: 'SomeOtherNamespace/SomeRepo2', selected: true|false},
+  //       {username: 'SomeCompletelyDifferenNamespace', name: 'SomeCompletelyDifferenNamespace/SomeRepo3', selected: true|false}
+  //     ],
+  //     nextLink: '/v2/_catalog?last=SomeNamespace%F2SomeRepo&n=1'
+  //   }
+  .factory('Repository', ['$resource', function($resource){
+    return $resource('/v2/_catalog?last=:last&n=:n', {}, {
       'query': {
         method:'GET',
-        isArray: true,
+        isArray: false,
         transformResponse: function(data, headers){
-          var res = angular.fromJson(data).results;
-          angular.forEach(res, function(value, key) {
-            value.username = ""+value.name.split("/")[0];
-            value.selected = false;
+          var repos = angular.fromJson(data).repositories;
+          var ret = {
+            repos: [],
+            nextLink: headers()['link']
+          };
+          angular.forEach(repos, function(value/*, key*/) {
+            ret.repos.push({
+              username: ''+value.split('/')[0],
+              name: value,
+              selected: false
+            });
           });
-          return res;
+          return ret;
         }
       },
       'delete': {
-        url: '/v1/repositories/:repoUser/:repoName/',
+        url: '/v2/repositories/:repoUser/:repoName/',
         method: 'DELETE',
-      },
+      }
     });
   }])
-  .factory('Tag', ['$resource', '$log',  function($resource, $log){
+  .factory('Tag', ['$resource', function($resource){
     // TODO: rename :repo to repoUser/repoString for convenience.
     return $resource('/v1/repositories/:repoUser/:repoName/tags', {}, {
       'query': {
         method:'GET',
         isArray: true,
-        transformResponse: function(data, headers){
+        transformResponse: function(data/*, headers*/){
           var res = [];
           var resp = angular.fromJson(data);
           for (var i in resp){
@@ -58,7 +74,7 @@ angular.module('registry-services', ['ngResource'])
       'exists': {
         url: '/v1/repositories/:repoUser/:repoName/tags/:tagName',
         method: 'GET',
-        transformResponse: function(data, headers){
+        transformResponse: function(data/*, headers*/){
           // data will be the image ID if successful or an error object.
           data = angular.isString(angular.fromJson(data));
           return data;
@@ -71,12 +87,12 @@ angular.module('registry-services', ['ngResource'])
       },
     });
   }])
-  .factory('Image', ['$resource', '$log',  function($resource, $log){
+  .factory('Image', ['$resource', function($resource){
     return $resource('/v1/images/:imageId/json', {}, {
       'query': { method:'GET', isArray: false},
     });
   }])
-  .factory('Ancestry', ['$resource', '$log',  function($resource, $log){
+  .factory('Ancestry', ['$resource', function($resource){
     return $resource('/v1/images/:imageId/ancestry', {}, {
       'query': { method:'GET', isArray: true},
     });

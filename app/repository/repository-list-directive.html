@@ -1,7 +1,7 @@
 <div class="input-group repository-list-search">
     <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
     <input type="search" placeholder="Search for a repository" ng-model="searchTerm" class="form-control">
-    <span class="input-group-addon">Repositories <span ng-bind-template="({{filteredRepositories.length}}/{{repositories.length}})"></span></span>
+    <span class="input-group-addon">Repositories <span ng-bind-template="({{filteredRepositories.length}}/{{repositories.repos.length}})"></span></span>
 </div>
 
 <div ng-hide="appMode.browseOnly">
@@ -14,7 +14,7 @@
   </button>
 </div>
 
-<span ng-repeat-start="(username, repos) in (filteredRepositories=(repositories | filter:searchTerm) | groupBy: 'username')"></span>
+<span ng-repeat-start="(username, repos) in (filteredRepositories=(repositories.repos | filter:searchTerm) | groupBy: 'username')"></span>
 
 <div class="table-responsive">
   <table class="table table-hover">

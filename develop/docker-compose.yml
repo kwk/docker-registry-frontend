@@ -3,7 +3,10 @@ frontend:
   links:
     - registry:path-to-your-registry
   ports:
+      # Serves the page via grunt
     - "9000:9000"
+      # For live reload with grunt
+    - "35729:35729"
   volumes:
     - ../:/source:rw
     - start-develop.sh:/root/start-develop.sh:ro

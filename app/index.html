@@ -24,7 +24,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    
+
 
     <div class="container">
 
@@ -75,22 +75,26 @@
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/repository-controller.js"></script>
-    <script src="scripts/controllers/tag-controller.js"></script>
-    <script src="scripts/controllers/main-controller.js"></script>
-    <script src="scripts/controllers/tag-item-controller.js"></script>
-    <script src="scripts/controllers/image-controller.js"></script>
-    <script src="scripts/controllers/create-tag-controller.js"></script>
-    <script src="scripts/controllers/delete-tags-controller.js"></script>
-    <script src="scripts/controllers/delete-repository-controller.js"></script>
-    <script src="scripts/directives/repository-selector-directive.js"></script>
-    <script src="scripts/directives/repository-list-directive.js"></script>
-    <script src="scripts/directives/tag-list-directive.js"></script>
-    <script src="scripts/directives/image-details-directive.js"></script>
-    <script src="scripts/services/registry-services.js"></script>
-    <script src="scripts/services/app-version-services.js"></script>
-    <script src="scripts/services/app-mode-services.js"></script>
+    <script src="app.js"></script>
+    <script src="main-controller.js"></script>
+
+    <script src="repository/repository-controller.js"></script>
+    <script src="repository/delete-repository-controller.js"></script>
+    <script src="repository/repository-selector-directive.js"></script>
+    <script src="repository/repository-list-directive.js"></script>
+
+    <script src="tag/tag-controller.js"></script>
+    <script src="tag/tag-item-controller.js"></script>
+    <script src="tag/create-tag-controller.js"></script>
+    <script src="tag/delete-tags-controller.js"></script>
+    <script src="tag/tag-list-directive.js"></script>
+
+    <script src="image/image-controller.js"></script>
+    <script src="image/image-details-directive.js"></script>
+
+    <script src="services/registry-services.js"></script>
+    <script src="services/app-version-services.js"></script>
+    <script src="services/app-mode-services.js"></script>
     <!-- endbuild -->
 </body>
 </html>

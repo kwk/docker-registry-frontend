@@ -13,7 +13,7 @@ angular.module('delete-tags-controller', ['registry-services'])
   {
     $scope.items = items;
     $scope.information = information;
-    
+
     // Callback that triggers deletion of tags and reloading of page
     $scope.ok = function () {
       angular.forEach($scope.items, function(value, key) {
@@ -21,18 +21,18 @@ angular.module('delete-tags-controller', ['registry-services'])
         var tagName = value.split(":")[1];
         var repoUser = value.split("/")[0];
         var repoName = value.split("/")[1].split(":")[0];
-      
+
         var tag = {
           repoUser: repoUser,
           repoName: repoName,
           tagName: tagName
         };
-        
+
         if (!Tag.exists(tag)) {
          toastr.warning('Tag does no longer exist: ' + tagStr);
          return;
         }
-        
+
         Tag.delete(tag,
           // success
           function(value, responseHeaders) {
@@ -45,13 +45,13 @@ angular.module('delete-tags-controller', ['registry-services'])
         );
       });
       $modalInstance.close();
-      
+
       // Go to the repositories page
-      $window.location.href = '#/repositories';
+      $window.location.href = 'repositories';
     };
 
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
     };
-    
+
   }]);
