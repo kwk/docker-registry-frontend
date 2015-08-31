@@ -15,6 +15,9 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  // See http://stackoverflow.com/questions/17080494/using-grunt-server-how-can-i-redirect-all-requests-to-root-url
+  var modRewrite = require('connect-modrewrite');
+
   grunt.loadNpmTasks('grunt-connect-proxy');
 
   // Configurable paths for the application
@@ -90,6 +93,11 @@ module.exports = function (grunt) {
           open: true,
           middleware: function(connect) {
             var middlewares = [];
+
+            // enable Angular's HTML5 mode
+            // http://stackoverflow.com/questions/17080494/using-grunt-server-how-can-i-redirect-all-requests-to-root-url
+            middlewares.push(modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png$ /index.html [L]']));
+
             // Setup the proxy
             middlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest);
 
