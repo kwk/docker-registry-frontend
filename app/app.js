@@ -18,7 +18,7 @@ angular
     'ngTouch',
     'registry-services', // TODO: Maybe the following dependencies are not needed? At least they weren't in the "yo angular" output.
     'main-controller',
-    'repository-controller',
+    'repository-detail-controller',
     'tag-controller',
     'repository-list-controller',
     'tag-list-directive',
@@ -58,9 +58,9 @@ angular
         templateUrl: 'repository/repository-list.html',
         controller: 'RepositoryListController'
       }).
-      when('/repository/:repositoryUser/:repositoryName/', {
+      when('/repository/:repositoryUser/:repositoryName', {
         templateUrl: 'repository/repository-detail.html',
-        controller: 'RepositoryController',
+        controller: 'RepositoryDetailController',
       }).
       when('/repository/:repositoryUser/:repositoryName/tags/:searchName?', {
         templateUrl: 'repository/repository-detail.html',

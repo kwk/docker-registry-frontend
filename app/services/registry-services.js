@@ -101,15 +101,23 @@ angular.module('registry-services', ['ngResource'])
   }])
   .factory('Tag', ['$resource', function($resource){
     // TODO: rename :repo to repoUser/repoString for convenience.
-    return $resource('/v1/repositories/:repoUser/:repoName/tags', {}, {
+    // https://github.com/docker/distribution/blob/master/docs/spec/api.md#listing-image-tags
+    return $resource('/v2/:repoUser/:repoName/tags/list', {}, {
+      // Response example:
+      // {"name":"kkleine/docker-registry-frontend","tags":["v2", "v1-deprecated"]}
       'query': {
         method:'GET',
         isArray: true,
         transformResponse: function(data/*, headers*/){
           var res = [];
+          console.log(data);
           var resp = angular.fromJson(data);
-          for (var i in resp){
-            res.push({name: i, imageId: resp[i], selected: false});
+          for (var idx in resp.tags){
+            res.push({
+              name: resp.tags[idx],
+              imageId: 'ImageIDOf'+resp.tags[idx],
+              selected: false
+            });
           }
           return res;
         },

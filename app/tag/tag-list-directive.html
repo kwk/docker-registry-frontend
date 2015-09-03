@@ -12,23 +12,16 @@
       <tr>
         <th><span class="glyphicon glyphicon-check" ng-hide="appMode.browseOnly"></span></th>
         <th class="" ng-class="{strike: deleted}" st-sort="name" st-sort-default=""><span class="glyphicon glyphicon-tag"></span> Tag</th>
-        <th class="" st-sort="imageId"><span class="glyphicon glyphicon-qrcode"></span> Image ID</th>
-        <th class="" st-sort="details.created"><span class="glyphicon glyphicon-calendar"></span> Created</th>
+        <!--<th class="" st-sort="details.created"><span class="glyphicon glyphicon-calendar"></span> Created</th>
         <th class="" st-sort="details.author"><span class="glyphicon glyphicon-user"></span> Author</th>
         <th class="" st-sort="details.docker_version"><span class="glyphicon glyphicon-eye-open"></span> Docker version</th>
         <th class="" st-sort="details.parent"><span class="glyphicon glyphicon-arrow-up"></span> Parent's ID</th>
-        <th class="" st-sort="details.Size"><span class="glyphicon glyphicon-compressed"></span> Size (MB)</th>
+        <th class="" st-sort="details.Size"><span class="glyphicon glyphicon-compressed"></span> Size (MB)</th>-->
       </tr>
       <tr>
         <th>&nbsp;</th>
-  			<th><input st-search="'name'" class="input-sm form-control" placeholder="Tag" type="search"/></th>
-  			<th><input st-search="'imageId'" class="input-sm form-control" placeholder="Image ID" type="search"/></th>
-  			<th colspan="5">&nbsp;</th>
-        <!--<th><input st-search="'details.created'" class="input-sm form-control" placeholder="Created" type="search"/></th>
-        <th><input st-search="'details.author'" class="input-sm form-control" placeholder="Author" type="search"/></th>
-        <th><input st-search="'details.docker_version'" class="input-sm form-control" placeholder="Docker version" type="search"/></th>
-        <th><input st-search="'details.parent'" class="input-sm form-control" placeholder="Parent's ID" type="search"/></th>
-        <th><input st-search="'details.Size'" class="input-sm form-control" placeholder="Size" type="search"/></th>-->
+  			<th><input st-search="'name'" class="input-sm form-control" placeholder="Filter tags on this page" type="search"/></th>
+  			<th colspan="4">&nbsp;</th>
 		  </tr>
     </thead>
     <tbody>
@@ -40,9 +33,11 @@
           <checkbox name="selectedTags[]" value="{{tag.name}}" ng-model="tag.selected" ng-hide="appMode.browseOnly"></checkbox>
           <!--<input type="checkbox" name="selectedTags[]" value="{{tag.name}}" ng-model="tag.selected" ng-hide="appMode.browseOnly">-->
         </td>
-        <td><a href="tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}/{{tag.imageId}}" ng-bind-html="tag.name"></a></td>
-        <td><a href="image/{{tag.imageId}}" ng-bind-html="tag.imageId | limitTo: 12"></a></td>
-        <td am-time-ago="tag.details.created"></td>
+        <td>
+          <!--<a href="tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}/{{tag.imageId}}" ng-bind-html="tag.name"></a>-->
+          <span ng-bind-html="tag.name"></span>
+        </td>
+        <!--<td am-time-ago="tag.details.created"></td>
         <td><span ng-bind-html="tag.details.author | linky"></span></td>
         <td ng-bind-html="tag.details.docker_version"></td>
         <td><a href="image/{{tag.details.parent}}" ng-bind-html="tag.details.parent | limitTo: 12"></a></td>
@@ -54,15 +49,8 @@
           <span ng-show="totalImageSize!==null">
             {{totalImageSize / 1024 / 1024 | number: 2}}
           </span>
-        </td>
+        </td>-->
       </tr>
     </tbody>
   </table>
 </div>
-<!-- Maybe put this into its own directive? -->
-<button type="button" ng-disabled="!selection.length" ng-click="openConfirmTagDeletionDialog()" class="btn btn-danger" ng-hide="appMode.browseOnly">
-  <span class="glyphicon glyphicon-trash"></span>
-  <ng-pluralize count="selection.length"
-               when="{'0': 'Select tags to delete', 'one': 'Delete one tag', 'other': 'Delete {} tags'}">
-  </ng-pluralize>
-</button>

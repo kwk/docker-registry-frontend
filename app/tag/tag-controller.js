@@ -21,6 +21,7 @@ angular.module('tag-controller', ['registry-services'])
     $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
     $scope.tagName = $route.current.params.tagName;
 
+    // How to query the tags
     $scope.tags = Tag.query({
       repoUser: $scope.repositoryUser,
       repoName: $scope.repositoryName

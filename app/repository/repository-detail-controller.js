@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name docker-registry-frontend.controller:RepositoryController
+ * @name docker-registry-frontend.controller:RepositoryDetailController
  * @description
- * # RepositoryController
+ * # RepositoryDetailController
  * Controller of the docker-registry-frontend
  */
-angular.module('repository-controller', ['registry-services', 'app-mode-services'])
-  .controller('RepositoryController', ['$scope', '$route', '$routeParams', '$location', '$modal', 'Repository', 'AppMode',
+angular.module('repository-detail-controller', ['registry-services', 'app-mode-services'])
+  .controller('RepositoryDetailController', ['$scope', '$route', '$routeParams', '$location', '$modal', 'Repository', 'AppMode',
   function($scope, $route, $routeParams, $location, $modal, Repository, AppMode){
 
     $scope.$route = $route;
@@ -24,24 +24,6 @@ angular.module('repository-controller', ['registry-services', 'app-mode-services
 
     // selected repos
     $scope.selectedRepositories = [];
-
-    // helper method to get selected tags
-    $scope.selectedRepos = function selectedRepos() {
-      return filterFilter($scope.repositories.repos, { selected: true });
-    };
-
-    // watch repos for changes
-    // Actually we would like to monitor the "selected" portion of an object
-    // in repositories.repos but since there's only one boolean property right
-    // now it will automatically test for "selected". This can cause trouble
-    // in the future though.
-    $scope.$watch('repositories|filter:{$:true}', function(nv) {
-      if (nv.repos) {
-        $scope.selectedRepositories = nv.repos.map(function (repo) {
-          return repo.name;
-        });
-      }
-    }, true);
 
     $scope.openConfirmRepoDeletionDialog = function(size) {
       var modalInstance = $modal.open({
