@@ -2,6 +2,14 @@
 
 The `docker-registry-frontend` is a pure web-based solution for browsing and modifying a private Docker registry.
 
+## PLEASE, READ THIS!
+
+***THIS VERSION OF THE DOCKER REGISTRY FRONTEND ONLY WORKS WITH THE DOCKER REGISTRY V2. THERE'S ALSO A LEGACY ["V1-DEPRECATED" BRANCH][v1branch] WHICH WORKS WITH THE OLD 0.9.1 DOCKER REGISTRY. THE ["V1-DEPRECATED" BRANCH][v1branch] IS VERY STABLE BUT WON'T RECEIVE SIGNIFICANT ATTENTION ANY LONGER BECAUSE THE OLD DOCKER REGISTRY WAS DECLARED DEPRECATED.***
+
+***THE V2 SUPPORT FOR THE DOCKER REGISTRY FRONTEND IS STILL UNDER ACTIVE DEVELOPMENT. THERE'S A FAIR CHANCE THAT A MAJORITY OF FEATURES IS NOT YET IMPLEMENTED. CHECK THE [ISSUES](https://github.com/kwk/docker-registry-frontend/issues) AND OPEN A BUG IF SOMETHING DOESN'T WORK RIGHT AWAY.***
+
+***TO PULL A VERSION OF THIS BRANCH FROM THE DOCKER HUB, MAKE SURE YOU PULL AND RUN ```konradkleine/docker-registry-frontend:v2```***
+
 # Features
 
 For a list of all the features, please see the [Wiki][features].
@@ -20,7 +28,7 @@ This application is available in the form of a Docker image that you can run as 
       -e ENV_DOCKER_REGISTRY_HOST=ENTER-YOUR-REGISTRY-HOST-HERE \
       -e ENV_DOCKER_REGISTRY_PORT=ENTER-PORT-TO-YOUR-REGISTRY-HOST-HERE \
       -p 8080:80 \
-      konradkleine/docker-registry-frontend
+      konradkleine/docker-registry-frontend:v2
 
 This command starts the container and forwards the container's private port `80` to your host's port `8080`. Make sure you specify the correct url to your registry.
 
@@ -36,7 +44,7 @@ If the Docker registry is only reachable via HTTPs (e.g. if it sits behind a pro
       -e ENV_DOCKER_REGISTRY_PORT=ENTER-PORT-TO-YOUR-REGISTRY-HOST-HERE \
       -e ENV_DOCKER_REGISTRY_USE_SSL=1 \
       -p 8080:80 \
-      konradkleine/docker-registry-frontend
+      konradkleine/docker-registry-frontend:v2
 
 ## SSL encryption
 
@@ -50,7 +58,7 @@ If you want to run the application with SSL enabled, you can do the following:
       -v $PWD/server.crt:/etc/apache2/server.crt:ro \
       -v $PWD/server.key:/etc/apache2/server.key:ro \
       -p 443:443 \
-      konradkleine/docker-registry-frontend
+      konradkleine/docker-registry-frontend:v2
 
 Note that the application still serves the port `80` but it is simply not exposed ;). Enable it at your own will. When the application runs with SSL you can open your browser and navigate to [https://localhost][2].
 
@@ -74,7 +82,7 @@ We can override what hostname and port to put here:
      -v $PWD/server.crt:/etc/apache2/server.crt:ro \
      -v $PWD/server.key:/etc/apache2/server.key:ro \
      -p 443:443 \
-     konradkleine/docker-registry-frontend
+     konradkleine/docker-registry-frontend:v2
 
 A value of `80` or `443` for `ENV_REGISTRY_PROXY_PORT` will not actually be shown as Docker will check `443` and then `80` by default.
 
@@ -94,7 +102,7 @@ do the following:
       -e ENV_AUTH_KRB_REALMS="ENTER.YOUR.REALMS.HERE" \
       -e ENV_AUTH_KRB_SERVICE_NAME=HTTP \
       -p 80:80 \
-      konradkleine/docker-registry-frontend
+      konradkleine/docker-registry-frontend:v2
 
 You can of course combine SSL and Kerberos.
 
@@ -108,7 +116,7 @@ If you want to start applicaton with browse mode which means no repos/tags manag
       -e ENV_DOCKER_REGISTRY_PORT=ENTER-PORT-TO-YOUR-REGISTRY-HOST-HERE \
       -e ENV_MODE_BROWSE_ONLY=true \
       -p 8080:80 \
-      konradkleine/docker-registry-frontend
+      konradkleine/docker-registry-frontend:v2
 
 You can set `true` or `false` to this flag.
 
@@ -126,3 +134,4 @@ Thank you for your interest!
   [2]: https://localhost
   [3]: https://github.com/kwk/docker-registry-frontend
   [features]: https://github.com/kwk/docker-registry-frontend/wiki/Features
+  [v1branch]: https://github.com/kwk/docker-registry-frontend/tree/v1-deprecated
