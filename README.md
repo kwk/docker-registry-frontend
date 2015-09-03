@@ -10,6 +10,8 @@ The `docker-registry-frontend` is a pure web-based solution for browsing and mod
 
 ***THIS BRANCH IS CONSIDERED DEPRECATED SINCE THE OLD DOCKER REGISTRY ITSELF IS DEPRECATED AS WELL.***
 
+***TO PULL A VERSION OF THIS BRANCH FROM THE DOCKER HUB, MAKE SURE YOU PULL AND RUN ```konradkleine/docker-registry-frontend:v1-deprecated```***
+
 *** *********** ***
 
 # Features
