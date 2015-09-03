@@ -2,7 +2,7 @@
 
 The `docker-registry-frontend` is a pure web-based solution for browsing and modifying a private Docker registry.
 
-## NOTE
+## PLEASE READ THIS!!!
 
 *** *********** ***
 
