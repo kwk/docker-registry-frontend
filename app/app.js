@@ -20,8 +20,7 @@ angular
     'main-controller',
     'repository-controller',
     'tag-controller',
-    'repository-selector-directive',
-    'repository-list-directive',
+    'repository-list-controller',
     'tag-list-directive',
     'image-details-directive',
     'tag-item-controller',
@@ -55,8 +54,9 @@ angular
       when('/home', {
         templateUrl: 'home.html',
       }).
-      when('/repositories/:searchTerm?', {
+      when('/repositories/:reposPerPage?/:lastNamespace?/:lastRepository?', {
         templateUrl: 'repository/repository-list.html',
+        controller: 'RepositoryListController'
       }).
       when('/repository/:repositoryUser/:repositoryName/', {
         templateUrl: 'repository/repository-detail.html',

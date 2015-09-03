@@ -15,12 +15,10 @@ angular.module('repository-controller', ['registry-services', 'app-mode-services
     $scope.$location = $location;
     $scope.$routeParams = $routeParams;
 
-    $scope.searchTerm = $route.current.params.searchTerm;
+    //$scope.searchTerm = $route.current.params.searchTerm;
     $scope.repositoryUser = $route.current.params.repositoryUser;
     $scope.repositoryName = $route.current.params.repositoryName;
     $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
-
-    $scope.repositories = Repository.query();
 
     $scope.appMode = AppMode.query();
 

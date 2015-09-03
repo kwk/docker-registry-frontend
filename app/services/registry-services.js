@@ -17,6 +17,7 @@ angular.module('registry-services', ['ngResource'])
     });
   }])
   // Repository returns:
+  //
   //   {
   //     repos: [
   //       {username: 'SomeNamespace', name: 'SomeNamespace/SomeRepo1', selected: true|false},
@@ -25,17 +26,62 @@ angular.module('registry-services', ['ngResource'])
   //     ],
   //     nextLink: '/v2/_catalog?last=SomeNamespace%F2SomeRepo&n=1'
   //   }
+  //
+  // The "nextLink" element is a preparation for supporting pagination
+  // (see https://github.com/docker/distribution/blob/master/docs/spec/api.md#pagination)
+  //
+  // On subsequent calls to "Repository()" you may pass in "n" as the number of
+  // elements per page as well as "last" which is the "nextLink" from the last
+  // call to Repository.
   .factory('Repository', ['$resource', function($resource){
-    return $resource('/v2/_catalog?last=:last&n=:n', {}, {
+    return $resource('/v2/_catalog?n=:n&last=:last', {}, {
       'query': {
         method:'GET',
         isArray: false,
         transformResponse: function(data, headers){
           var repos = angular.fromJson(data).repositories;
+
+          // Extract the "last=" part from Link header:
+          //
+          //   Link: </v2/_catalog?last=namespace%2repository&n=10>; rel="next"
+          //
+          // We only want to extrace the "last" part and store it like this
+          //
+          //   lastNamespace = namespace
+          //   lastRepository = repository
+          //
+          // TODO: Can we clean this up a bit?
+          var last = undefined;
+          var lastNamespace = undefined;
+          var lastRepository = undefined;
+          var linkHeader = headers()['link'];
+          //console.log('linkHeader='+linkHeader);
+          if (linkHeader) {
+            var lastUrl = ''+linkHeader.split(';')[0].replace('<','').replace('>','');
+            var startPos = lastUrl.search('last=');
+            //console.log('startPos=' + startPos);
+            if (startPos >= 0) {
+              var endPos = lastUrl.substring(startPos).search('&');
+              //console.log('endPos=' + endPos);
+              if (endPos >= 0) {
+                last = lastUrl.substring(startPos+'last='.length, startPos+endPos);
+                //console.log('last=' + last);
+                var parts = last.split('%2F');
+                //console.log('parts=' + parts);
+                if (parts.length == 2) {
+                  lastNamespace = parts[0];
+                  lastRepository = parts[1];
+                }
+              }
+            }
+          }
+
           var ret = {
             repos: [],
-            nextLink: headers()['link']
+            lastNamespace: lastNamespace,
+            lastRepository: lastRepository
           };
+
           angular.forEach(repos, function(value/*, key*/) {
             ret.repos.push({
               username: ''+value.split('/')[0],
@@ -43,6 +89,7 @@ angular.module('registry-services', ['ngResource'])
               selected: false
             });
           });
+
           return ret;
         }
       },
