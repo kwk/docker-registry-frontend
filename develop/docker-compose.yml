@@ -11,6 +11,6 @@ frontend:
     - ../:/source:rw
     - start-develop.sh:/root/start-develop.sh:ro
 registry:
-  image: registry:0.9.1
+  image: registry:2.1.1
   ports:
     - "5000:5000"

@@ -42,7 +42,7 @@ Notice that we removed the `links` section from the `frontend` section and that 
 Now open [Grundfile.js](Gruntfile.js) and find these lines:
 
         {
-          context: '/v1',
+          context: '/v2',
           host: 'path-to-your-registry',
           port: 80,
           https: false,
