@@ -27,32 +27,12 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup
 RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 
 ############################################################
-# Install and configure webserver software
-############################################################
-
-RUN apt-get -y update && \
-    export DEBIAN_FRONTEND=noninteractive && \
-    apt-get -y install \
-      apache2 \
-      libapache2-mod-auth-kerb \
-      libapache2-mod-proxy-html \
-      --no-install-recommends
-
-RUN a2enmod proxy
-RUN a2enmod proxy_http
-
-############################################################
-# This adds everything we need to the build root except those
-# element that are matched by .dockerignore.
-# We explicitly list every directory and file that is involved
-# in the build process but. All config files (like nginx) are
-# not listed to speed up the build process. 
-############################################################
 
 # Create dirs
-RUN mkdir -p $SOURCE_DIR/dist
-RUN mkdir -p $SOURCE_DIR/app
-RUN mkdir -p $SOURCE_DIR/test
+RUN mkdir -p  $SOURCE_DIR/dist \
+              $SOURCE_DIR/app \
+              $SOURCE_DIR/test \
+              $SOURCE_DIR/.git 
 
 # Add dirs
 ADD app $SOURCE_DIR/app
@@ -71,33 +51,33 @@ ADD LICENSE $SOURCE_DIR/
 ADD package.json $SOURCE_DIR/
 ADD README.md $SOURCE_DIR/
 
-# Add Git version information to it's own json file app-version.json
-RUN mkdir -p $SOURCE_DIR/.git
+# Add some git files for versioning
 ADD .git/HEAD $SOURCE_DIR/.git/HEAD
 ADD .git/refs $SOURCE_DIR/.git/refs
-RUN cd $SOURCE_DIR && \
-    export GITREF=$(cat .git/HEAD | cut -d" " -f2) && \
-    export GITSHA1=$(cat .git/$GITREF) && \
-    echo "{\"git\": {\"sha1\": \"$GITSHA1\", \"ref\": \"$GITREF\"}}" > $WWW_DIR/app-version.json && \
-    cd $SOURCE_DIR && \
-    rm -rf $SOURCE_DIR/.git
 
 ############################################################
-# This is written so compact, to reduce the size of the
-# final container and its layers. We have to install build
-# dependencies, build the app, deploy the app to the web
-# root, remove the source code, and then uninstall the build
-# dependencies. When packed into one RUN instruction, the
-# resulting layer will hopefully only be comprised of the
-# installed app artifacts.
+# Install and configure webserver software
 ############################################################
 
-RUN apt-get -y install \
+RUN apt-get -y update && \
+    export DEBIAN_FRONTEND=noninteractive && \
+    apt-get -y install \
+      apache2 \
+      libapache2-mod-auth-kerb \
+      libapache2-mod-proxy-html \
       git \
       nodejs \
       nodejs-legacy \
       npm \
       --no-install-recommends && \
+    a2enmod proxy && \
+    a2enmod proxy_http && \
+    cd $SOURCE_DIR && \
+    export GITREF=$(cat .git/HEAD | cut -d" " -f2) && \
+    export GITSHA1=$(cat .git/$GITREF) && \
+    echo "{\"git\": {\"sha1\": \"$GITSHA1\", \"ref\": \"$GITREF\"}}" > $WWW_DIR/app-version.json && \
+    cd $SOURCE_DIR && \
+    rm -rf $SOURCE_DIR/.git && \
     git config --global url."https://".insteadOf git:// && \
     cd $SOURCE_DIR && \
     npm install && \
@@ -106,6 +86,7 @@ RUN apt-get -y install \
     cp -rf $SOURCE_DIR/dist/* $WWW_DIR && \
     rm -rf $SOURCE_DIR && \
     apt-get -y --auto-remove purge git nodejs nodejs-legacy npm && \
+    apt-get -y autoremove && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
 
