@@ -25,6 +25,7 @@ angular
     'image-details-directive',
     'tag-item-controller',
     'image-controller',
+    'home-controller',
     'create-tag-controller',
     'delete-tags-controller',
     'delete-repository-controller',
@@ -53,6 +54,7 @@ angular
     $routeProvider.
       when('/home', {
         templateUrl: 'home.html',
+        controller: 'HomeController',
       }).
       when('/repositories/:reposPerPage?/:lastNamespace?/:lastRepository?', {
         templateUrl: 'repository/repository-list.html',

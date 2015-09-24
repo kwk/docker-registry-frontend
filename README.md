@@ -120,6 +120,12 @@ If you want to start applicaton with browse mode which means no repos/tags manag
 
 You can set `true` or `false` to this flag.
 
+# Default repositories per page
+
+By default 20 repositories will be listed per page. To adjust this number, to
+let's say 50 pass `-e ENV_DEFAULT_REPOSITORIES_PER_PAGE=50` to your `docker run`
+command.
+
 # Contributions are welcome!
 
 If you like the application, I invite you to contribute and report bugs or feature request on the project's github page: [https://github.com/kwk/docker-registry-frontend][3].

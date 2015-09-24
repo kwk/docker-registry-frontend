@@ -37,7 +37,8 @@ echo "{\"host\": \"$ENV_REGISTRY_PROXY_FQDN\", \"port\": $ENV_REGISTRY_PROXY_POR
 
 # information about browse mode.
 [[ x$ENV_MODE_BROWSE_ONLY =~ ^x(true|false)$ ]] || ENV_MODE_BROWSE_ONLY=false
-echo "{\"browseOnly\":$ENV_MODE_BROWSE_ONLY}" > /var/www/html/app-mode.json
+[[ -z "$ENV_DEFAULT_REPOSITORIES_PER_PAGE" ]] && ENV_DEFAULT_REPOSITORIES_PER_PAGE=20
+echo "{\"browseOnly\":$ENV_MODE_BROWSE_ONLY, \"defaultRepositoriesPerPage\":$ENV_DEFAULT_REPOSITORIES_PER_PAGE}" > /var/www/html/app-mode.json
 if [ "$ENV_MODE_BROWSE_ONLY" == "true" ]; then
   echo "export APACHE_ARGUMENTS='-D FRONTEND_BROWSE_ONLY_MODE'" >> /etc/apache2/envvars
 fi
