@@ -2,6 +2,8 @@
 
 The `docker-registry-frontend` is a pure web-based solution for browsing and modifying a private Docker registry.
 
+[![](https://badge.imagelayers.io/konradkleine/docker-registry-frontend:v2.svg)](https://imagelayers.io/?images=konradkleine/docker-registry-frontend:v2 'Get your own badge on imagelayers.io')
+
 ## PLEASE, READ THIS!
 
 ***THIS VERSION OF THE DOCKER REGISTRY FRONTEND ONLY WORKS WITH THE DOCKER REGISTRY V2. THERE'S ALSO A LEGACY ["V1-DEPRECATED" BRANCH][v1branch] WHICH WORKS WITH THE OLD 0.9.1 DOCKER REGISTRY. THE ["V1-DEPRECATED" BRANCH][v1branch] IS VERY STABLE BUT WON'T RECEIVE SIGNIFICANT ATTENTION ANY LONGER BECAUSE THE OLD DOCKER REGISTRY WAS DECLARED DEPRECATED.***
