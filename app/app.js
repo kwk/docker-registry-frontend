@@ -69,7 +69,7 @@ angular
         controller: 'RepositoryController',
       }).
 	    when('/about', {
-        templateUrl: 'views/about.html',
+        templateUrl: 'about.html',
       }).
       when('/tag/:repositoryUser/:repositoryName/:tagName/:imageId', {
         templateUrl: 'tag/tag-detail.html',
