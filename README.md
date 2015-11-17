@@ -122,6 +122,8 @@ If you want to start applicaton with browse mode which means no repos/tags manag
 
 You can set `true` or `false` to this flag.
 
+**NOTE** For now `ENV_MODE_BROWSE_ONLY` will be overwritten to `true`.
+
 # Default repositories per page
 
 By default 20 repositories will be listed per page. To adjust this number, to
