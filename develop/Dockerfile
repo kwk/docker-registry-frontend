@@ -36,6 +36,8 @@ RUN apt-get -y install \
       npm \
       --no-install-recommends
 RUN git config --global url."https://".insteadOf git://
+# Avoid this: "Problem with the SSL CA cert (path? access rights?)"
+RUN git config --global http.sslVerify false
 
 ############################################################
 # Create start script

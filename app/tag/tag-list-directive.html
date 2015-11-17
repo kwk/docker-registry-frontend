@@ -7,49 +7,20 @@
 </button>
 
 <div class="table-responsive">
-  <table st-table="displayedTags" st-safe-src="tags" class="table table-hover">
+  <table class="table table-hover">
     <thead>
       <tr>
-        <th><span class="glyphicon glyphicon-check" ng-hide="appMode.browseOnly"></span></th>
-        <th class="" ng-class="{strike: deleted}" st-sort="name" st-sort-default=""><span class="glyphicon glyphicon-tag"></span> Tag</th>
-        <!--<th class="" st-sort="details.created"><span class="glyphicon glyphicon-calendar"></span> Created</th>
-        <th class="" st-sort="details.author"><span class="glyphicon glyphicon-user"></span> Author</th>
-        <th class="" st-sort="details.docker_version"><span class="glyphicon glyphicon-eye-open"></span> Docker version</th>
-        <th class="" st-sort="details.parent"><span class="glyphicon glyphicon-arrow-up"></span> Parent's ID</th>
-        <th class="" st-sort="details.Size"><span class="glyphicon glyphicon-compressed"></span> Size (MB)</th>-->
+        <th class="" ng-class="{strike: deleted}"><span class="glyphicon glyphicon-tag"></span> Tag</th>
       </tr>
       <tr>
-        <th>&nbsp;</th>
-  			<th><input st-search="'name'" class="input-sm form-control" placeholder="Filter tags on this page" type="search"/></th>
-  			<th colspan="4">&nbsp;</th>
+  			<th><input class="input-sm form-control" placeholder="Filter tags on this page" type="search" ng-model="search.name"/></th>
 		  </tr>
     </thead>
     <tbody>
-      <tr
-        ng-repeat="tag in displayedTags"
-        ng-controller="TagItemController"
-        ng-class="{warning: tag.selected}">
+      <tr ng-repeat="tag in tags | filter:search ">
         <td>
-          <checkbox name="selectedTags[]" value="{{tag.name}}" ng-model="tag.selected" ng-hide="appMode.browseOnly"></checkbox>
-          <!--<input type="checkbox" name="selectedTags[]" value="{{tag.name}}" ng-model="tag.selected" ng-hide="appMode.browseOnly">-->
-        </td>
-        <td>
-          <!--<a href="tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}/{{tag.imageId}}" ng-bind-html="tag.name"></a>-->
           <span ng-bind-html="tag.name"></span>
         </td>
-        <!--<td am-time-ago="tag.details.created"></td>
-        <td><span ng-bind-html="tag.details.author | linky"></span></td>
-        <td ng-bind-html="tag.details.docker_version"></td>
-        <td><a href="image/{{tag.details.parent}}" ng-bind-html="tag.details.parent | limitTo: 12"></a></td>
-        <td>
-          <button type="submit" class="btn btn-info btn-xs" ng-click="calculateTotalImageSize()" ng-show="totalImageSize===null" title="Calculate total image size">
-            <span class="glyphicon glyphicon-stats"></span>
-          </button>
-          <span  ng-show="totalImageSize===null" ng-bind-html="tag.details.Size / 1024 / 1024 | number: 2"></span>
-          <span ng-show="totalImageSize!==null">
-            {{totalImageSize / 1024 / 1024 | number: 2}}
-          </span>
-        </td>-->
       </tr>
     </tbody>
   </table>

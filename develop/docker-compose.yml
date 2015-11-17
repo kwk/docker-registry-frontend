@@ -9,7 +9,7 @@ frontend:
     - "35729:35729"
   volumes:
     - ../:/source:rw
-    - start-develop.sh:/root/start-develop.sh:ro
+    - ./start-develop.sh:/root/start-develop.sh:ro
 registry:
   image: registry:2.1.1
   ports:
