@@ -1,0 +1,19 @@
+version: 0.1
+log:
+  level: info
+  formatter: text
+  fields:
+    service: registry
+    environment: production
+storage:
+    cache:
+        layerinfo: inmemory
+    filesystem:
+        rootdirectory: /var/lib/registry
+http:
+    addr: :5000
+    tls:
+        certificate: /certs/registry.crt
+        key: /certs/registry.key
+    debug:
+        addr: :5001
