@@ -6,7 +6,7 @@ The `docker-registry-frontend` is a pure web-based solution for browsing and mod
 
 # Before opening a bug report...
 
-...make sure you have consulted the `example-setup/REAMDE.md`.
+...make sure you have consulted the `example-setup/README.md`.
 
 ## PLEASE, READ THIS!
 
