@@ -1,4 +1,4 @@
-# Setup frontend with SSL on localhost:8443
+# Setup front-end
 frontend:
   image: konradkleine/docker-registry-frontend:v2
   #build: ../
@@ -18,7 +18,7 @@ frontend:
     # The regitry is SSL protected as well
     - ENV_DOCKER_REGISTRY_USE_SSL=1
 
-# Setup registry on localhost:5000
+# Setup registry
 registry:
   image: registry:2.1.1
   volumes:
