@@ -1,6 +1,6 @@
 # About
 
-The `docker-registry-frontend` is a pure web-based solution for browsing and modifying a private Docker registry.
+The `docker-registry-frontend` is a browser-based solution for browsing and modifying a private Docker registry.
 
 [![](https://badge.imagelayers.io/konradkleine/docker-registry-frontend:v2.svg)](https://imagelayers.io/?images=konradkleine/docker-registry-frontend:v2 'Get your own badge on imagelayers.io')
 
