@@ -18,7 +18,7 @@ The `docker-registry-frontend` is a browser-based solution for browsing and modi
 
 # Features
 
-For a list of all the features, please see the [Wiki][features].
+For a list of all the features, please see the [Wiki][features]. Note, that currently the Wiki pages still refer to version 1 of this frontend.
 
 # Development
 
