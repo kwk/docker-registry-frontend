@@ -15,7 +15,7 @@ frontend:
     - ENV_USE_SSL=yes
     - ENV_DOCKER_REGISTRY_HOST=registry
     - ENV_DOCKER_REGISTRY_PORT=5000
-    # The regitry is SSL protected as well
+    # The registry is SSL protected as well
     - ENV_DOCKER_REGISTRY_USE_SSL=1
 
 # Setup registry
