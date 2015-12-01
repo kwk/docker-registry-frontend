@@ -13,7 +13,7 @@ setup of any kind.
 
 ## Directory layout
 
-This is directory layout of this example setup:
+This is the directory layout of this example setup:
 
 ```
 .
@@ -35,7 +35,7 @@ This is directory layout of this example setup:
 ## Starting the registry and front-end
 
 Notice that there's a `docker-compose.yml` file. With a simple
-`docker-compose up` command, the registry and front-end containers will up and
+`docker-compose up` command, the registry and front-end containers will be up and
 running.
 
 ## Usage
