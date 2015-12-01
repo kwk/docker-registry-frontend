@@ -20,7 +20,7 @@ frontend:
 
 # Setup registry
 registry:
-  image: registry:2.1.1
+  image: registry:2.2.0
   volumes:
     # Mount the config directory
     - ./registry/config:/etc/docker/registry:ro
