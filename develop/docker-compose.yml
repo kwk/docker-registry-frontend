@@ -1,7 +1,7 @@
 frontend:
   build: .
   links:
-    - registry:path-to-your-registry
+    - registry:path-to-your-registry-v2
   ports:
       # Serves the page via grunt
     - "9000:9000"
