@@ -43,7 +43,7 @@ Now open [Grundfile.js](Gruntfile.js) and find these lines:
 
         {
           context: '/v2',
-          host: 'path-to-your-registry',
+          host: 'path-to-your-registry-v2',
           port: 80,
           https: false,
           xforward: false,
