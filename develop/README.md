@@ -39,7 +39,7 @@ Then open (develop/docker-compose.yml)[develop/docker-compose.yml] and paste thi
 
 Notice that we removed the `links` section from the `frontend` section and that the `registry` section is completely gone.
 
-Now open [Grundfile.js](Gruntfile.js) and find these lines:
+Now open [Gruntfile.js](Gruntfile.js) and find these lines:
 
         {
           context: '/v2',
