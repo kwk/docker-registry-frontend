@@ -27,6 +27,7 @@
   "homepage": "https://github.com/kwk/docker-registry-frontend#readme",
   "dependencies": {
     "express": "^4.13.4",
-    "mongoose": "^4.3.7"
+    "mongoose": "^4.3.7",
+    "morgan": "^1.6.1"
   }
 }
