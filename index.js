@@ -32,9 +32,20 @@ app.use(bodyParser.json({
 app.use(methodOverride());
 
 // define model ================================================================
-var Todo = mongoose.model('Todo', {
-    text: String
-});
+var Todo = mongoose.model('Todo', new mongoose.Schema({
+    text: {
+        type: String,
+        minlength: 3
+        /*validate: {
+            validator: function (v) {
+                return /d{3}-d{3}-d{4}/.test(v);
+            },
+            message: '{VALUE} is not a valid phone number!'
+        }*/
+    }
+}, {
+    strict: true // Save only elements specified in this schema
+}));
 
 // routes ======================================================================
 
