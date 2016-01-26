@@ -27,7 +27,8 @@ angular.module('main-controller', [])
                         console.log(data);
                     })
                     .error(function (data) {
-                        console.log('Error: ' + data);
+                        console.log('Error');
+                        console.log(data);
                     });
             };
 

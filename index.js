@@ -36,12 +36,12 @@ var Todo = mongoose.model('Todo', new mongoose.Schema({
     text: {
         type: String,
         minlength: 3
-        /*validate: {
-            validator: function (v) {
-                return /d{3}-d{3}-d{4}/.test(v);
-            },
-            message: '{VALUE} is not a valid phone number!'
-        }*/
+            /*validate: {
+                validator: function (v) {
+                    return /d{3}-d{3}-d{4}/.test(v);
+                },
+                message: '{VALUE} is not a valid phone number!'
+            }*/
     }
 }, {
     strict: true // Save only elements specified in this schema
@@ -70,8 +70,12 @@ app.post('/api/todos', function (req, res) {
         text: req.body.text,
         done: false
     }, function (err, todo) {
-        if (err)
-            res.send(err);
+        if (err) {
+            console.log(err);
+            res.status(400).send(err);
+            //res.send(err);
+            return;
+        }
 
         // get and return all the todos after you create another
         Todo.find(function (err, todos) {
