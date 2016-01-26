@@ -1,81 +1,53 @@
-<!-- index.html -->
+<!-- public/views/index.html -->
 <!doctype html>
 
 <!-- ASSIGN OUR ANGULAR MODULE -->
-<html ng-app="scotchTodo">
-  <head>
-    <!-- META -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Optimize mobile viewport -->
+<html ng-app="docker-registry-frontend">
+    <head>
+        <!-- META -->
+        <meta charset="utf-8">
+        <!-- Optimize mobile viewport -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <base href="/">
+        <title>Docker Registry Frontend</title>
 
-    <title>Node/Angular Todo App</title>
+        <!-- CSS -->
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/main.css">
 
-    <!-- SCROLLS -->
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+        <!-- JS -->
+        <script src="/bower_components/jquery/dist/jquery.js"></script>
+        <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/bower_components/angular/angular.min.js"></script>
+        <script src="/js/controllers/MainCtrl.js"></script>
+        <script src="/js/controllers/TodoCtrl.js"></script>
+        <script src="/js/services/TodoService.js"></script>
+        <script src="/js/appRoutes.js"></script>
+        <script src="/js/app.js"></script>
+    </head>
 
-    <style>
-      html {
-        overflow-y: scroll;
-      }
-      body {
-        padding-top: 50px;
-      }
-      #todo-list {
-        margin-bottom: 30px;
-      }
+    <body ng-controller="MainController">
+        <div class="container">
 
-    </style>
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/bower_components/angular/angular.min.js"></script>
-    <script src="/js/core.js"></script>
-  </head>
-  <!-- SET THE CONTROLLER AND GET ALL TODOS -->
-  <body ng-controller="mainController">
-    <div class="container">
+            <!-- HEADER -->
+            <nav class="navbar navbar-inverse">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">Docker Registry Frontend</a>
+                </div>
 
-      <!-- HEADER AND TODO COUNT -->
-      <div class="jumbotron text-center">
-        <h1>I'm a Todo-aholic
-          <span class="label label-info">{{ todos.length }}</span>
-        </h1>
-      </div>
+                <!-- LINK TO OUR PAGES. ANGULAR HANDLES THE ROUTING HERE -->
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/">Todos</a>
+                    </li>
+                </ul>
+            </nav>
 
-      <!-- TODO LIST -->
-      <div id="todo-list" class="row">
-        <div class="col-sm-4 col-sm-offset-4">
-
-          <!-- LOOP OVER THE TODOS IN $scope.todos -->
-          <div class="checkbox" ng-repeat="todo in todos">
-            <label>
-              <input type="checkbox" ng-click="deleteTodo(todo._id)">
-              {{ todo.text }}
-            </label>
-          </div>
+            <!-- ANGULAR DYNAMIC CONTENT -->
+            <div ng-view></div>
 
         </div>
-      </div>
-
-      <!-- FORM TO CREATE TODOS -->
-      <div id="todo-form" class="row">
-        <div class="col-sm-8 col-sm-offset-2 text-center">
-          <form>
-            <div class="form-group">
-
-              <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-              <input type="text" class="form-control input-lg text-center" placeholder="I want to buy a puppy that will love me forever" ng-model="formData.text">
-            </div>
-
-            <!-- createToDo() WILL CREATE NEW TODOS -->
-            <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
-          </form>
-        </div>
-      </div>
-
-    </div>
-
-  </body>
+    </body>
 </html>
