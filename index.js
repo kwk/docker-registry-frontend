@@ -16,6 +16,9 @@ var app = express();
 // log requests to the console (express4)
 var morgan = require('morgan');
 
+// grab the mongoose module
+var mongoose = require('mongoose');
+
 // pull information from HTML POST (express4)
 var bodyParser = require('body-parser');
 
@@ -32,7 +35,14 @@ var db = require('./config/db');
 var port = process.env.PORT || 8080;
 
 // connect to mongoDB (credentials in config/db.js)
-mongoose.connect(db.url);
+mongoose.connect(db.url, function (error) {
+    if (error) {
+        console.log("Error connecting to the MongoDB database.")
+        console.log(error);
+    } else {
+        console.log("Successfully connected to the MongoDB database.")
+    }
+});
 
 // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/public'));
@@ -64,6 +74,7 @@ app.use(methodOverride());
 // routes ======================================================================
 
 require('./app/routes')(app); // configure our routes
+
 
 // listen (start app with node server.js) ======================================
 app.listen(port);

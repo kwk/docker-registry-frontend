@@ -1,2 +1,4 @@
 node_modules
 public/bower_components
+mongodb-data
+!mongodb-data/.gitkeepme
