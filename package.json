@@ -1,6 +1,6 @@
 {
   "name": "docker-registry-frontend",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {},
   "devDependencies": {
     "bower": "^1.7.2",
