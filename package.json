@@ -28,6 +28,7 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
+    "method-override": "^2.3.5",
     "mongoose": "^4.3.7",
     "morgan": "^1.6.1"
   }
