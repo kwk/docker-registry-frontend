@@ -1,0 +1,30 @@
+{
+  "name": "docker-registry-frontend",
+  "description": "A web-based frontend to browse through the repositories and images in your docker registry.",
+  "main": "index.js",
+  "authors": [
+    "Konrad Kleine"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "docker",
+    "registry",
+    "repository",
+    "frontend",
+    "ui",
+    "browser",
+    "web"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "homepage": "https://github.com/kwk/docker-registry-frontend",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
