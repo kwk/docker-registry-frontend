@@ -4,6 +4,7 @@ The `docker-registry-frontend` is a browser-based solution for browsing and modi
 
 [![](https://badge.imagelayers.io/konradkleine/docker-registry-frontend:v2.svg)](https://imagelayers.io/?images=konradkleine/docker-registry-frontend:v2 'Get your own badge on imagelayers.io')
 [![devDependency Status](https://david-dm.org/kwk/docker-registry-frontend/dev-status.svg?style=flat-square)](https://david-dm.org/kwk/docker-registry-frontend#info=devDependencies)
+[![Issue Count](https://codeclimate.com/github/kwk/docker-registry-frontend/badges/issue_count.svg)](https://codeclimate.com/github/kwk/docker-registry-frontend)
 
 # Before opening a bug report...
 
