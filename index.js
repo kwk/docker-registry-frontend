@@ -46,6 +46,8 @@ mongoose.connect(db.url, function (error) {
 
 // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/public'));
+// Bower components must also be publically available.
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 // log every request to the console
 app.use(morgan('dev'));
