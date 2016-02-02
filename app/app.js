@@ -3,8 +3,7 @@
 /**
  * @ngdoc overview
  * @name docker-registry-frontend
- * @description
- * # docker-registry-frontend
+ * @description docker-registry-frontend router
  *
  * Main module of the application.
  */
