@@ -35,7 +35,7 @@ Then open (develop/docker-compose.yml)[develop/docker-compose.yml] and paste thi
         - "9000:9000"
       volumes:
         - ../:/source:rw
-        - start-develop.sh:/root/start-develop.sh:ro
+        - ./start-develop.sh:/root/start-develop.sh:ro
 
 Notice that we removed the `links` section from the `frontend` section and that the `registry` section is completely gone.
 
