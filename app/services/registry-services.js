@@ -220,18 +220,18 @@ angular.module('registry-services', ['ngResource'])
       }
     });
   }])
-  // This is not totally working right now (problem with big layers)
-  /*
   .factory('Blob', ['$resource', function($resource){
     return $resource('/v2/:repoUser/:repoName/blobs/:digest', {}, {
 
       'query': {
         method:'HEAD',
-        interceptor: function(data, headers){
-          var res = {contentLength: parseInt(headers('content-length'))};
-          return res;
-        } 
+        interceptor: {
+          response: function(response){
+            var res = {contentLength: parseInt(response.headers('content-length'))};
+            return res;
+          }
+        }
       }
 
     });
-  }]) */ ;
+  }])  ;
