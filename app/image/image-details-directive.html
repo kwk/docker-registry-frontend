@@ -100,5 +100,15 @@
         </tbody>
       </table>
   </tab>
+    <tab>
+    <tab-heading>
+      Dockerfile
+    </tab-heading>
+      <pre>
+      <code ng-repeat="(_id, instruction) in imageDetails.dockerfile">
+      {{instruction}}
+      </code>
+      </pre>
+  </tab>
 </tabset>
 
