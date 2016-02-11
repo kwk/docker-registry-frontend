@@ -214,6 +214,7 @@ angular.module('registry-services', ['ngResource'])
           res.digest = headers('docker-content-digest');
           res.architecture = resp.architecture;
           res.dockerfile = dockerfile
+          res.layers = dockerfile.length
           return res;
         },
       }
