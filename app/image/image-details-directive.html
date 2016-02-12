@@ -111,7 +111,7 @@
       Dockerfile
     </tab-heading>
       <pre>
-      <code ng-repeat="(_id, instruction) in imageDetails.dockerfile">
+      <code ng-repeat="instruction in imageDetails.dockerfile track by $index">
       {{instruction}}
       </code>
       </pre>
