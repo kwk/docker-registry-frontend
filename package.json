@@ -1,6 +1,7 @@
 {
   "name": "docker-registry-frontend",
   "version": "2.0.0",
+  "private": true,
   "description": "A web-based frontend to browse through the repositories and images in your docker registry.",
   "main": "index.js",
   "scripts": {
