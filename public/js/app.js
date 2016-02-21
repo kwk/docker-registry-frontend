@@ -3,5 +3,5 @@
 'use strict';
 
 var app = angular.module('docker-registry-frontend', [
-    'ngRoute', 'appRoutes', 'MainCtrl', 'TodoCtrl', 'TodoService'
+    'ngRoute', 'ngResource', 'appRoutes', 'MainCtrl', 'TodoCtrl', 'TodoService'
 ]);

@@ -11,7 +11,7 @@ angular.module('appRoutes', [])
                 controller: 'MainController'
             })
             .when('/todos', {
-                templateUrl: 'views/todo.html',
+                templateUrl: 'views/todos.html',
                 controller: 'TodoController'
             });
 

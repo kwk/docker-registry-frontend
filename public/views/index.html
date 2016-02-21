@@ -2,7 +2,7 @@
 <!doctype html>
 
 <!-- ASSIGN OUR ANGULAR MODULE -->
-<html ng-app="docker-registry-frontend">
+<html xmlns:ng="http://angularjs.org" ng-app="docker-registry-frontend">
     <head>
         <!-- META -->
         <meta charset="utf-8">
@@ -22,6 +22,7 @@
         <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="/bower_components/angular/angular.js"></script>
         <script src="/bower_components/angular-route/angular-route.min.js"></script>
+        <script src="/bower_components/angular-resource/angular-resource.min.js"></script>
         <script src="/js/controllers/MainCtrl.js"></script>
         <script src="/js/controllers/TodoCtrl.js"></script>
         <script src="/js/services/TodoService.js"></script>
@@ -41,7 +42,7 @@
                 <!-- LINK TO OUR PAGES. ANGULAR HANDLES THE ROUTING HERE -->
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="/">Todos</a>
+                        <a href="/todos">Todos</a>
                     </li>
                 </ul>
             </nav>

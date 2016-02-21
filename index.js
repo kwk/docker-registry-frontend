@@ -25,17 +25,16 @@ var bodyParser = require('body-parser');
 // simulate DELETE and PUT (express4)
 var methodOverride = require('method-override');
 
+// For path joining
+var path = require('path');
 
 // configuration ===============================================================
 
 // config files
-var db = require('./config/db');
-
-// set our port
-var port = process.env.PORT || 8080;
+var config = require('./config/config.js');
 
 // connect to mongoDB (credentials in config/db.js)
-mongoose.connect(db.url, function (error) {
+mongoose.connect(config.db.url, function (error) {
     if (error) {
         console.log("Error connecting to the MongoDB database.")
         console.log(error);
@@ -47,10 +46,10 @@ mongoose.connect(db.url, function (error) {
 // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/public'));
 // Bower components must also be publically available.
-app.use('/bower_components', express.static(__dirname + '/bower_components'));
+app.use('/bower_components', express.static(path.join(__dirname, '/bower_components')));
 
 // log every request to the console
-app.use(morgan('dev'));
+app.use(morgan(config.http.logging.format));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
@@ -79,8 +78,8 @@ require('./app/routes')(app); // configure our routes
 
 
 // listen (start app with node server.js) ======================================
-app.listen(port);
-console.log("App listening on port " + port);
+app.listen(config.http.port);
+console.log("App listening on port " + config.http.port);
 
 // expose app
 exports = module.exports = app;

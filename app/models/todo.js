@@ -1,4 +1,4 @@
-// public/models/todo.js
+// app/models/todo.js
 // grab the mongoose module
 var mongoose = require('mongoose');
 

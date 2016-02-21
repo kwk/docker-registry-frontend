@@ -8,35 +8,34 @@ angular.module('TodoCtrl', [])
         function ($scope, $http, Todo) {
             $scope.formData = {};
 
-            // when landing on the page, get all todos and show them
-            $scope.todos = Todo.get();
+            $scope.fetchTodos = function() {
+                console.log("fetching todos...");
+                Todo.query(function(todos){
+                    $scope.todos = todos;
+                });
+            }
 
-            // when submitting the add form, send the text to the node API
+            // Fetch todos on page load
+            $scope.fetchTodos();
+
             $scope.createTodo = function () {
-                Todo.create($scope.formData);
-                /*$http.post('/api/todos', $scope.formData)
-                    .success(function (data) {
-                        $scope.formData = {}; // clear the form so our user is ready to enter another
-                        $scope.todos = data;
-                        console.log(data);
-                    })
-                    .error(function (data) {
-                        console.log('Error');
-                        console.log(data);
-                    });*/
+                console.log("creating todo...");
+                Todo.save($scope.formData, function success () {
+                    // Reset input field on success
+                    $scope.formData.text = '';
+                    $scope.fetchTodos();
+                }, function error (err) {
+                    console.log(err);
+                });
             };
 
-            // delete a todo after checking it
             $scope.deleteTodo = function (id) {
-                Todo.delete(id);
-                /*$http.delete('/api/todos/' + id)
-                      .success(function (data) {
-                          $scope.todos = data;
-                          console.log(data);
-                      })
-                      .error(function (data) {
-                          console.log('Error: ' + data);
-                      });*/
+                console.log("deleting todos...");
+                Todo.delete({id: id}, function success () {
+                    $scope.fetchTodos();
+                }, function error (err) {
+                    console.log(err);
+                });
             };
 
         }
