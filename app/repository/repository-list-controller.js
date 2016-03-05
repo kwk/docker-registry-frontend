@@ -17,7 +17,7 @@ angular.module('repository-list-controller', ['registry-services', 'app-mode-ser
 
     $scope.repositoryUser = $route.current.params.repositoryUser;
     $scope.repositoryName = $route.current.params.repositoryName;
-    $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
+    $scope.repository = ($scope.repositoryUser ? $scope.repositoryUser + '/' : '') + $scope.repositoryName;
 
     $scope.appMode = AppMode.query();
 
