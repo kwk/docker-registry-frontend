@@ -5,3 +5,6 @@ dist
 bower_components
 *~
 *.swp
+
+.idea/
+*.iml
