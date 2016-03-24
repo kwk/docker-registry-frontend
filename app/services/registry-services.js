@@ -24,7 +24,7 @@ angular.module('registry-services', ['ngResource'])
   //       {username: 'SomeOtherNamespace', name: 'SomeOtherNamespace/SomeRepo2', selected: true|false},
   //       {username: 'SomeCompletelyDifferenNamespace', name: 'SomeCompletelyDifferenNamespace/SomeRepo3', selected: true|false}
   //     ],
-  //     nextLink: '/v2/_catalog?last=SomeNamespace%F2SomeRepo&n=1'
+  //     nextLink: 'v2/_catalog?last=SomeNamespace%F2SomeRepo&n=1'
   //   }
   //
   // The "nextLink" element is a preparation for supporting pagination
@@ -84,7 +84,7 @@ angular.module('registry-services', ['ngResource'])
 
           angular.forEach(repos, function(value/*, key*/) {
             ret.repos.push({
-              username: ''+value.split('/')[0],
+              username: ''+value.split('')[0],
               name: value,
               selected: false
             });
@@ -94,7 +94,7 @@ angular.module('registry-services', ['ngResource'])
         }
       },
       'delete': {
-        url: '/v2/repositories/:repoUser/:repoName/',
+        url: 'v2/repositories/:repoUser/:repoName/',
         method: 'DELETE',
       }
     });
@@ -102,7 +102,7 @@ angular.module('registry-services', ['ngResource'])
   .factory('Tag', ['$resource', function($resource){
     // TODO: rename :repo to repoUser/repoString for convenience.
     // https://github.com/docker/distribution/blob/master/docs/spec/api.md#listing-image-tags
-    return $resource('/v2/:repoUser/:repoName/tags/list', {}, {
+    return $resource('v2/:repoUser/:repoName/tags/list', {}, {
       // Response example:
       // {"name":"kkleine/docker-registry-frontend","tags":["v2", "v1-deprecated"]}
       'query': {
