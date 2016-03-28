@@ -34,7 +34,7 @@ angular.module('registry-services', ['ngResource'])
   // elements per page as well as "last" which is the "nextLink" from the last
   // call to Repository.
   .factory('Repository', ['$resource', function($resource){
-    return $resource('/v2/_catalog?n=:n&last=:last', {}, {
+    return $resource('v2/_catalog?n=:n&last=:last', {}, {
       'query': {
         method:'GET',
         isArray: false,
@@ -102,7 +102,7 @@ angular.module('registry-services', ['ngResource'])
   .factory('Tag', ['$resource', function($resource){
     // TODO: rename :repo to repoUser/repoString for convenience.
     // https://github.com/docker/distribution/blob/master/docs/spec/api.md#listing-image-tags
-    return $resource('/v2/:repoUser/:repoName/tags/list', {}, {
+    return $resource('v2/:repoUser/:repoName/tags/list', {}, {
       // Response example:
       // {"name":"kkleine/docker-registry-frontend","tags":["v2", "v1-deprecated"]}
       'query': {
@@ -123,11 +123,11 @@ angular.module('registry-services', ['ngResource'])
         },
       },
       'delete': {
-        url: '/v1/repositories/:repoUser/:repoName/tags/:tagName',
+        url: 'v1/repositories/:repoUser/:repoName/tags/:tagName',
         method: 'DELETE',
       },
       'exists': {
-        url: '/v1/repositories/:repoUser/:repoName/tags/:tagName',
+        url: 'v1/repositories/:repoUser/:repoName/tags/:tagName',
         method: 'GET',
         transformResponse: function(data/*, headers*/){
           // data will be the image ID if successful or an error object.
@@ -138,17 +138,17 @@ angular.module('registry-services', ['ngResource'])
       // Usage: Tag.save({repoUser:'someuser', repoName: 'someRepo', tagName: 'someTagName'}, imageId);
       'save': {
         method:'PUT',
-        url: '/v1/repositories/:repoUser/:repoName/tags/:tagName',
+        url: 'v1/repositories/:repoUser/:repoName/tags/:tagName',
       },
     });
   }])
   .factory('Image', ['$resource', function($resource){
-    return $resource('/v1/images/:imageId/json', {}, {
+    return $resource('v1/images/:imageId/json', {}, {
       'query': { method:'GET', isArray: false},
     });
   }])
   .factory('Ancestry', ['$resource', function($resource){
-    return $resource('/v1/images/:imageId/ancestry', {}, {
+    return $resource('v1/images/:imageId/ancestry', {}, {
       'query': { method:'GET', isArray: true},
     });
   }]);

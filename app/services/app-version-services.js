@@ -5,7 +5,7 @@
 
 angular.module('app-version-services', ['ngResource'])
   .factory('AppVersion', ['$resource', '$log',  function($resource, $log){
-    return $resource('/app-version.json', {}, {
+    return $resource('app-version.json', {}, {
       'query': {
         method:'GET',
         isArray: false,

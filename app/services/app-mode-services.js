@@ -5,7 +5,7 @@
 
 angular.module('app-mode-services', ['ngResource'])
   .factory('AppMode', ['$resource', '$log',  function($resource, $log){
-    return $resource('/app-mode.json', {}, {
+    return $resource('app-mode.json', {}, {
       'query': {
         method:'GET',
         isArray: false,
