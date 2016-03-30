@@ -32,7 +32,7 @@ RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 RUN mkdir -p  $SOURCE_DIR/dist \
               $SOURCE_DIR/app \
               $SOURCE_DIR/test \
-              $SOURCE_DIR/.git 
+              $SOURCE_DIR/.git
 
 # Add dirs
 ADD app $SOURCE_DIR/app
@@ -85,6 +85,8 @@ RUN apt-get -y update && \
     node_modules/grunt-cli/bin/grunt build --allow-root && \
     cp -rf $SOURCE_DIR/dist/* $WWW_DIR && \
     rm -rf $SOURCE_DIR && \
+    if [ -z "$BASEPATH" ]; then BASEPATH=/; fi && \
+    sed -i.bak "s;##BASEPATH##;$BASEPATH;g" $WWW_DIR/index.html && \
     apt-get -y --auto-remove purge git nodejs nodejs-legacy npm && \
     apt-get -y autoremove && \
     apt-get -y clean && \
