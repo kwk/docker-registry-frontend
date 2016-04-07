@@ -35,15 +35,15 @@ Then open (develop/docker-compose.yml)[develop/docker-compose.yml] and paste thi
         - "9000:9000"
       volumes:
         - ../:/source:rw
-        - start-develop.sh:/root/start-develop.sh:ro
+        - ./start-develop.sh:/root/start-develop.sh:ro
 
 Notice that we removed the `links` section from the `frontend` section and that the `registry` section is completely gone.
 
-Now open [Grundfile.js](Gruntfile.js) and find these lines:
+Now open [Gruntfile.js](Gruntfile.js) and find these lines:
 
         {
           context: '/v2',
-          host: 'path-to-your-registry',
+          host: 'path-to-your-registry-v2',
           port: 80,
           https: false,
           xforward: false,
