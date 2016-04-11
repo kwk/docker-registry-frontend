@@ -13,7 +13,7 @@
     <tab-heading>
       General information
     </tab-heading>
-    <form class="form-horizontal" role="form">
+    <form class="form-horizontal"  role="form">
       <div class="form-group">
         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-user"></span> Author</label>
         <div class="col-sm-10">
@@ -28,7 +28,7 @@
           </p>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" >
         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-calendar"></span> Created</label>
         <div class="col-sm-10">
           <p class="form-control-static">
@@ -52,22 +52,21 @@
       <div class="form-group">
         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-qrcode"></span> ID</label>
         <div class="col-sm-10">
-          <p class="form-control-static"><a href="image/{{imageDetails.id}}">{{imageDetails.id | limitTo: 12}}</a></p>
+          <p class="form-control-static">
+            {{imageDetails.id | limitTo: 12}}
+          </p>
         </div>
       </div>
-      <div class="form-group">
-        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-arrow-up"></span> Parent's ID</label>
+     <!--  <div class="form-group">
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-arrow-up"></span> Parent's layer ID</label>
         <div class="col-sm-10">
-          <p class="form-control-static"><a href="image/{{imageDetails.parent}}">{{imageDetails.parent | limitTo: 12}}</a></p>
+          <p class="form-control-static">
+            {{imageDetails.parentLayer | limitTo: 12}}
+          </p>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-compressed"></span> Size <small>(not including base image sizes)</small></label>
-        <div class="col-sm-10">
-          <p class="form-control-static">{{imageDetails.Size/1024/1024 | number: 2}} <b>MB</b> {{imageDetails.Size / 1024 | number: 2}} <b>KB</b> {{imageDetails.Size}} <b>B</b></p>
-        </div>
-      </div>
-      <div class="form-group">
+      </div> -->
+      
+<!--       <div class="form-group">
         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-compressed"></span> Size <small>(including base image sizes)</small></label>
         <div class="col-sm-10">
           <p class="form-control-static">
@@ -79,19 +78,27 @@
             </button>
           </p>
         </div>
-      </div>
+      </div> --> 
     </form>
   </tab>
   <tab>
     <tab-heading>
-      Image Ancestry
+      Labels
     </tab-heading>
-    <div class="list-group">
-      <a ng-repeat="img in imageAncestry" href="image/{{img}}" class="list-group-item" ng-class="{active: imageDetails.id==img}">
-        <span class="glyphicon" ng-class="{'glyphicon-arrow-down': ($first&&!$last)||$middle}"></span>
-        {{img | limitTo:12}}
-      </a>
-    </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(key, value) in imageDetails.labels">
+            <td>{{key}}</td>
+            <td>{{value}}</td>
+          </tr>
+        </tbody>
+      </table>
   </tab>
 </tabset>
 

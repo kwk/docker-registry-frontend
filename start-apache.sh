@@ -40,7 +40,8 @@ echo "{\"host\": \"$ENV_REGISTRY_PROXY_FQDN\", \"port\": $ENV_REGISTRY_PROXY_POR
 # Overwrite browse-only option for now since only browse-only is working right now
 ENV_MODE_BROWSE_ONLY=true
 [[ -z "$ENV_DEFAULT_REPOSITORIES_PER_PAGE" ]] && ENV_DEFAULT_REPOSITORIES_PER_PAGE=20
-echo "{\"browseOnly\":$ENV_MODE_BROWSE_ONLY, \"defaultRepositoriesPerPage\":$ENV_DEFAULT_REPOSITORIES_PER_PAGE}" > /var/www/html/app-mode.json
+[[ -z "$ENV_DEFAULT_TAGS_PER_PAGE" ]] && ENV_DEFAULT_TAGS_PER_PAGE=10
+echo "{\"browseOnly\":$ENV_MODE_BROWSE_ONLY, \"defaultRepositoriesPerPage\":$ENV_DEFAULT_REPOSITORIES_PER_PAGE , \"defaultTagsPerPage\":$ENV_DEFAULT_TAGS_PER_PAGE }"  > /var/www/html/app-mode.json
 if [ "$ENV_MODE_BROWSE_ONLY" == "true" ]; then
   echo "export APACHE_ARGUMENTS='-D FRONTEND_BROWSE_ONLY_MODE'" >> /etc/apache2/envvars
 fi

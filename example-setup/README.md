@@ -41,7 +41,7 @@ running.
 ## Usage
 
 Make sure your docker daemon allows access to your insecure registry by adding
-`--insecure-registry 0.0.0.0:5000` to your `DOCKER_OPTS` in
+`--insecure-registry=0.0.0.0:5000` to your `DOCKER_OPTS` in
 `/etc/default/docker` (at least this is where you find it in Ubuntu 14.04).
 
 Then restart your docker daemon: `sudo service docker restart`
