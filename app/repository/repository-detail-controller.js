@@ -18,7 +18,12 @@ angular.module('repository-detail-controller', ['registry-services', 'app-mode-s
     //$scope.searchTerm = $route.current.params.searchTerm;
     $scope.repositoryUser = $route.current.params.repositoryUser;
     $scope.repositoryName = $route.current.params.repositoryName;
-    $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
+    
+    if ($scope.repositoryName) {
+    	$scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
+    } else {
+    	$scope.repository = $scope.repositoryUser
+    }
 
     $scope.appMode = AppMode.query();
     $scope.maxTagsPage = undefined;
