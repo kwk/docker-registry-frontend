@@ -136,6 +136,12 @@ By default 20 repositories will be listed per page. To adjust this number, to
 let's say 50 pass `-e ENV_DEFAULT_REPOSITORIES_PER_PAGE=50` to your `docker run`
 command.
 
+# Default tags per page
+
+By default 10 tags will be listed per page. To adjust this number, to
+let's say 5 pass `-e ENV_DEFAULT_TAGS_PER_PAGE=5` to your `docker run`
+command. Note that providing a big number will result in a heavy load on browsers.
+
 # Contributions are welcome!
 
 If you like the application, I invite you to contribute and report bugs or feature request on the project's github page: [https://github.com/kwk/docker-registry-frontend][3].

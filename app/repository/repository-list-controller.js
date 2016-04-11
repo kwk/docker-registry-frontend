@@ -19,8 +19,9 @@ angular.module('repository-list-controller', ['registry-services', 'app-mode-ser
     $scope.repositoryName = $route.current.params.repositoryName;
     $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
 
-    $scope.appMode = AppMode.query();
-
+    $scope.appMode = AppMode.query( function (result){
+      $scope.defaultTagsPerPage = result.defaultTagsPerPage
+    });
     // How to query the repository
     $scope.reposPerPage = $route.current.params.reposPerPage;
     $scope.lastNamespace = $route.current.params.lastNamespace;
