@@ -18,7 +18,11 @@ angular.module('tag-controller', ['registry-services'])
     $scope.searchName = $route.current.params.searchName;
     $scope.repositoryUser = $route.current.params.repositoryUser;
     $scope.repositoryName = $route.current.params.repositoryName;
-    $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
+    if ($scope.repositoryName && $scope.repositoryName != "undefined") {    
+	$scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
+    } else {
+	$scope.repository = $scope.repositoryUser;
+    }
     $scope.tagName = $route.current.params.tagName;
     $scope.tagsPerPage = $route.current.params.tagsPerPage;
 

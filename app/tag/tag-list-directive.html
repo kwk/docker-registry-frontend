@@ -25,7 +25,7 @@
     <tbody>
       <tr ng-repeat="tag in displayedTags | filter:search ">
         <td>
-          <a ng-bind-html="tag.name" href="tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}">{{tag.name}}</a>
+          <a ng-bind-html="tag.name" href="tag/{{repository}}/{{tag.name}}">{{tag.name}}</a>
         </td>
         <td><span ng-bind-html="tag.details.id | limitTo: 12"></span></td>
         <td am-time-ago="tag.details.created"></td>

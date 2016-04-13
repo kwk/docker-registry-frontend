@@ -69,6 +69,7 @@ RUN apt-get -y update && \
       nodejs \
       nodejs-legacy \
       npm \
+      curl \
       --no-install-recommends && \
     a2enmod proxy && \
     a2enmod proxy_http && \
