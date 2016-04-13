@@ -1,4 +1,5 @@
 {
   "host": "path-to-your-registry",
+  "readablehost": "path-to-registry-as-it-will-be-displayed",
   "port": 80
 }

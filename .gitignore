@@ -5,3 +5,5 @@ dist
 bower_components
 *~
 *.swp
+docker-compose.yml
+develop/
