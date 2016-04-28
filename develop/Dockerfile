@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER "Konrad Kleine"
 
 USER root
@@ -38,6 +38,8 @@ RUN apt-get -y install \
 RUN git config --global url."https://".insteadOf git://
 # Avoid this: "Problem with the SSL CA cert (path? access rights?)"
 RUN git config --global http.sslVerify false
+RUN npm install -g bower
+RUN npm install -g grunt
 
 ############################################################
 # Create start script
