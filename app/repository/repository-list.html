@@ -49,7 +49,7 @@
 
 <nav>
   <ul class="pager">
-    <li class="previous" ng-class="{disabled: !lastNamespace || !lastRepository}">
+    <li class="previous">
       <a href="repositories/{{reposPerPage}}">
         <span aria-hidden="true">&larr;</span>
         First page
@@ -64,7 +64,6 @@
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><a href="repositories">Show all</a></li>
           <li role="separator" class="divider"></li>
           <li><a href="repositories/10">10</a></li>
           <li><a href="repositories/20">20</a></li>
@@ -75,10 +74,8 @@
         </ul>
       </div>
     </li>
-    <li class="next" ng-class="{disabled: !repositories.lastNamespace || !repositories.lastRepository}">
-      <!-- TODO: Make sure the button is not clickable -->
-      <a href="/repositories/{{reposPerPage}}/{{repositories.lastNamespace}}/{{repositories.lastRepository}}"
-        ng-disabled="!repositories.lastNamespace || !repositories.lastRepository">
+    <li class="next btn" ng-hide="lastPage">
+      <a ng-click="nextPage()">
         Next <span aria-hidden="true">&rarr;</span>
       </a>
     </li>

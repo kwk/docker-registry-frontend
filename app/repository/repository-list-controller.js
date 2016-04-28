@@ -10,33 +10,44 @@
 angular.module('repository-list-controller', ['registry-services', 'app-mode-services'])
   .controller('RepositoryListController', ['$scope', '$route', '$routeParams', '$location', '$modal', 'Repository', 'AppMode',
   function($scope, $route, $routeParams, $location, $modal, Repository, AppMode){
+    // Default values which will be populated later
+    $scope.nextLink = ""
+    $scope.lastPage = false
+    $scope.selectedRepositories = [];
+    
+    // Given an object which may not exist, return the value or a default
+    var get_or_default = function(thing, def) {
+        if(typeof thing !== 'undefined') {
+            return thing 
+        } else {
+            return def
+        }
+    }
 
-    $scope.$route = $route;
-    $scope.$location = $location;
-    $scope.$routeParams = $routeParams;
-
-    $scope.repositoryUser = $route.current.params.repositoryUser;
-    $scope.repositoryName = $route.current.params.repositoryName;
-    $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
+    // Retrieve the last item of an arrary
+    var last = function(arr) {
+        return arr[arr.length - 1]
+    }
 
     $scope.appMode = AppMode.query( function (result){
       $scope.defaultTagsPerPage = result.defaultTagsPerPage
     });
-    // How to query the repository
-    $scope.reposPerPage = $route.current.params.reposPerPage;
-    $scope.lastNamespace = $route.current.params.lastNamespace;
-    $scope.lastRepository = $route.current.params.lastRepository;
+    
+    // Retrieve (optional) route parameters
+    $scope.reposPerPage = get_or_default($route.current.params.reposPerPage, 20) 
+    $scope.lastNamespace = get_or_default($route.current.params.lastNamespace, "")
+    $scope.lastRepository = get_or_default($route.current.params.lastRepository, "")
+
+    // Query for the registry for a list of repositories
     var queryObject = {};
-    if ($scope.reposPerPage) {
-      queryObject['n'] = $scope.reposPerPage;
-    }
+    queryObject['n'] = $scope.reposPerPage;
     if ($scope.lastNamespace && $scope.lastRepository) {
       queryObject['last'] = ''+$scope.lastNamespace+'/'+$scope.lastRepository;
     }
+    else if($scope.lastNamespace) {
+      queryObject['last'] = ''+$scope.lastNamespace;
+    }
     $scope.repositories = Repository.query(queryObject);
-
-    // selected repos
-    $scope.selectedRepositories = [];
 
     // helper method to get selected tags
     $scope.selectedRepos = function selectedRepos() {
@@ -47,6 +58,9 @@ angular.module('repository-list-controller', ['registry-services', 'app-mode-ser
     // To watch for changes on a property inside the object "repositories"
     // we first have to make sure the promise is ready.
     $scope.repositories.$promise.then(function(data) {
+      var lastRepo = last(data.repos)
+      $scope.nextLink = "" + $scope.reposPerPage + "/" + lastRepo.name
+      $scope.lastPage = data.lastPage
       $scope.$watch('repositories.repos|filter:{selected:true}', function(nv) {
         $scope.selectedRepositories = nv.map(function (repo) {
           return repo.name;
@@ -76,5 +90,9 @@ angular.module('repository-list-controller', ['registry-services', 'app-mode-ser
           }
       });
     };
-
+    
+    // Traverse to the next list page 
+    $scope.nextPage = function() {
+        $location.path("/repositories/" + $scope.nextLink)
+    }
   }]);

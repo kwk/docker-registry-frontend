@@ -41,45 +41,11 @@ angular.module('registry-services', ['ngResource'])
         transformResponse: function(data, headers){
           var repos = angular.fromJson(data).repositories;
 
-          // Extract the "last=" part from Link header:
-          //
-          //   Link: </v2/_catalog?last=namespace%2repository&n=10>; rel="next"
-          //
-          // We only want to extrace the "last" part and store it like this
-          //
-          //   lastNamespace = namespace
-          //   lastRepository = repository
-          //
-          // TODO: Can we clean this up a bit?
-          var last = undefined;
-          var lastNamespace = undefined;
-          var lastRepository = undefined;
-          var linkHeader = headers()['link'];
-          //console.log('linkHeader='+linkHeader);
-          if (linkHeader) {
-            var lastUrl = ''+linkHeader.split(';')[0].replace('<','').replace('>','');
-            var startPos = lastUrl.search('last=');
-            //console.log('startPos=' + startPos);
-            if (startPos >= 0) {
-              var endPos = lastUrl.substring(startPos).search('&');
-              //console.log('endPos=' + endPos);
-              if (endPos >= 0) {
-                last = lastUrl.substring(startPos+'last='.length, startPos+endPos);
-                //console.log('last=' + last);
-                var parts = last.split('%2F');
-                //console.log('parts=' + parts);
-                if (parts.length == 2) {
-                  lastNamespace = parts[0];
-                  lastRepository = parts[1];
-                }
-              }
-            }
-          }
+          var hasLinkHeader = typeof headers()['link'] !== 'undefined';
 
           var ret = {
             repos: [],
-            lastNamespace: lastNamespace,
-            lastRepository: lastRepository
+            lastPage: !hasLinkHeader
           };
 
           angular.forEach(repos, function(value/*, key*/) {
