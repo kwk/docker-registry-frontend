@@ -75,10 +75,9 @@
         </ul>
       </div>
     </li>
-    <li class="next" ng-class="{disabled: !repositories.lastNamespace || !repositories.lastRepository}">
+    <li class="next" ng-class="{disabled: disableNextButton()}">
       <!-- TODO: Make sure the button is not clickable -->
-      <a href="/repositories/{{reposPerPage}}/{{repositories.lastNamespace}}/{{repositories.lastRepository}}"
-        ng-disabled="!repositories.lastNamespace || !repositories.lastRepository">
+      <a href="" ng-disabled="disableNextButton()" ng-click="nextPage()">
         Next <span aria-hidden="true">&rarr;</span>
       </a>
     </li>
