@@ -35,6 +35,9 @@ angular.module('repository-list-controller', ['registry-services', 'app-mode-ser
     }
     $scope.repositories = Repository.query(queryObject);
 
+    // fold/unfold repos in a username
+    var reposHide = {};
+
     // selected repos
     $scope.selectedRepositories = [];
 
