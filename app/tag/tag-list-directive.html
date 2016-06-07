@@ -23,7 +23,7 @@
 		  </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="tag in displayedTags | filter:search ">
+      <tr ng-repeat="tag in displayedTags | filter:search " ng-show="tag.details">
         <td>
           <a ng-bind-html="tag.name" href="tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}">{{tag.name}}</a>
         </td>
