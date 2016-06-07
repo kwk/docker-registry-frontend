@@ -8,11 +8,13 @@
  * Controller of the docker-registry-frontend
  */
 angular.module('delete-tags-controller', ['registry-services'])
-  .controller('DeleteTagsController', ['$scope', '$route', '$modalInstance', '$window', 'Tag', 'items', 'information',
-  function($scope, $route, $modalInstance, $window, Tag, items, information)
+  .controller('DeleteTagsController', ['$scope', '$route', '$modalInstance', '$window', 'Tag', 'items', 'information', '$location',
+  function($scope, $route, $modalInstance, $window, Tag, items, information, $location)
   {
     $scope.items = items;
     $scope.information = information;
+    $scope.repositoryUser = $route.current.params.repositoryUser;
+    $scope.repositoryName = $route.current.params.repositoryName;
 
     // Callback that triggers deletion of tags and reloading of page
     $scope.ok = function () {
@@ -37,6 +39,7 @@ angular.module('delete-tags-controller', ['registry-services'])
           // success
           function(value, responseHeaders) {
             toastr.success('Deleted tag: ' + tagStr);
+            $location.path('/repository/' + $scope.repositoryUser + '/' + $scope.repositoryName + '/' + $scope.appMode.defaultTagsPerPage);
           },
           // error
           function(httpResponse) {
@@ -45,9 +48,6 @@ angular.module('delete-tags-controller', ['registry-services'])
         );
       });
       $modalInstance.close();
-
-      // Go to the repositories page
-      $window.location.href = 'repositories';
     };
 
     $scope.cancel = function () {
