@@ -10,6 +10,7 @@
   <table  class="table table-hover">
     <thead>
       <tr>
+        <th></th>
         <th  ng-class="{strike: deleted}"><span class="glyphicon glyphicon-tag"></span> Tag</th>
         <th ><span class="glyphicon glyphicon-qrcode"></span> Image ID</th>
         <th ><span class="glyphicon glyphicon-calendar"></span> Created</th>
@@ -19,11 +20,17 @@
         <!-- <th><span class="glyphicon glyphicon-compressed"></span> Size (MB)</th> -->
       </tr>
       <tr>
-  			<th><input class="input-sm form-control" placeholder="Filter tags on this page" type="search" ng-model="search.name"/></th>
-		  </tr>
+        <th>
+          <checkbox ng-model="selectAll"></checkbox>
+        </th>
+        <th><input ng-change="resetTags()" class="input-sm form-control" placeholder="Filter tags on this page" type="search" ng-model="search.name"/></th>
+      </tr>
     </thead>
     <tbody>
       <tr ng-repeat="tag in displayedTags | filter:search ">
+        <td>
+          <checkbox ng-model="tag.selected"></checkbox>
+        </td>
         <td>
           <a ng-bind-html="tag.name" href="tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}">{{tag.name}}</a>
         </td>

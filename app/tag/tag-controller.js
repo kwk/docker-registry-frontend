@@ -34,12 +34,12 @@ angular.module('tag-controller', ['registry-services'])
       if(! $scope.tagsCurrentPage){
         $scope.tagsCurrentPage = 1;
       }else{
-        $scope.tagsCurrentPage = parseInt($scope.tagsCurrentPage) 
+        $scope.tagsCurrentPage = parseInt($scope.tagsCurrentPage)
         if($scope.tagsCurrentPage > $scope.maxTagsPage || $scope.tagsCurrentPage < 1){
-          $scope.tagsCurrentPage = 1; 
+          $scope.tagsCurrentPage = 1;
         }
       }
-      // Select wanted tags 
+      // Select wanted tags
       var idxShift = 0;
       $scope.displayedTags = $scope.tags;
       if($scope.tagsPerPage){
@@ -52,20 +52,57 @@ angular.module('tag-controller', ['registry-services'])
         if(!isNaN(idx)){
           tmpIdx = parseInt(idx) + idxShift;
           if ( result[tmpIdx].hasOwnProperty('name') ) {
-              result[tmpIdx].details = Manifest.query({repoUser: $scope.repositoryUser, repoName: $scope.repositoryName, tagName: result[tmpIdx].name});
+              Manifest.query({repoUser: $scope.repositoryUser, repoName: $scope.repositoryName, tagName: result[tmpIdx].name})
+              .$promise.then((function(tmpIdx){
+              return function(data){
+                        // FIXME: delete property 'history' because it will occur recursive checks in the process of watching $displayedTags
+                        // will this result in some bad things?
+                        if(data.history) delete data.history;
+                        result[tmpIdx].details = data;
+                      };
+            })(tmpIdx));
           }
         }
       }
     });
-      
 
-    
     // Copy collection for rendering in a smart-table
     $scope.displayedTags = [].concat($scope.tags);
 
-    
     // selected tags
     $scope.selection = [];
+
+    $scope.$watch("displayedTags|filter:{selected: true}", function(nv){
+      $scope.selection = nv;
+    }, true);
+
+    // select all tags in the page
+    $scope.$watch("selectAll", function(nv){
+      angular.forEach($filter('filter')($scope.displayedTags, $scope.search), function(elem){
+        elem.selected = nv;
+      });
+    });
+
+    // reset tags that are not in the filter result
+    $scope.resetTags = function(){
+      var filterResult = $filter('filter')($scope.displayedTags, $scope.search),
+          i = 0,
+          j = 0;
+
+      while(i<$scope.displayedTags.length && j<filterResult.length){
+        if($scope.displayedTags[i] != filterResult[j]){
+          $scope.displayedTags[i]['selected'] = false;
+          i++;
+        }
+        else{
+          i++, j++;
+        }
+      }
+      while(i<$scope.displayedTags.length) {
+        $scope.displayedTags[i]['selected'] = false;
+        i++;
+      }
+    }
 
     // helper method to get selected tags
     $scope.selectedTags = function selectedTags() {
