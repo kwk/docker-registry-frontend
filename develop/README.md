@@ -27,7 +27,7 @@ Kill all potentially running frontend or registry containers:
 
     docker-compose -f docker-registry-frontend/develop/docker-compose.yml kill
 
-Then open (develop/docker-compose.yml)[develop/docker-compose.yml] and paste this into the file:
+Then open [develop/docker-compose.yml](docker-compose.yml) and paste this into the file:
 
     frontend:
       build: .
