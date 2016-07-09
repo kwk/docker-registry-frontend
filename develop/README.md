@@ -29,6 +29,7 @@ Kill all potentially running frontend or registry containers:
 
 Then open [develop/docker-compose.yml](docker-compose.yml) and paste this into the file:
 
+```yaml
     frontend:
       build: .
       ports:
@@ -36,6 +37,7 @@ Then open [develop/docker-compose.yml](docker-compose.yml) and paste this into t
       volumes:
         - ../:/source:rw
         - ./start-develop.sh:/root/start-develop.sh:ro
+```
 
 Notice that we removed the `links` section from the `frontend` section and that the `registry` section is completely gone.
 
