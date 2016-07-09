@@ -43,6 +43,7 @@ Notice that we removed the `links` section from the `frontend` section and that 
 
 Now open [Gruntfile.js](../Gruntfile.js) and find these lines:
 
+```javascript
         {
           context: '/v2',
           host: 'path-to-your-registry-v2',
@@ -53,6 +54,7 @@ Now open [Gruntfile.js](../Gruntfile.js) and find these lines:
             "x-custom-added-header": 'custom-value'
           }
         }
+```
 
 Adjust them to your liking and replace `path-to-your-registry` with the IP address or hostname of your own registry. I suggest to use the IP address; otherwise your development container might have hard time resolving the domain.
 
