@@ -1,22 +1,19 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+describe('MainController', function() {
 
   // load the controller's module
-  beforeEach(module('dockerRegistryFrontendApp'));
+  beforeEach(module('main-controller'));
 
-  var MainCtrl,
-    scope;
+  var ctrl;
+  var scope = {};
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
-      $scope: scope
-    });
+  beforeEach(inject(function($controller) {
+    ctrl = $controller('MainController', {$scope: scope});
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+  it('should attach an appVersion and registryHost to the scope', function() {
+    var scope_keys = Object.keys(scope).sort();
+    expect(scope_keys).toEqual(['appVersion', 'registryHost']);
   });
 });

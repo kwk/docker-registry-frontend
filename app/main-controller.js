@@ -7,7 +7,7 @@
  * # MainController
  * Controller of the docker-registry-frontend
  */
-angular.module('main-controller', [])
+angular.module('main-controller', ['ngRoute', 'app-version-services', 'registry-host-services'])
   .controller('MainController', ['$scope', '$route', '$routeParams', '$location', 'AppVersion', 'RegistryHost',
   function($scope, $route, $routeParams, $location, AppVersion, RegistryHost){
       this.$route = $route;
