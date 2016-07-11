@@ -1,14 +1,15 @@
 'use strict';
 
 describe('docker-registry-frontend', function() {
-  var $route, $location, $rootScope, $httpBackend;
+  var $route, $location, $rootScope, $httpBackend, $controller;
 
   beforeEach(module('docker-registry-frontend'));
-  beforeEach(inject(function(_$route_, _$location_, _$rootScope_, _$httpBackend_) {
+  beforeEach(inject(function(_$route_, _$location_, _$rootScope_, _$httpBackend_, _$controller_) {
     $route = _$route_;
     $location = _$location_;
     $rootScope = _$rootScope_;
     $httpBackend = _$httpBackend_;
+    $controller = _$controller_;
   }));
 
   it('/home should display home page', function() {
@@ -25,6 +26,9 @@ describe('docker-registry-frontend', function() {
     $rootScope.$digest();
     expect($route.current.templateUrl).toBe('repository/repository-list.html');
     expect($route.current.controller).toBe('RepositoryListController');
+    var scope = {};
+    $controller('RepositoryListController', {$scope: scope});
+    expect(scope.reposPerPage).toBeUndefined();
   });
 
   it('/repositories/10 should display repository list page', function() {
@@ -33,6 +37,9 @@ describe('docker-registry-frontend', function() {
     $rootScope.$digest();
     expect($route.current.templateUrl).toBe('repository/repository-list.html');
     expect($route.current.controller).toBe('RepositoryListController');
+    var scope = {};
+    $controller('RepositoryListController', {$scope: scope});
+    // expect(scope.reposPerPage).toBe(10);
   });
 
   it('/repositories/20 should display repository list page', function() {
@@ -41,6 +48,9 @@ describe('docker-registry-frontend', function() {
     $rootScope.$digest();
     expect($route.current.templateUrl).toBe('repository/repository-list.html');
     expect($route.current.controller).toBe('RepositoryListController');
+    var scope = {};
+    $controller('RepositoryListController', {$scope: scope});
+    // expect(scope.reposPerPage).toBe(20);
   });
 
   it('URL with repositoryUser and repositoryName and no tagsPerPage should display repository detail page', function() {
@@ -49,6 +59,12 @@ describe('docker-registry-frontend', function() {
     $rootScope.$digest();
     expect($route.current.templateUrl).toBe('repository/repository-detail.html');
     expect($route.current.controller).toBe('RepositoryDetailController');
+    var scope = {};
+    $controller('RepositoryDetailController', {$scope: scope});
+    expect(scope.repositoryUser).toBe('owner');
+    expect(scope.repositoryName).toBe('name');
+    expect(scope.repository).toBe('owner/name');
+    expect(scope.maxTagsPage).toBeUndefined();
   });
 
   it('URL with repositoryUser and repositoryName and tagsPerPage should display repository detail page', function() {
@@ -57,6 +73,11 @@ describe('docker-registry-frontend', function() {
     $rootScope.$digest();
     expect($route.current.templateUrl).toBe('repository/repository-detail.html');
     expect($route.current.controller).toBe('RepositoryDetailController');
+    var scope = {};
+    $controller('RepositoryDetailController', {$scope: scope});
+    expect(scope.repositoryUser).toBe('owner');
+    expect(scope.repositoryName).toBe('name');
+    expect(scope.repository).toBe('owner/name');
   });
 
   // This test currently fails; this URL is incorrectly routing to the home page
@@ -76,6 +97,11 @@ describe('docker-registry-frontend', function() {
     $rootScope.$digest();
     expect($route.current.templateUrl).toBe('repository/repository-detail.html');
     expect($route.current.controller).toBe('RepositoryDetailController');
+    var scope = {};
+    $controller('RepositoryDetailController', {$scope: scope});
+    // expect(scope.repositoryUser).toBeUndefined();
+    // expect(scope.repositoryName).toBe('cx');
+    // expect(scope.repository).toBe('cx');
   });
 
   it('/about should display about page', function() {
@@ -91,6 +117,12 @@ describe('docker-registry-frontend', function() {
     $rootScope.$digest();
     expect($route.current.templateUrl).toBe('tag/tag-detail.html');
     expect($route.current.controller).toBe('TagController');
+    var scope = {};
+    $controller('TagController', {$scope: scope});
+    expect(scope.repositoryUser).toBe('repositoryUser');
+    expect(scope.repositoryName).toBe('repositoryName');
+    expect(scope.repository).toBe('repositoryUser/repositoryName');
+    expect(scope.tagName).toBe('latest');
   });
 
   // This test currently fails; this URL is incorrectly routing to the home page
