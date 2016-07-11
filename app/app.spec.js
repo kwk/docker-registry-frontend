@@ -18,6 +18,17 @@ describe('docker-registry-frontend', function() {
     $rootScope.$digest();
     expect($route.current.templateUrl).toBe('home.html');
     expect($route.current.controller).toBe('HomeController');
+    var scope = {};
+    var expectedAppMode = {
+      "browseOnly": true,
+      "defaultRepositoriesPerPage": 20,
+      "defaultTagsPerPage": 10
+    }
+    $controller('HomeController', {$scope: scope});
+    $httpBackend.expectGET('/app-mode.json').respond(expectedAppMode);
+    $httpBackend.flush();
+    jasmine.addCustomEqualityTester(angular.equals);
+    expect(scope.appMode).toEqual(expectedAppMode);
   });
 
   it('/repositories should display repository list page', function() {
