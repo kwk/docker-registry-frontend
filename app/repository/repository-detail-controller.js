@@ -18,7 +18,14 @@ angular.module('repository-detail-controller', ['registry-services', 'app-mode-s
     //$scope.searchTerm = $route.current.params.searchTerm;
     $scope.repositoryUser = $route.current.params.repositoryUser;
     $scope.repositoryName = $route.current.params.repositoryName;
-    $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
+    $log.log('repository-detail-controller: $scope.repositoryUser = ' + $scope.repositoryUser);
+    if ($scope.repositoryUser == null || $scope.repositoryUser == 'undefined') {
+      $scope.repository = $scope.repositoryName;
+      $log.log('repository-detail-controller: $scope.repositoryUser was undefined; setting repository to just repositoryName = ' + $scope.repository);
+    } else {
+      $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
+      $log.log('repository-detail-controller: $scope.repositoryUser was NOT undefined; setting repository to ' + $scope.repository);
+    }
 
     $scope.appMode = AppMode.query();
     $scope.maxTagsPage = undefined;
