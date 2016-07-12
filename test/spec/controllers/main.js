@@ -21,7 +21,7 @@ describe('MainController', function() {
     var expectedAppVersion = {"git": {"sha1": "foo", "ref": "bar"}};
     var expectedRegistryHost = {"host": "path-to-your-registry", "port": 80};
     $httpBackend.expectGET('/app-version.json').respond(expectedAppVersion);
-    $httpBackend.expectGET('/registry-host.json').respond(expectedRegistryHost);
+    $httpBackend.expectGET('registry-host.json').respond(expectedRegistryHost);
     $httpBackend.flush();
     jasmine.addCustomEqualityTester(angular.equals);
     expect(scope.appVersion).toEqual(expectedAppVersion);
