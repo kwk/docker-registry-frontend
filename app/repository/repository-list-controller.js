@@ -47,6 +47,7 @@ angular.module('repository-list-controller', ['ngRoute', 'ui.bootstrap', 'regist
     // To watch for changes on a property inside the object "repositories"
     // we first have to make sure the promise is ready.
     $scope.repositories.$promise.then(function(data) {
+      $scope.repositories = data;
       $scope.$watch('repositories.repos|filter:{selected:true}', function(nv) {
         $scope.selectedRepositories = nv.map(function (repo) {
           return repo.name;
