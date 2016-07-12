@@ -8,8 +8,8 @@
  * Controller of the docker-registry-frontend
  */
 angular.module('repository-detail-controller', ['registry-services', 'app-mode-services'])
-  .controller('RepositoryDetailController', ['$scope', '$route', '$routeParams', '$location', '$modal', 'Repository', 'AppMode',
-  function($scope, $route, $routeParams, $location, $modal, Repository, AppMode){
+  .controller('RepositoryDetailController', ['$scope', '$route', '$routeParams', '$location', '$log', '$modal', 'Repository', 'AppMode',
+  function($scope, $route, $routeParams, $location, $log, $modal, Repository, AppMode){
 
     $scope.$route = $route;
     $scope.$location = $location;
