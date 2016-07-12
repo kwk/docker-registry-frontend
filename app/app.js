@@ -60,11 +60,11 @@ angular
         templateUrl: 'repository/repository-list.html',
         controller: 'RepositoryListController'
       }).
-      when('/repository/:repositoryUser/:repositoryName', {
-        templateUrl: 'repository/repository-detail.html',
-        controller: 'RepositoryDetailController',
-      }).
       when('/repository/:repositoryUser/:repositoryName/:tagsPerPage?/:tagPage?', {
+        templateUrl: 'repository/repository-detail.html',
+        controller: 'RepositoryDetailController'
+      }).
+      when('/repository/:repositoryName/:tagsPerPage?/:tagPage?', {
         templateUrl: 'repository/repository-detail.html',
         controller: 'RepositoryDetailController'
       }).
