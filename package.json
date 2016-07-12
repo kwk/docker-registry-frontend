@@ -35,7 +35,11 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "server": "grunt serve",
+    "postinstall": "bower install",
+    "pretest": "npm install",
+    "test": "karma start test/karma.conf.js",
+    "test-single-run": "karma start test/karma.conf.js --single-run"
   },
   "description": "A pure web-based frontend to a docker-registry",
   "main": "Gruntfile.js",
