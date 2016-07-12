@@ -19,8 +19,8 @@ angular.module('repository-list-controller', ['ngRoute', 'ui.bootstrap', 'regist
     $scope.repositoryName = $route.current.params.repositoryName;
     $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
 
-    $scope.appMode = AppMode.query( function (result){
-      $scope.defaultTagsPerPage = result.defaultTagsPerPage
+    AppMode.query(function(result) {
+      $scope.appMode = result;
     });
     // How to query the repository
     $scope.reposPerPage = $route.current.params.reposPerPage;

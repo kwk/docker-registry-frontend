@@ -8,8 +8,8 @@
  * Controller of the docker-registry-frontend
  */
 angular.module('tag-controller', ['registry-services'])
-  .controller('TagController', ['$scope', '$route', '$routeParams', '$location', '$log', '$filter', 'Manifest', 'Tag', 'filterFilter', '$modal',
-  function($scope, $route, $routeParams, $location, $log, $filter, Manifest, Tag, filterFilter, $modal){
+  .controller('TagController', ['$scope', '$route', '$routeParams', '$location', '$filter', 'Manifest', 'Tag', 'AppMode', 'filterFilter', '$modal',
+  function($scope, $route, $routeParams, $location, $filter, Manifest, Tag, AppMode, filterFilter, $modal){
 
     $scope.$route = $route;
     $scope.$location = $location;
@@ -18,16 +18,20 @@ angular.module('tag-controller', ['registry-services'])
     $scope.searchName = $route.current.params.searchName;
     $scope.repositoryUser = $route.current.params.repositoryUser;
     $scope.repositoryName = $route.current.params.repositoryName;
-    $log.log('tag-controller: $scope.repositoryUser = ' + $scope.repositoryUser);
     if ($scope.repositoryUser == null || $scope.repositoryUser == 'undefined') {
       $scope.repository = $scope.repositoryName;
-      $log.log('tag-controller: $scope.repositoryUser was undefined; setting repository to just repositoryName = ' + $scope.repository);
     } else {
       $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
-      $log.log('tag-controller: $scope.repositoryUser was NOT undefined; setting repository to ' + $scope.repository);
     }
     $scope.tagName = $route.current.params.tagName;
-    $scope.tagsPerPage = $route.current.params.tagsPerPage;
+    AppMode.query(function(result) {
+      $scope.appMode = result;
+      console.log('$route.current.params.tagsPerPage = ' + $route.current.params.tagsPerPage);
+      $scope.tagsPerPage = $route.current.params.tagsPerPage || $scope.appMode.defaultTagsPerPage;
+      if ($scope.tagsPerPage == 'all') {
+        $scope.tagsPerPage = null;
+      }
+    });
 
     // Fetch tags
     $scope.tags = Tag.query({
