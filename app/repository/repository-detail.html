@@ -6,8 +6,7 @@
 </ol>
 
 <h1>
-  Details for repository
-  <a href="repositories/{{repositoryUser}}">{{repositoryUser}}</a>/<a href="repository/{{repositoryUser}}/{{repositoryName}}">{{repositoryName}}</a>
+  Details for repository: {{repository}}
   <div ng-hide="appMode.browseOnly" class="pull-right">
     <!-- Maybe put this into its own directive? -->
     <button type="button" ng-click="selectedRepositories=['{{repositoryUser}}/{{repositoryName}}']; openConfirmRepoDeletionDialog()" class="btn btn-danger" ng-hide="appMode.browseOnly">
