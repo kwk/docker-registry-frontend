@@ -34,13 +34,13 @@ angular.module('repository-detail-controller', ['registry-services', 'app-mode-s
     $scope.getNextHref = function (){
       if($scope.maxTagsPage > $scope.tagsCurrentPage){
         var nextPageNumber = $scope.tagsCurrentPage + 1;
-        return '/repository/'+$scope.repository+'/'+ $scope.tagsPerPage +'/' +nextPageNumber;
+        return '/repository/'+$scope.repository+'?tagsPerPage='+ $scope.tagsPerPage +'&tagPage=' +nextPageNumber;
       }
       return '#'
-    } 
+    }
     $scope.getFirstHref = function (){
       if($scope.tagsCurrentPage > 1){
-        return '/repository/'+$scope.repository+'/' + $scope.tagsPerPage +'/1';
+        return '/repository/'+$scope.repository+'?tagsPerPage=' + $scope.tagsPerPage;
       }
       return '#'
     }
