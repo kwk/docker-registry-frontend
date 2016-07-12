@@ -7,7 +7,7 @@
  * # RepositoryListController
  * Controller of the docker-registry-frontend
  */
-angular.module('repository-list-controller', ['registry-services', 'app-mode-services'])
+angular.module('repository-list-controller', ['ngRoute', 'ui.bootstrap', 'registry-services', 'app-mode-services'])
   .controller('RepositoryListController', ['$scope', '$route', '$routeParams', '$location', '$modal', 'Repository', 'AppMode',
   function($scope, $route, $routeParams, $location, $modal, Repository, AppMode){
 
