@@ -94,13 +94,13 @@ describe('docker-registry-frontend', function() {
   // This test currently fails; this URL is incorrectly routing to the home page
   // @todo @FIXME
   //
-  // it('URL with repositoryName but no repositoryUser and no tagsPerPage should display repository detail page', function() {
-  //   $httpBackend.expectGET('repository/repository-detail.html').respond(200);
-  //   $location.path('/repository/cx');
-  //   $rootScope.$digest();
-  //   expect($route.current.templateUrl).toBe('repository/repository-detail.html');
-  //   expect($route.current.controller).toBe('RepositoryDetailController');
-  // });
+  it('URL with repositoryName but no repositoryUser and no tagsPerPage should display repository detail page', function() {
+    $httpBackend.expectGET('repository/repository-detail.html').respond(200);
+    $location.path('/repository/cx');
+    $rootScope.$digest();
+    expect($route.current.templateUrl).toBe('repository/repository-detail.html');
+    expect($route.current.controller).toBe('RepositoryDetailController');
+  });
 
   it('URL with repositoryName but no repositoryUser and tagsPerPage should display repository detail page', function() {
     $httpBackend.expectGET('repository/repository-detail.html').respond(200);
