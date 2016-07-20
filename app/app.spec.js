@@ -135,16 +135,13 @@ describe('docker-registry-frontend', function() {
     expect(scope.tagName).toBe('latest');
   });
 
-  // This test currently fails; this URL is incorrectly routing to the home page
-  // @todo @FIXME
-  //
-  // it('/tag/repositoryName/latest should display tag detail page', function() {
-  //   $httpBackend.expectGET('tag/tag-detail.html').respond(200);
-  //   $location.path('/tag/repositoryName/latest');
-  //   $rootScope.$digest();
-  //   expect($route.current.templateUrl).toBe('tag/tag-detail.html');
-  //   expect($route.current.controller).toBe('TagController');
-  // });
+  it('/tag/repositoryName/latest should display tag detail page', function() {
+    $httpBackend.expectGET('tag/tag-detail.html').respond(200);
+    $location.path('/tag/repositoryName/latest');
+    $rootScope.$digest();
+    expect($route.current.templateUrl).toBe('tag/tag-detail.html');
+    expect($route.current.controller).toBe('TagController');
+  });
 
   it('/image/88e37c7099fa should display image detail page', function() {
     $httpBackend.expectGET('tag/image-detail.html').respond(200);

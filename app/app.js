@@ -75,7 +75,7 @@ angular
 	    when('/about', {
         templateUrl: 'about.html',
       }).
-      when('/tag/:repositoryUser/:repositoryName/:tagName/', {
+      when('/tag/:repositoryUser?/:repositoryName/:tagName/', {
         templateUrl: 'tag/tag-detail.html',
         controller: 'TagController',
       }).
