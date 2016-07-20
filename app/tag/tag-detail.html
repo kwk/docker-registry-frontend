@@ -26,8 +26,8 @@
 
 </h1>
 
-<div class="well">
+<div class="well"><code>
   docker pull {{registryHost.host}}<span ng-if="registryHost.port != 80 && registryHost.port != 443">:{{registryHost.port}}</span>/{{repository}}:{{tagName}}
-</div>
+</code></div>
 
 <image-details></image-details>
