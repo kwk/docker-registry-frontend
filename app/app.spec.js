@@ -50,7 +50,7 @@ describe('docker-registry-frontend', function() {
     expect($route.current.controller).toBe('RepositoryListController');
     var scope = {};
     $controller('RepositoryListController', {$scope: scope});
-    // expect(scope.reposPerPage).toBe(10);
+    expect(scope.reposPerPage).toBe(10);
   });
 
   it('/repositories/20 should display repository list page', function() {
@@ -61,7 +61,7 @@ describe('docker-registry-frontend', function() {
     expect($route.current.controller).toBe('RepositoryListController');
     var scope = {};
     $controller('RepositoryListController', {$scope: scope});
-    // expect(scope.reposPerPage).toBe(20);
+    expect(scope.reposPerPage).toBe(20);
   });
 
   it('URL with repositoryUser and repositoryName and no tagsPerPage should display repository detail page', function() {

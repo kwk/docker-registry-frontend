@@ -23,7 +23,9 @@ angular.module('repository-list-controller', ['ngRoute', 'ui.bootstrap', 'regist
       $scope.appMode = result;
     });
     // How to query the repository
-    $scope.reposPerPage = $route.current.params.reposPerPage;
+    if ($route.current.params.reposPerPage) {
+      $scope.reposPerPage = parseInt($route.current.params.reposPerPage, 10);
+    }
     $scope.lastNamespace = $route.current.params.lastNamespace;
     $scope.lastRepository = $route.current.params.lastRepository;
     var queryObject = {};
