@@ -8,8 +8,8 @@
  * Controller of the docker-registry-frontend
  */
 angular.module('repository-detail-controller', ['registry-services', 'app-mode-services'])
-  .controller('RepositoryDetailController', ['$scope', '$route', '$routeParams', '$location', '$modal', 'Repository', 'AppMode',
-  function($scope, $route, $routeParams, $location, $modal, Repository, AppMode){
+  .controller('RepositoryDetailController', ['$scope', '$route', '$routeParams', '$location', '$log', '$modal', 'Repository', 'AppMode',
+  function($scope, $route, $routeParams, $location, $log, $modal, Repository, AppMode){
 
     $scope.$route = $route;
     $scope.$location = $location;
@@ -18,7 +18,14 @@ angular.module('repository-detail-controller', ['registry-services', 'app-mode-s
     //$scope.searchTerm = $route.current.params.searchTerm;
     $scope.repositoryUser = $route.current.params.repositoryUser;
     $scope.repositoryName = $route.current.params.repositoryName;
-    $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
+    $log.log('repository-detail-controller: $scope.repositoryUser = ' + $scope.repositoryUser);
+    if ($scope.repositoryUser == null || $scope.repositoryUser == 'undefined') {
+      $scope.repository = $scope.repositoryName;
+      $log.log('repository-detail-controller: $scope.repositoryUser was undefined; setting repository to just repositoryName = ' + $scope.repository);
+    } else {
+      $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
+      $log.log('repository-detail-controller: $scope.repositoryUser was NOT undefined; setting repository to ' + $scope.repository);
+    }
 
     $scope.appMode = AppMode.query();
     $scope.maxTagsPage = undefined;
@@ -27,13 +34,13 @@ angular.module('repository-detail-controller', ['registry-services', 'app-mode-s
     $scope.getNextHref = function (){
       if($scope.maxTagsPage > $scope.tagsCurrentPage){
         var nextPageNumber = $scope.tagsCurrentPage + 1;
-        return '/repository/'+$scope.repository+'/'+ $scope.tagsPerPage +'/' +nextPageNumber;
+        return '/repository/'+$scope.repository+'?tagsPerPage='+ $scope.tagsPerPage +'&tagPage=' +nextPageNumber;
       }
       return '#'
-    } 
+    }
     $scope.getFirstHref = function (){
       if($scope.tagsCurrentPage > 1){
-        return '/repository/'+$scope.repository+'/' + $scope.tagsPerPage +'/1';
+        return '/repository/'+$scope.repository+'?tagsPerPage=' + $scope.tagsPerPage;
       }
       return '#'
     }

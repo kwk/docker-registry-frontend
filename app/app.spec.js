@@ -50,7 +50,7 @@ describe('docker-registry-frontend', function() {
     expect($route.current.controller).toBe('RepositoryListController');
     var scope = {};
     $controller('RepositoryListController', {$scope: scope});
-    // expect(scope.reposPerPage).toBe(10);
+    expect(scope.reposPerPage).toBe(10);
   });
 
   it('/repositories/20 should display repository list page', function() {
@@ -61,7 +61,7 @@ describe('docker-registry-frontend', function() {
     expect($route.current.controller).toBe('RepositoryListController');
     var scope = {};
     $controller('RepositoryListController', {$scope: scope});
-    // expect(scope.reposPerPage).toBe(20);
+    expect(scope.reposPerPage).toBe(20);
   });
 
   it('URL with repositoryUser and repositoryName and no tagsPerPage should display repository detail page', function() {
@@ -80,7 +80,8 @@ describe('docker-registry-frontend', function() {
 
   it('URL with repositoryUser and repositoryName and tagsPerPage should display repository detail page', function() {
     $httpBackend.expectGET('repository/repository-detail.html').respond(200);
-    $location.path('/repository/owner/name/10');
+    $location.path('/repository/owner/name');
+    $location.search('tagsPerPage', 10)
     $rootScope.$digest();
     expect($route.current.templateUrl).toBe('repository/repository-detail.html');
     expect($route.current.controller).toBe('RepositoryDetailController');
@@ -91,28 +92,26 @@ describe('docker-registry-frontend', function() {
     expect(scope.repository).toBe('owner/name');
   });
 
-  // This test currently fails; this URL is incorrectly routing to the home page
-  // @todo @FIXME
-  //
-  // it('URL with repositoryName but no repositoryUser and no tagsPerPage should display repository detail page', function() {
-  //   $httpBackend.expectGET('repository/repository-detail.html').respond(200);
-  //   $location.path('/repository/cx');
-  //   $rootScope.$digest();
-  //   expect($route.current.templateUrl).toBe('repository/repository-detail.html');
-  //   expect($route.current.controller).toBe('RepositoryDetailController');
-  // });
+  it('URL with repositoryName but no repositoryUser and no tagsPerPage should display repository detail page', function() {
+    $httpBackend.expectGET('repository/repository-detail.html').respond(200);
+    $location.path('/repository/cx');
+    $rootScope.$digest();
+    expect($route.current.templateUrl).toBe('repository/repository-detail.html');
+    expect($route.current.controller).toBe('RepositoryDetailController');
+  });
 
   it('URL with repositoryName but no repositoryUser and tagsPerPage should display repository detail page', function() {
     $httpBackend.expectGET('repository/repository-detail.html').respond(200);
-    $location.path('/repository/cx/10');
+    $location.path('/repository/cx');
+    $location.search('tagsPerPage', 10)
     $rootScope.$digest();
     expect($route.current.templateUrl).toBe('repository/repository-detail.html');
     expect($route.current.controller).toBe('RepositoryDetailController');
     var scope = {};
     $controller('RepositoryDetailController', {$scope: scope});
-    // expect(scope.repositoryUser).toBeUndefined();
-    // expect(scope.repositoryName).toBe('cx');
-    // expect(scope.repository).toBe('cx');
+    expect(scope.repositoryUser).toBeUndefined();
+    expect(scope.repositoryName).toBe('cx');
+    expect(scope.repository).toBe('cx');
   });
 
   it('/about should display about page', function() {
@@ -136,16 +135,13 @@ describe('docker-registry-frontend', function() {
     expect(scope.tagName).toBe('latest');
   });
 
-  // This test currently fails; this URL is incorrectly routing to the home page
-  // @todo @FIXME
-  //
-  // it('/tag/repositoryName/latest should display tag detail page', function() {
-  //   $httpBackend.expectGET('tag/tag-detail.html').respond(200);
-  //   $location.path('/tag/repositoryName/latest');
-  //   $rootScope.$digest();
-  //   expect($route.current.templateUrl).toBe('tag/tag-detail.html');
-  //   expect($route.current.controller).toBe('TagController');
-  // });
+  it('/tag/repositoryName/latest should display tag detail page', function() {
+    $httpBackend.expectGET('tag/tag-detail.html').respond(200);
+    $location.path('/tag/repositoryName/latest');
+    $rootScope.$digest();
+    expect($route.current.templateUrl).toBe('tag/tag-detail.html');
+    expect($route.current.controller).toBe('TagController');
+  });
 
   it('/image/88e37c7099fa should display image detail page', function() {
     $httpBackend.expectGET('tag/image-detail.html').respond(200);

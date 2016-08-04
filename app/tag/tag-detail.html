@@ -1,17 +1,17 @@
 <ol class="breadcrumb">
     <li><a href="home">Home</a></li>
     <li><a href="repositories/">Repositories</a></li>
-    <li><a href="repositories/{{repositoryUser}}">{{repositoryUser}}</a></li>
-    <li><a href="repository/{{repositoryUser}}/{{repositoryName}}">{{repositoryName}}</a></li>
-    <li><a href="tag/{{repositoryUser}}/{{repositoryName}}/{{tagName}}/{{imageId}}">{{tagName}}</a></li>
+    <li ng-show="repositoryUser"><a href="repositories/{{repositoryUser}}">{{repositoryUser}}</a></li>
+    <li><a href="repository/{{repository}}">{{repositoryName}}</a></li>
+    <li><a href="tag/{{repository}}/{{tagName}}/{{imageId}}">{{tagName}}</a></li>
 </ol>
 
 <h1>
-  Details for tag 
+  Details for tag
   <a href="repositories/{{repositoryUser}}">{{repositoryUser}}</a> /
   <a href="repository/{{repositoryUser}}/{{repositoryName}}">{{repositoryName}}</a> :
   <a href="tag/{{repositoryUser}}/{{repositoryName}}/{{tagName}}/{{imageId}}">{{tagName}}</a>
-  
+
   <div ng-hide="appMode.browseOnly" class="pull-right">
     <button type="button" ng-click="selection=['{{repositoryUser}}/{{repositoryName}}:{{tagName}}']; openConfirmTagDeletionDialog()" class="btn btn-danger">
       <span class="glyphicon glyphicon-trash"></span> Delete Tag
@@ -26,8 +26,8 @@
 
 </h1>
 
-<div class="well">
-  docker pull {{registryHost.host}}<span ng-if="registryHost.port != 80 && registryHost.port != 443">:{{registryHost.port}}</span>/{{repositoryUser}}/{{repositoryName}}:{{tagName}}
-</div>
+<div class="well"><code>
+  docker pull {{registryHost.host}}<span ng-if="registryHost.port != 80 && registryHost.port != 443">:{{registryHost.port}}</span>/{{repository}}:{{tagName}}
+</code></div>
 
 <image-details></image-details>
