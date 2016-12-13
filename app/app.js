@@ -68,10 +68,6 @@ angular
         templateUrl: 'repository/repository-detail.html',
         controller: 'RepositoryDetailController'
       }).
-      when('/repository/:repositoryUser/:repositoryName/tags/:searchName?', {
-        templateUrl: 'repository/repository-detail.html',
-        controller: 'RepositoryController',
-      }).
 	    when('/about', {
         templateUrl: 'about.html',
       }).
