@@ -130,6 +130,16 @@ You can set `true` or `false` to this flag.
 
 **NOTE** For now `ENV_MODE_BROWSE_ONLY` will be overwritten to `true`.
 
+# Docker Compose v3
+
+In order to deploy the frontend as service, just use `docker deploy` with the compose file (docker-engine >=1.13):
+
+```
+$ docker deploy -c docker-compose.yml dockerreg
+Creating network dockerreg_default
+Creating service dockerreg_frontend
+```
+
 # Default repositories per page
 
 By default 20 repositories will be listed per page. To adjust this number, to
