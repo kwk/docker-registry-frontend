@@ -7,7 +7,7 @@
  * # RepositoryListController
  * Controller of the docker-registry-frontend
  */
-angular.module('repository-list-controller', ['registry-services', 'app-mode-services'])
+angular.module('repository-list-controller', ['ngRoute', 'ui.bootstrap', 'registry-services', 'app-mode-services'])
   .controller('RepositoryListController', ['$scope', '$route', '$routeParams', '$location', '$modal', 'Repository', 'AppMode',
   function($scope, $route, $routeParams, $location, $modal, Repository, AppMode){
 
@@ -19,11 +19,13 @@ angular.module('repository-list-controller', ['registry-services', 'app-mode-ser
     $scope.repositoryName = $route.current.params.repositoryName;
     $scope.repository = $scope.repositoryUser + '/' + $scope.repositoryName;
 
-    $scope.appMode = AppMode.query( function (result){
-      $scope.defaultTagsPerPage = result.defaultTagsPerPage
+    AppMode.query(function(result) {
+      $scope.appMode = result;
     });
     // How to query the repository
-    $scope.reposPerPage = $route.current.params.reposPerPage;
+    if ($route.current.params.reposPerPage) {
+      $scope.reposPerPage = parseInt($route.current.params.reposPerPage, 10);
+    }
     $scope.lastNamespace = $route.current.params.lastNamespace;
     $scope.lastRepository = $route.current.params.lastRepository;
     var queryObject = {};
@@ -47,6 +49,7 @@ angular.module('repository-list-controller', ['registry-services', 'app-mode-ser
     // To watch for changes on a property inside the object "repositories"
     // we first have to make sure the promise is ready.
     $scope.repositories.$promise.then(function(data) {
+      $scope.repositories = data;
       $scope.$watch('repositories.repos|filter:{selected:true}', function(nv) {
         $scope.selectedRepositories = nv.map(function (repo) {
           return repo.name;

@@ -27,7 +27,14 @@
     "grunt-svgmin": "^3.1.2",
     "grunt-usemin": "^3.1.1",
     "grunt-wiredep": "^2.0.0",
+    "jasmine": "^2.4.1",
+    "jasmine-core": "^2.4.1",
     "jshint-stylish": "^2.1.0",
+    "karma": "^1.1.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-junit-reporter": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.1",
+    "karma-spec-reporter": "0.0.26",
     "load-grunt-tasks": "^3.4.0",
     "time-grunt": "^1.3.0"
   },
@@ -35,7 +42,11 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "server": "grunt serve",
+    "postinstall": "bower install",
+    "pretest": "npm install",
+    "test": "karma start test/karma.conf.js",
+    "test-single-run": "karma start test/karma.conf.js --single-run"
   },
   "description": "A pure web-based frontend to a docker-registry",
   "main": "Gruntfile.js",

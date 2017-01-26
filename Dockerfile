@@ -63,6 +63,7 @@ RUN apt-get -y update && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get -y install \
       apache2 \
+      bzip2 \
       libapache2-mod-auth-kerb \
       libapache2-mod-proxy-html \
       git \
@@ -85,7 +86,7 @@ RUN apt-get -y update && \
     node_modules/grunt-cli/bin/grunt build --allow-root && \
     cp -rf $SOURCE_DIR/dist/* $WWW_DIR && \
     rm -rf $SOURCE_DIR && \
-    apt-get -y --auto-remove purge git nodejs nodejs-legacy npm && \
+    apt-get -y --auto-remove purge git nodejs nodejs-legacy npm bzip2 && \
     apt-get -y autoremove && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*

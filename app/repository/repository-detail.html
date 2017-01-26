@@ -1,13 +1,12 @@
 <ol class="breadcrumb">
     <li><a href="home">Home</a></li>
     <li><a href="repositories/">Repositories</a></li>
-    <li><a href="repositories/{{repositoryUser}}">{{repositoryUser}}</a></li>
-    <li><a href="repository/{{repositoryUser}}/{{repositoryName}}">{{repositoryName}}</a></li>
+    <li ng-show="repositoryUser"><a href="repositories/{{repositoryUser}}">{{repositoryUser}}</a></li>
+    <li><a href="repository/{{repository}}">{{repositoryName}}</a></li>
 </ol>
 
 <h1>
-  Details for repository
-  <a href="repositories/{{repositoryUser}}">{{repositoryUser}}</a>/<a href="repository/{{repositoryUser}}/{{repositoryName}}">{{repositoryName}}</a>
+  Details for repository: {{repository}}
   <div ng-hide="appMode.browseOnly" class="pull-right">
     <!-- Maybe put this into its own directive? -->
     <button type="button" ng-click="selectedRepositories=['{{repositoryUser}}/{{repositoryName}}']; openConfirmRepoDeletionDialog()" class="btn btn-danger" ng-hide="appMode.browseOnly">
@@ -40,14 +39,14 @@
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><a href="repository/{{repository}}">Show all</a></li>
+          <li><a href="repository/{{repository}}?tagsPerPage=all">Show all</a></li>
           <li role="separator" class="divider"></li>
-          <li><a href="repository/{{repository}}/10/1">10</a></li>
-          <li><a href="repository/{{repository}}/20/1">20</a></li>
-          <li><a href="repository/{{repository}}/40/1">40</a></li>
-          <li><a href="repository/{{repository}}/60/1">60</a></li>
-          <li><a href="repository/{{repository}}/80/1">80</a></li>
-          <li><a href="repository/{{repository}}/100/1">100</a></li>
+          <li><a href="repository/{{repository}}?tagsPerPage=10">10</a></li>
+          <li><a href="repository/{{repository}}?tagsPerPage=20">20</a></li>
+          <li><a href="repository/{{repository}}?tagsPerPage=40">40</a></li>
+          <li><a href="repository/{{repository}}?tagsPerPage=60">60</a></li>
+          <li><a href="repository/{{repository}}?tagsPerPage=80">80</a></li>
+          <li><a href="repository/{{repository}}?tagsPerPage=100">100</a></li>
         </ul>
       </div>
     </li>

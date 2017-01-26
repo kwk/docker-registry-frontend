@@ -62,20 +62,16 @@ angular
       }).
       when('/repository/:repositoryUser/:repositoryName', {
         templateUrl: 'repository/repository-detail.html',
-        controller: 'RepositoryDetailController',
-      }).
-      when('/repository/:repositoryUser/:repositoryName/:tagsPerPage?/:tagPage?', {
-        templateUrl: 'repository/repository-detail.html',
         controller: 'RepositoryDetailController'
       }).
-      when('/repository/:repositoryUser/:repositoryName/tags/:searchName?', {
+      when('/repository/:repositoryName', {
         templateUrl: 'repository/repository-detail.html',
-        controller: 'RepositoryController',
+        controller: 'RepositoryDetailController'
       }).
 	    when('/about', {
         templateUrl: 'about.html',
       }).
-      when('/tag/:repositoryUser/:repositoryName/:tagName/', {
+      when('/tag/:repositoryUser?/:repositoryName/:tagName/', {
         templateUrl: 'tag/tag-detail.html',
         controller: 'TagController',
       }).

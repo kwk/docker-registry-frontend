@@ -27,8 +27,9 @@ Kill all potentially running frontend or registry containers:
 
     docker-compose -f docker-registry-frontend/develop/docker-compose.yml kill
 
-Then open (develop/docker-compose.yml)[develop/docker-compose.yml] and paste this into the file:
+Then open [develop/docker-compose.yml](docker-compose.yml) and paste this into the file:
 
+```yaml
     frontend:
       build: .
       ports:
@@ -36,11 +37,13 @@ Then open (develop/docker-compose.yml)[develop/docker-compose.yml] and paste thi
       volumes:
         - ../:/source:rw
         - ./start-develop.sh:/root/start-develop.sh:ro
+```
 
 Notice that we removed the `links` section from the `frontend` section and that the `registry` section is completely gone.
 
-Now open [Gruntfile.js](Gruntfile.js) and find these lines:
+Now open [Gruntfile.js](../Gruntfile.js) and find these lines:
 
+```javascript
         {
           context: '/v2',
           host: 'path-to-your-registry-v2',
@@ -51,6 +54,7 @@ Now open [Gruntfile.js](Gruntfile.js) and find these lines:
             "x-custom-added-header": 'custom-value'
           }
         }
+```
 
 Adjust them to your liking and replace `path-to-your-registry` with the IP address or hostname of your own registry. I suggest to use the IP address; otherwise your development container might have hard time resolving the domain.
 
