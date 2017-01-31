@@ -22,6 +22,9 @@ angular.module('repository-list-controller', ['ngRoute', 'ui.bootstrap', 'regist
     AppMode.query(function(result) {
       $scope.appMode = result;
     });
+
+    $scope.repositories = [];
+
     // How to query the repository
     if ($route.current.params.reposPerPage) {
       $scope.reposPerPage = parseInt($route.current.params.reposPerPage, 10);
@@ -32,10 +35,21 @@ angular.module('repository-list-controller', ['ngRoute', 'ui.bootstrap', 'regist
     if ($scope.reposPerPage) {
       queryObject['n'] = $scope.reposPerPage;
     }
-    if ($scope.lastNamespace && $scope.lastRepository) {
-      queryObject['last'] = ''+$scope.lastNamespace+'/'+$scope.lastRepository;
+
+    $scope.foundAll = false;
+
+    while (! $scope.foundAll){
+      if ($scope.lastNamespace && $scope.lastRepository) {
+        queryObject['last'] = ''+$scope.lastNamespace+'/'+$scope.lastRepository;
+      }
+      $scope.found = Repository.query(queryObject);
+      $scope.repositories.push($scope.found);
+      if(! $scope.reposPerPage || $scope.found.length < $scope.reposPerPage) {
+        $scope.foundAll = true;
+      }
+      $scope.lastNamespace = $scope.found.lastNamespace;
+      $scope.lastRepository = $scope.found.lastRepository;
     }
-    $scope.repositories = Repository.query(queryObject);
 
     // selected repos
     $scope.selectedRepositories = [];
