@@ -1,0 +1,72 @@
+FROM registry.centos.org/centos/centos:7
+MAINTAINER "Mohammed Zeeshan Ahmed"
+
+ENV SOURCE_DIR /tmp/source
+ENV WWW_DIR /var/www/html
+ENV START_SCRIPT /opt/start-apache.sh
+
+# RUN yum -y update && yum clean all
+
+# Create dirs
+RUN mkdir -p  $SOURCE_DIR/dist \
+              $SOURCE_DIR/app \
+              $SOURCE_DIR/test \
+              $SOURCE_DIR/.git
+
+# Add dirs
+ADD app $SOURCE_DIR/app
+ADD test $SOURCE_DIR/test
+
+# Dot files
+ADD .jshintrc $SOURCE_DIR/
+ADD .bowerrc $SOURCE_DIR/
+ADD .editorconfig $SOURCE_DIR/
+ADD .travis.yml $SOURCE_DIR/
+
+# Other files
+ADD bower.json $SOURCE_DIR/
+ADD Gruntfile.js $SOURCE_DIR/
+ADD LICENSE $SOURCE_DIR/
+ADD package.json $SOURCE_DIR/
+ADD README.md $SOURCE_DIR/
+
+# Add some git files for versioning
+ADD .git/HEAD $SOURCE_DIR/.git/HEAD
+ADD .git/refs $SOURCE_DIR/.git/refs
+
+RUN yum -y install epel-release && \
+    yum -y install httpd \
+    mod_auth_kerb \
+    mod_proxy_html \
+    mod_ssl \
+    bzip2 \
+    git \
+    nodejs \
+    nodejs-legacy \
+    npm && \
+    cd $SOURCE_DIR && \
+    export GITREF=$(cat .git/HEAD | cut -d" " -f2) && \
+    export GITSHA1=$(cat .git/$GITREF) && \
+    echo "{\"git\": {\"sha1\": \"$GITSHA1\", \"ref\": \"$GITREF\"}}" > $WWW_DIR/app-version.json && \
+    cd $SOURCE_DIR && \
+    rm -rf $SOURCE_DIR/.git && \
+    git config --global url."https://".insteadOf git:// && \
+    cd $SOURCE_DIR && \
+    npm install && \
+    node_modules/bower/bin/bower install --allow-root && \
+    node_modules/grunt-cli/bin/grunt build --allow-root && \
+    cp -rf $SOURCE_DIR/dist/* $WWW_DIR && \
+    rm -rf $SOURCE_DIR && \
+    yum -y remove git nodejs nodejs-legacy npm bzip2 && \
+    yum clean all
+
+ADD apache-site.conf /etc/httpd/conf.d/docker-site.conf
+ADD start.sh $START_SCRIPT
+RUN chmod +x $START_SCRIPT
+
+# Exposed ports
+EXPOSE 80 443
+
+VOLUME ["/etc/apache2/server.crt", "/etc/apache2/server.key"]
+
+CMD $START_SCRIPT
