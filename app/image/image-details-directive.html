@@ -17,7 +17,7 @@
       <div class="form-group">
         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-user"></span> Author</label>
         <div class="col-sm-10">
-          <p class="form-control-static">{{imageDetails.author}}</p>
+          <p class="form-control-static">{{imageDetails.labels.maintainer || imageDetails.author}}</p>
         </div>
       </div>
       <div class="form-group" ng-if="imageDetails.comment">
@@ -65,7 +65,7 @@
           </p>
         </div>
       </div> -->
-      
+
 <!--       <div class="form-group">
         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-compressed"></span> Size <small>(including base image sizes)</small></label>
         <div class="col-sm-10">
@@ -78,7 +78,7 @@
             </button>
           </p>
         </div>
-      </div> --> 
+      </div> -->
     </form>
   </tab>
   <tab>
