@@ -19,22 +19,21 @@ ENV START_SCRIPT /root/start-develop.sh
 # this forces dpkg not to call sync() after package extraction and speeds up
 # install
 RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup
-# we don't need and apt cache in a container
+# we don't need an apt cache in a container
 RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
-
-RUN apt-get -y update && \
-    export DEBIAN_FRONTEND=noninteractive
 
 ############################################################
 # Install development requirements
 ############################################################
-
-RUN apt-get -y install \
+RUN apt-get -y update && \
+    DEBIAN_FRONTEND=noninteractive && \
+    apt-get -y install \
       git \
       nodejs \
       nodejs-legacy \
       npm \
       --no-install-recommends
+
 RUN git config --global url."https://".insteadOf git://
 # Avoid this: "Problem with the SSL CA cert (path? access rights?)"
 RUN git config --global http.sslVerify false
