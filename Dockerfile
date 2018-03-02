@@ -61,15 +61,19 @@ ADD .git/refs $SOURCE_DIR/.git/refs
 
 RUN apt-get -y update && \
     export DEBIAN_FRONTEND=noninteractive && \
+    apt-get -y install wget --no-install-recommends && \
+    echo "deb http://deb.nodesource.com/node_8.x jessie main" > /etc/apt/sources.list.d/nodesource.list && \
+    wget -q http://deb.nodesource.com/gpgkey/nodesource.gpg.key -O nodesource.gpg.key && \
+    apt-key add nodesource.gpg.key && \
+    rm -f nodesource.gpg.key && \
+    apt-get -y update && \
     apt-get -y install \
       apache2 \
       bzip2 \
+      nodejs \
       libapache2-mod-auth-kerb \
       libapache2-mod-proxy-html \
       git \
-      nodejs \
-      nodejs-legacy \
-      npm \
       --no-install-recommends && \
     a2enmod proxy && \
     a2enmod proxy_http && \
