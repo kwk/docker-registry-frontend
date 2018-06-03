@@ -1,6 +1,36 @@
 {
   "name": "docker-registry-frontend",
+  "description": "A pure web-based frontend to a docker-registry",
   "version": "0.0.2",
+  "author": "Konrad Kleine",
+  "license": "MIT",
+  "keywords": [
+    "docker",
+    "registry",
+    "frontend",
+    "ui"
+  ],
+  "main": "Gruntfile.js",
+  "directories": {
+    "test": "test"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kwk/docker-registry-frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kwk/docker-registry-frontend/issues"
+  },
+  "scripts": {
+    "server": "grunt serve",
+    "postinstall": "bower install",
+    "pretest": "npm install",
+    "test": "karma start test/karma.conf.js",
+    "test-single-run": "karma start test/karma.conf.js --single-run"
+  },
   "dependencies": {},
   "devDependencies": {
     "bower": "^1.7.2",
@@ -37,35 +67,5 @@
     "karma-spec-reporter": "0.0.26",
     "load-grunt-tasks": "^3.4.0",
     "time-grunt": "^1.3.0"
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  },
-  "scripts": {
-    "server": "grunt serve",
-    "postinstall": "bower install",
-    "pretest": "npm install",
-    "test": "karma start test/karma.conf.js",
-    "test-single-run": "karma start test/karma.conf.js --single-run"
-  },
-  "description": "A pure web-based frontend to a docker-registry",
-  "main": "Gruntfile.js",
-  "directories": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:kwk/docker-registry-frontend.git"
-  },
-  "keywords": [
-    "docker",
-    "registry",
-    "frontend",
-    "ui"
-  ],
-  "author": "Konrad Kleine",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kwk/docker-registry-frontend/issues"
   }
 }
