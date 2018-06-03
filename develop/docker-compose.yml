@@ -1,16 +1,28 @@
-frontend:
-  build: .
-  links:
-    - registry:path-to-your-registry-v2
-  ports:
-      # Serves the page via grunt
-    - "9000:9000"
-      # For live reload with grunt
-    - "35729:35729"
-  volumes:
-    - ../:/source:rw
-    - ./start-develop.sh:/root/start-develop.sh:ro
-registry:
-  image: registry:2.1.1
-  ports:
-    - "5000:5000"
+version: '3.2'
+services:
+  frontend:
+    build: .
+    ports:
+        # Serves the page via grunt
+      - "9000:9000"
+        # For live reload with grunt
+      - "35729:35729"
+    depends_on:
+      - registry
+    volumes:
+      - ../:/source:rw
+      - ./start-develop.sh:/root/start-develop.sh:ro
+    environment:
+      - DOCKER_REGISTRY_HOST=registry
+      - DOCKER_REGISTRY_PORT=5000
+  registry:
+    image: registry:2.1.1
+    expose:
+      - "5000"
+    networks:
+      dev_net:
+        aliases:
+          - path-to-your-registry-v2
+
+networks:
+  dev_net:
