@@ -159,12 +159,12 @@ describe('docker-registry-frontend', function() {
     expect($route.current.controller).toBe('CreateTagController');
   });
 
-  it('/unknown-url should display home page', function() {
-    $httpBackend.expectGET('home.html').respond(200);
+  it('/unknown-url should display repositories page', function() {
+    $httpBackend.expectGET('repository/repository-list.html').respond(200);
     $location.path('/unknown-url');
     $rootScope.$digest();
-    expect($route.current.templateUrl).toBe('home.html');
-    expect($route.current.controller).toBe('HomeController');
+    expect($route.current.templateUrl).toBe('repository/repository-list.html');
+    expect($route.current.controller).toBe('RepositoryListController');
   });
 
 });

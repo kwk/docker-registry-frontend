@@ -84,6 +84,6 @@ angular
         controller: 'CreateTagController',
       }).
       otherwise({
-        redirectTo: '/home'
+        redirectTo: '/repositories/20'
       });
   }]);
