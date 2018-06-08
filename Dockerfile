@@ -1,6 +1,51 @@
-FROM debian:jessie
-MAINTAINER "Konrad Kleine"
+################################################################################
+# Stage 1: Build the Angluar application
+################################################################################
+FROM node:8-alpine as build_app
+LABEL maintainer="Konrad Kleine"
 
+ENV WORKDIR=/usr/src
+RUN mkdir -p  $WORKDIR \
+              $WORKDIR/.git
+
+WORKDIR $WORKDIR
+
+# The node image removes these packages as they are only needed to build node not to run it
+# Since we are installing/building npm packages will need these in the image
+RUN apk add --no-cache --virtual .build-deps \
+  automake \
+  autoconf \
+  gcc \
+  g++ \
+  make \
+  nasm \
+  python \
+  zlib-dev
+
+COPY . $WORKDIR
+
+RUN npm install \
+  && apk del .build-deps
+
+# Add some git files for versioning
+ADD .git/HEAD $WORKDIR/.git/HEAD
+ADD .git/refs $WORKDIR/.git/refs
+
+# Create version file
+RUN export GITREF=$(cat .git/HEAD | cut -d" " -f2) && \
+    export GITSHA1=$(cat .git/$GITREF) && \
+    echo "{\"git\": {\"sha1\": \"$GITSHA1\", \"ref\": \"$GITREF\"}}" > app-version.json
+
+## Build App
+RUN node_modules/grunt-cli/bin/grunt build --allow-root
+
+
+################################################################################
+# Stage 2:  Run the Angular application
+################################################################################
+
+FROM debian:jessie
+LABEL maintainer="Konrad Kleine"
 
 USER root
 
@@ -9,7 +54,6 @@ USER root
 ############################################################
 
 ENV WWW_DIR /var/www/html
-ENV SOURCE_DIR /tmp/source
 ENV START_SCRIPT /root/start-apache.sh
 
 RUN mkdir -pv $WWW_DIR
@@ -28,32 +72,8 @@ RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 
 ############################################################
 
-# Create dirs
-RUN mkdir -p  $SOURCE_DIR/dist \
-              $SOURCE_DIR/app \
-              $SOURCE_DIR/test \
-              $SOURCE_DIR/.git 
-
-# Add dirs
-ADD app $SOURCE_DIR/app
-ADD test $SOURCE_DIR/test
-
-# Dot files
-ADD .jshintrc $SOURCE_DIR/
-ADD .bowerrc $SOURCE_DIR/
-ADD .editorconfig $SOURCE_DIR/
-ADD .travis.yml $SOURCE_DIR/
-
-# Other files
-ADD bower.json $SOURCE_DIR/
-ADD Gruntfile.js $SOURCE_DIR/
-ADD LICENSE $SOURCE_DIR/
-ADD package.json $SOURCE_DIR/
-ADD README.md $SOURCE_DIR/
-
-# Add some git files for versioning
-ADD .git/HEAD $SOURCE_DIR/.git/HEAD
-ADD .git/refs $SOURCE_DIR/.git/refs
+COPY --from=build_app /usr/src/dist/ $WWW_DIR/
+COPY --from=build_app /usr/src/app-version.json $WWW_DIR/app-version.json
 
 ############################################################
 # Install and configure webserver software
@@ -63,30 +83,11 @@ RUN apt-get -y update && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get -y install \
       apache2 \
-      bzip2 \
       libapache2-mod-auth-kerb \
       libapache2-mod-proxy-html \
-      git \
-      nodejs \
-      nodejs-legacy \
-      npm \
       --no-install-recommends && \
     a2enmod proxy && \
     a2enmod proxy_http && \
-    cd $SOURCE_DIR && \
-    export GITREF=$(cat .git/HEAD | cut -d" " -f2) && \
-    export GITSHA1=$(cat .git/$GITREF) && \
-    echo "{\"git\": {\"sha1\": \"$GITSHA1\", \"ref\": \"$GITREF\"}}" > $WWW_DIR/app-version.json && \
-    cd $SOURCE_DIR && \
-    rm -rf $SOURCE_DIR/.git && \
-    git config --global url."https://".insteadOf git:// && \
-    cd $SOURCE_DIR && \
-    npm install && \
-    node_modules/bower/bin/bower install --allow-root && \
-    node_modules/grunt-cli/bin/grunt build --allow-root && \
-    cp -rf $SOURCE_DIR/dist/* $WWW_DIR && \
-    rm -rf $SOURCE_DIR && \
-    apt-get -y --auto-remove purge git nodejs nodejs-legacy npm bzip2 && \
     apt-get -y autoremove && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
