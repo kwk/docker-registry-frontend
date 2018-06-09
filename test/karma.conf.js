@@ -32,6 +32,7 @@ module.exports = function(config) {
       'node_modules/angular-resource/angular-resource.js',
       'node_modules/angular-route/angular-route.js',
       'node_modules/angular-sanitize/angular-sanitize.js',
+      'test/init-smart-table.js',
       'node_modules/angular-smart-table/src/smart-table.module.js',
       'node_modules/angular-touch/angular-touch.js',
       'app/**/*.js',
