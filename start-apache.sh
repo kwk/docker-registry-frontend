@@ -86,4 +86,11 @@ a2enmod rewrite
 # Stop apache first if is still running from the last time the container was run
 service apache2 stop
 
+# apache2.pid can hang around from previous dirty exits
+# (https://github.com/kwk/docker-registry-frontend/issues/159)
+if [ -f /var/run/apache2/apache2.pid ]
+then
+  rm /var/run/apache2/apache2.pid
+fi
+
 /usr/sbin/apache2ctl -D FOREGROUND ${useSsl}
