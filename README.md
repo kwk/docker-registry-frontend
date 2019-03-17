@@ -5,6 +5,8 @@ The `docker-registry-frontend` is a browser-based solution for browsing and modi
 [![](https://badge.imagelayers.io/konradkleine/docker-registry-frontend:v2.svg)](https://imagelayers.io/?images=konradkleine/docker-registry-frontend:v2 'Get your own badge on imagelayers.io')
 [![devDependency Status](https://david-dm.org/kwk/docker-registry-frontend/dev-status.svg?style=flat-square)](https://david-dm.org/kwk/docker-registry-frontend#info=devDependencies)
 [![Issue Count](https://codeclimate.com/github/kwk/docker-registry-frontend/badges/issue_count.svg)](https://codeclimate.com/github/kwk/docker-registry-frontend)
+[![Backers on Open Collective](https://opencollective.com/docker-registry-frontend/backers/badge.svg?style=flat-square)](#backers) 
+[![Sponsors on Open Collective](https://opencollective.com/docker-registry-frontend/sponsors/badge.svg?style=flat-square)](#sponsors) 
 
 # Before opening a bug report...
 
@@ -157,3 +159,33 @@ Thank you for your interest!
   [3]: https://github.com/kwk/docker-registry-frontend
   [features]: https://github.com/kwk/docker-registry-frontend/wiki/Features
   [v1branch]: https://github.com/kwk/docker-registry-frontend/tree/v1-deprecated
+
+## Contributors
+
+This project exists thanks to all the people who contribute. 
+<a href="https://github.com/kwk/docker-registry-frontend/graphs/contributors"><img src="https://opencollective.com/docker-registry-frontend/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/docker-registry-frontend#backer)]
+
+<a href="https://opencollective.com/docker-registry-frontend#backers" target="_blank"><img src="https://opencollective.com/docker-registry-frontend/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/docker-registry-frontend#sponsor)]
+
+<a href="https://opencollective.com/docker-registry-frontend/sponsor/0/website" target="_blank"><img src="https://opencollective.com/docker-registry-frontend/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/docker-registry-frontend/sponsor/1/website" target="_blank"><img src="https://opencollective.com/docker-registry-frontend/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/docker-registry-frontend/sponsor/2/website" target="_blank"><img src="https://opencollective.com/docker-registry-frontend/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/docker-registry-frontend/sponsor/3/website" target="_blank"><img src="https://opencollective.com/docker-registry-frontend/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/docker-registry-frontend/sponsor/4/website" target="_blank"><img src="https://opencollective.com/docker-registry-frontend/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/docker-registry-frontend/sponsor/5/website" target="_blank"><img src="https://opencollective.com/docker-registry-frontend/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/docker-registry-frontend/sponsor/6/website" target="_blank"><img src="https://opencollective.com/docker-registry-frontend/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/docker-registry-frontend/sponsor/7/website" target="_blank"><img src="https://opencollective.com/docker-registry-frontend/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/docker-registry-frontend/sponsor/8/website" target="_blank"><img src="https://opencollective.com/docker-registry-frontend/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/docker-registry-frontend/sponsor/9/website" target="_blank"><img src="https://opencollective.com/docker-registry-frontend/sponsor/9/avatar.svg"></a>
+
+
