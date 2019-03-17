@@ -1,7 +1,10 @@
 {
   "name": "docker-registry-frontend",
   "version": "0.0.2",
-  "dependencies": {},
+  "dependencies": {
+    "opencollective-postinstall": "^2.0.2",
+    "opencollective": "^1.0.3"
+  },
   "devDependencies": {
     "bower": "^1.7.2",
     "connect-modrewrite": "^0.8.2",
@@ -43,7 +46,7 @@
   },
   "scripts": {
     "server": "grunt serve",
-    "postinstall": "bower install",
+    "postinstall": "bower install && opencollective-postinstall",
     "pretest": "npm install",
     "test": "karma start test/karma.conf.js",
     "test-single-run": "karma start test/karma.conf.js --single-run"
@@ -67,5 +70,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kwk/docker-registry-frontend/issues"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/docker-registry-frontend"
   }
 }
