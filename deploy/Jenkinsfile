@@ -2,7 +2,7 @@
 
 commonAppDeliveryPipelineProduction_v2(
     scmUrl: 'git@github.com:bookmate/docker-registry-frontend.git',
-    appImageName: "docker-registry-frontend/docker-registry-frontend",
+    appImageName: "infra/docker-registry-frontend",
     services: [[nomadServiceName: 'infra-docker-registry-frontend']],
 )
 
