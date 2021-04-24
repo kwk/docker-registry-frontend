@@ -14,8 +14,7 @@ angular.module('image-controller', ['registry-services', 'app-mode-services'])
 
     $scope.appMode = AppMode.query();
     $scope.totalImageSize = 0;
-    $scope.imageDetails = Manifest.query({repoUser: $scope.repositoryUser, repoName: $scope.repositoryName, tagName: $scope.tagName});
-    
+    $scope.imageDetails = Manifest.query({repository: $scope.repository, tagName: $scope.tagName});
 
 
 
@@ -30,11 +29,7 @@ angular.module('image-controller', ['registry-services', 'app-mode-services'])
       $scope.totalImageSize = 0;
       var size;
       angular.forEach($scope.imageDetails.fsLayers, function (id, key) {
-
-        Blob.query({repoUser: $scope.repositoryUser, repoName: $scope.repositoryName, digest: id.blobSum}).$promise.then( function(data, headers){
-          size = data;
-          console.log(data)
-          console.log(size)
+        Blob.query({repository: $scope.repository, digest: id.blobSum}).$promise.then(function(data){
           if(!isNaN(data.contentLength-0)){
             $scope.totalImageSize += data.contentLength;
           }

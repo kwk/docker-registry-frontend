@@ -63,18 +63,12 @@ angular.module('tag-controller', ['registry-services'])
         if(!isNaN(idx)){
           tmpIdx = parseInt(idx) + idxShift;
           if ( result[tmpIdx].hasOwnProperty('name') ) {
-              result[tmpIdx].details = Manifest.query({repoUser: $scope.repositoryUser, repoName: $scope.repositoryName, tagName: result[tmpIdx].name});
+              result[tmpIdx].details = Manifest.query({repository: $scope.repository, tagName: result[tmpIdx].name});
           }
         }
       }
     });
-      
 
-    
-    // Copy collection for rendering in a smart-table
-    $scope.displayedTags = [].concat($scope.tags);
-
-    
     // selected tags
     $scope.selection = [];
 
@@ -82,6 +76,19 @@ angular.module('tag-controller', ['registry-services'])
     $scope.selectedTags = function selectedTags() {
       return filterFilter($scope.displayedTags, { selected: true });
     };
+
+    // Watch tags for changes
+    // To watch for changes on a property inside the object "tags"
+    // we first have to make sure the promise is ready.
+    $scope.tags.$promise.then(function(data) {
+      // Copy collection for rendering in a smart-table
+      $scope.displayedTags = [].concat(data);
+      $scope.$watch('displayedTags|filter:{selected:true}', function(nv) {
+        $scope.selection = nv.map(function (tag) {
+          return $scope.repository + ':' + tag.name;
+        });
+      }, true);
+    });
 
     $scope.openConfirmTagDeletionDialog = function(size) {
       var modalInstance = $modal.open({

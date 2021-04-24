@@ -10,7 +10,8 @@
   <table  class="table table-hover">
     <thead>
       <tr>
-        <th  ng-class="{strike: deleted}"><span class="glyphicon glyphicon-tag"></span> Tag</th>
+        <th ng-hide="appMode.browseOnly"></th>
+        <th ng-class="{strike: deleted}"><span class="glyphicon glyphicon-tag"></span> Tag</th>
         <th ><span class="glyphicon glyphicon-qrcode"></span> Image ID</th>
         <th ><span class="glyphicon glyphicon-calendar"></span> Created</th>
         <th ><span class="glyphicon glyphicon-user"></span> Author</th>
@@ -19,13 +20,19 @@
         <!-- <th><span class="glyphicon glyphicon-compressed"></span> Size (MB)</th> -->
       </tr>
       <tr>
-  			<th><input class="input-sm form-control" placeholder="Filter tags on this page" type="search" ng-model="search.name"/></th>
-		  </tr>
+        <th ng-hide="appMode.browseOnly"></th>
+        <th>
+          <input class="input-sm form-control" placeholder="Filter tags on this page" type="search" ng-model="search.name"/>
+        </th>
+      </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="tag in displayedTags | filter:search " ng-show="tag.details">
-        <td>
-          <a ng-bind-html="tag.name" href="tag/{{repositoryUser}}/{{repositoryName}}/{{tag.name}}">{{tag.name}}</a>
+      <tr ng-repeat="tag in displayedTags | filter:search " ng-show="tag.details" ng-class="{warning: tag.selected}">
+        <td ng-hide="appMode.browseOnly">
+          <checkbox name="selection[]" value="{{repository}}:{{tag.name}}" ng-model="tag.selected"></checkbox>
+        </td>
+        <td class="grow">
+          <a ng-bind-html="tag.name" href="tag/{{repository}}/{{tag.name}}">{{tag.name}}</a>
         </td>
         <td><span ng-bind-html="tag.details.id | limitTo: 12"></span></td>
         <td am-time-ago="tag.details.created"></td>
