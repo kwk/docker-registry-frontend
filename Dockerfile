@@ -32,7 +32,7 @@ RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 RUN mkdir -p  $SOURCE_DIR/dist \
               $SOURCE_DIR/app \
               $SOURCE_DIR/test \
-              $SOURCE_DIR/.git 
+              $SOURCE_DIR/.git
 
 # Add dirs
 ADD app $SOURCE_DIR/app
@@ -40,12 +40,10 @@ ADD test $SOURCE_DIR/test
 
 # Dot files
 ADD .jshintrc $SOURCE_DIR/
-ADD .bowerrc $SOURCE_DIR/
 ADD .editorconfig $SOURCE_DIR/
 ADD .travis.yml $SOURCE_DIR/
 
 # Other files
-ADD bower.json $SOURCE_DIR/
 ADD Gruntfile.js $SOURCE_DIR/
 ADD LICENSE $SOURCE_DIR/
 ADD package.json $SOURCE_DIR/
@@ -82,7 +80,6 @@ RUN apt-get -y update && \
     git config --global url."https://".insteadOf git:// && \
     cd $SOURCE_DIR && \
     npm install && \
-    node_modules/bower/bin/bower install --allow-root && \
     node_modules/grunt-cli/bin/grunt build --allow-root && \
     cp -rf $SOURCE_DIR/dist/* $WWW_DIR && \
     rm -rf $SOURCE_DIR && \

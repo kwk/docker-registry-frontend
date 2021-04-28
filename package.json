@@ -1,9 +1,58 @@
 {
   "name": "docker-registry-frontend",
+  "description": "A pure web-based frontend to a docker-registry",
   "version": "0.0.2",
-  "dependencies": {},
+  "author": "Konrad Kleine",
+  "license": "MIT",
+  "keywords": [
+    "docker",
+    "registry",
+    "frontend",
+    "ui"
+  ],
+  "main": "Gruntfile.js",
+  "directories": {
+    "test": "test"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kwk/docker-registry-frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kwk/docker-registry-frontend/issues"
+  },
+  "scripts": {
+    "start": "grunt serve",
+    "pretest": "npm install",
+    "test": "karma start test/karma.conf.js",
+    "test-single-run": "karma start test/karma.conf.js --single-run"
+  },
+  "dependencies": {
+    "angular": "~1.3.0",
+    "angular-animate": "~1.3.0",
+    "angular-bootstrap-checkbox": "~0.5.0",
+    "angular-cookies": "~1.3.0",
+    "angular-filter": "~0.5.2",
+    "angular-loading-bar": "~0.6.0",
+    "angular-moment": "~0.8.2",
+    "angular-resource": "~1.3.0",
+    "angular-route": "~1.3.0",
+    "angular-sanitize": "~1.3.0",
+    "angular-smart-table": "~1.4.12",
+    "angular-touch": "~1.3.0",
+    "angular-ui-bootstrap": "~0.13.0",
+    "bootstrap": "3.3.4",
+    "es5-shim": "~3.2.0",
+    "jquery": "^2.1.4",
+    "json3": "~3.3.1",
+    "toastr": "~2.0.3"
+  },
   "devDependencies": {
-    "bower": "^1.7.2",
+    "angular-mocks": "~1.3.0",
+    "angular-scenario": "~1.3.0",
     "connect-modrewrite": "^0.8.2",
     "grunt": "^0.4.1",
     "grunt-autoprefixer": "^3.0.3",
@@ -37,35 +86,5 @@
     "karma-spec-reporter": "0.0.26",
     "load-grunt-tasks": "^3.4.0",
     "time-grunt": "^1.3.0"
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  },
-  "scripts": {
-    "server": "grunt serve",
-    "postinstall": "bower install",
-    "pretest": "npm install",
-    "test": "karma start test/karma.conf.js",
-    "test-single-run": "karma start test/karma.conf.js --single-run"
-  },
-  "description": "A pure web-based frontend to a docker-registry",
-  "main": "Gruntfile.js",
-  "directories": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:kwk/docker-registry-frontend.git"
-  },
-  "keywords": [
-    "docker",
-    "registry",
-    "frontend",
-    "ui"
-  ],
-  "author": "Konrad Kleine",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kwk/docker-registry-frontend/issues"
   }
 }
