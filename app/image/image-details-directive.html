@@ -1,7 +1,7 @@
 <h2>
   Image Details
   <div ng-hide="appMode.browseOnly" class="pull-right">
-    <a href="image/{{imageDetails.id}}/tag/{{repositoryUser}}/{{repositoryName}}" class="btn btn-default">
+    <a href="image/{{details.imageId}}/tag/{{repositoryUser}}/{{repositoryName}}" class="btn btn-default">
       <span class="glyphicon glyphicon-plus"></span>
       Create a tag for this image
     </a>
@@ -14,74 +14,48 @@
       General information
     </tab-heading>
     <form class="form-horizontal"  role="form">
-      <div class="form-group">
-        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-user"></span> Author</label>
-        <div class="col-sm-10">
-          <p class="form-control-static">{{imageDetails.author}}</p>
-        </div>
-      </div>
-      <div class="form-group" ng-if="imageDetails.comment">
-        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-comment"></span> Comment</label>
-        <div class="col-sm-10">
-          <p class="form-control-static">
-            <pre>{{imageDetails.comment}}</pre>
-          </p>
-        </div>
-      </div>
-      <div class="form-group" >
+      <div class="form-group" ng-show="config.created">
         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-calendar"></span> Created</label>
         <div class="col-sm-10">
           <p class="form-control-static">
-            <span am-time-ago="imageDetails.created"></span>
-            <span class="text-muted"> ({{imageDetails.created | date:'yyyy-MM-dd HH:mm:ss Z'}})</span>
+            <span am-time-ago="config.created"></span>
+            <span class="text-muted"> ({{config.created | date:'yyyy-MM-dd HH:mm:ss Z'}})</span>
           </p>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" ng-show="config.docker_version">
         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-eye-open"></span> Docker version</label>
         <div class="col-sm-10">
-          <p class="form-control-static">{{imageDetails.docker_version}}</p>
+          <p class="form-control-static">{{config.docker_version}}</p>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" ng-show="config.os">
         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-cog"></span> OS</label>
         <div class="col-sm-10">
-          <p class="form-control-static">{{imageDetails.os}}/{{imageDetails.architecture}}</p>
+          <p class="form-control-static">{{config.os}}/{{config.architecture}}</p>
         </div>
       </div>
       <div class="form-group">
-        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-qrcode"></span> ID</label>
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-qrcode"></span> Image ID</label>
         <div class="col-sm-10">
           <p class="form-control-static">
-            {{imageDetails.id | limitTo: 12}}
+            {{details.imageId | limitTo: 12}}
           </p>
         </div>
       </div>
-     <!--  <div class="form-group">
-        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-arrow-up"></span> Parent's layer ID</label>
-        <div class="col-sm-10">
-          <p class="form-control-static">
-            {{imageDetails.parentLayer | limitTo: 12}}
-          </p>
-        </div>
-      </div> -->
-      
-<!--       <div class="form-group">
+      <div class="form-group">
         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-compressed"></span> Size <small>(including base image sizes)</small></label>
         <div class="col-sm-10">
           <p class="form-control-static">
-            <span ng-show="totalImageSize!==null">
-              {{totalImageSize/1024/1024 | number: 2}} <b>MB</b> {{totalImageSize / 1024 | number: 2}} <b>KB</b> {{totalImageSize}} <b>B</b>
+            <span>
+              {{details.size / 1024 / 1024 | number: 2}} <b>MB</b>
             </span>
-            <button type="submit" class="btn btn-info" ng-click="calculateTotalImageSize()" ng-show="totalImageSize===null">
-              <span class="glyphicon glyphicon-stats"></span> Calculate
-            </button>
           </p>
         </div>
-      </div> --> 
+      </div>
     </form>
   </tab>
-  <tab>
+  <tab ng-show="config.container_config.Labels.length">
     <tab-heading>
       Labels
     </tab-heading>
@@ -93,12 +67,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="(key, value) in imageDetails.labels">
+          <tr ng-repeat="(key, value) in config.container_config.Labels">
             <td>{{key}}</td>
             <td>{{value}}</td>
           </tr>
         </tbody>
       </table>
+  </tab>
+  <tab ng-show="config.dockerfile.length">
+    <tab-heading>
+      Dockerfile
+    </tab-heading>
+    <pre>
+      <code ng-repeat="instruction in config.dockerfile">
+{{instruction}}
+      </code>
+    </pre>
   </tab>
 </tabset>
 
