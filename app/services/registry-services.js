@@ -13,6 +13,7 @@ angular.module('registry-services', ['ngResource'])
       'query': {
         method:'GET',
         isArray: false,
+        cache: true,
       },
     });
   }])
@@ -38,6 +39,7 @@ angular.module('registry-services', ['ngResource'])
       'query': {
         method:'GET',
         isArray: false,
+        cache: true,
         transformResponse: function(data, headers){
           var repos = angular.fromJson(data).repositories;
 
@@ -108,6 +110,7 @@ angular.module('registry-services', ['ngResource'])
       'query': {
         method:'GET',
         isArray: true,
+        cache: true,
         transformResponse: function(data/*, headers*/){
           var res = [];
           var resp = angular.fromJson(data);
@@ -170,6 +173,7 @@ angular.module('registry-services', ['ngResource'])
       'query': {
         method:'GET',
         isArray: false,
+        cache: true,
         transformResponse: function(data, headers){
           var res = {};
           var history = [];
@@ -220,7 +224,7 @@ angular.module('registry-services', ['ngResource'])
         interceptor: function(data, headers){
           var res = {contentLength: parseInt(headers('content-length'))};
           return res;
-        } 
+        }
       }
 
     });
