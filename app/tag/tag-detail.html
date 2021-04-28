@@ -8,9 +8,11 @@
 
 <h1>
   Details for tag
-  <a href="repositories/{{repositoryUser}}">{{repositoryUser}}</a> /
-  <a href="repository/{{repositoryUser}}/{{repositoryName}}">{{repositoryName}}</a> :
-  <a href="tag/{{repositoryUser}}/{{repositoryName}}/{{tagName}}/{{imageId}}">{{tagName}}</a>
+  <span ng-show="repositoryUser"><a href="repositories/{{repositoryUser}}">{{repositoryUser}}</a></span> /
+  <span ng-show="repositoryUser"><a href="repository/{{repositoryUser}}/{{repositoryName}}">{{repositoryName}}</a></span>
+  <span ng-hide="repositoryUser"><a href="repository/{{repositoryName}}">{{repositoryName}}</a></span> :
+  <span ng-show="repositoryUser"><a href="tag/{{repositoryUser}}/{{repositoryName}}/{{tagName}}/{{imageId}}">{{tagName}}</a></span>
+  <span ng-hide="repositoryUser"><a href="tag/{{repositoryName}}/{{tagName}}/{{imageId}}">{{tagName}}</a></span>
 
   <div ng-hide="appMode.browseOnly" class="pull-right">
     <button type="button" ng-click="selection=['{{repositoryUser}}/{{repositoryName}}:{{tagName}}']; openConfirmTagDeletionDialog()" class="btn btn-danger">
