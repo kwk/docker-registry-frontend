@@ -45,12 +45,12 @@ angular.module('tag-controller', ['registry-services'])
       if(! $scope.tagsCurrentPage){
         $scope.tagsCurrentPage = 1;
       }else{
-        $scope.tagsCurrentPage = parseInt($scope.tagsCurrentPage) 
+        $scope.tagsCurrentPage = parseInt($scope.tagsCurrentPage)
         if($scope.tagsCurrentPage > $scope.maxTagsPage || $scope.tagsCurrentPage < 1){
-          $scope.tagsCurrentPage = 1; 
+          $scope.tagsCurrentPage = 1;
         }
       }
-      // Select wanted tags 
+      // Select wanted tags
       var idxShift = 0;
       $scope.displayedTags = $scope.tags;
       if($scope.tagsPerPage){
@@ -68,13 +68,13 @@ angular.module('tag-controller', ['registry-services'])
         }
       }
     });
-      
 
-    
+
+
     // Copy collection for rendering in a smart-table
     $scope.displayedTags = [].concat($scope.tags);
 
-    
+
     // selected tags
     $scope.selection = [];
 
@@ -82,6 +82,29 @@ angular.module('tag-controller', ['registry-services'])
     $scope.selectedTags = function selectedTags() {
       return filterFilter($scope.displayedTags, { selected: true });
     };
+
+    // sort tags
+    $scope.orderByCreated  = true;
+
+    function compare(a, b){
+      var at = new Date(a.details.created),
+          bt = new Date(b.details.created);
+
+      return at.getTime() - bt.getTime();
+    }
+
+    $scope.sortTags = function(){
+      if($scope.orderByCreated){
+        $scope.displayedTags.sort(compare);
+      }
+      else{
+        // if $scope.orderByCreated is false, that means $scope.displayedTags.sort(compare) has been invoked.
+        // then just need to call reverse() function
+        $scope.displayedTags.reverse();
+      }
+
+      $scope.orderByCreated = !$scope.orderByCreated;
+    }
 
     $scope.openConfirmTagDeletionDialog = function(size) {
       var modalInstance = $modal.open({

@@ -144,3 +144,7 @@ footer img {
 .css-form input.ng-valid.ng-dirty {
   background-color: #78FA89;
 }
+
+.caret{
+  cursor: pointer;
+}
