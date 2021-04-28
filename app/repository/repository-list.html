@@ -25,13 +25,14 @@
 
 <div class="table-responsive">
   <table class="table table-hover">
-    <thead>
-        <th colspan="2">
+    <thead class="title" ng-init="reposHide[username]=false" ng-click="reposHide[username]=!reposHide[username]">
+        <th colspan="2" ng-class="{dropup: reposHide[username], dropdown: !reposHide[username]}">
           <!--<span class="glyphicon glyphicon-user"></span>--> {{username}}
+          <span class="caret"></span>
           <span class="badge pull-right">{{repos.length}}</span>
         </th>
     </thead>
-    <tbody>
+    <tbody ng-hide="reposHide[username]">
       <tr ng-repeat="repo in repos" ng-class="{warning: repo.selected}">
         <td>
           <checkbox name="selectedRepositories[]" value="{{repo.name}}" ng-model="repo.selected" ng-hide="appMode.browseOnly"></checkbox>

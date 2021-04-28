@@ -144,3 +144,8 @@ footer img {
 .css-form input.ng-valid.ng-dirty {
   background-color: #78FA89;
 }
+
+.table-hover th:hover{
+  background-color: #f8fff0;
+  cursor: pointer;
+}
