@@ -29,7 +29,7 @@
         </td>
         <td><span ng-bind-html="tag.details.id | limitTo: 12"></span></td>
         <td am-time-ago="tag.details.created"></td>
-        <td><span ng-bind-html="tag.details.author | linky"></span></td>
+        <td><span ng-bind-html="(tag.details.labels.maintainer || tag.details.author) | linky"></span></td>
         <td ng-bind-html="tag.details.docker_version"></td>
         <!-- <td><span ng-bind-html="tag.details.parent | limitTo: 12"></span></td> -->
         <!-- <td>
