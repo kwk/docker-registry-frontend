@@ -38,6 +38,12 @@
         </div>
       </div>
       <div class="form-group">
+        <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-align-justify"></span> Layers</label>
+        <div class="col-sm-10">
+          <p class="form-control-static">{{imageDetails.layers}}</p>
+        </div>
+      </div>
+      <div class="form-group">
         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-eye-open"></span> Docker version</label>
         <div class="col-sm-10">
           <p class="form-control-static">{{imageDetails.docker_version}}</p>
@@ -65,20 +71,19 @@
           </p>
         </div>
       </div> -->
-      
-<!--       <div class="form-group">
+      <div class="form-group">
         <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-compressed"></span> Size <small>(including base image sizes)</small></label>
         <div class="col-sm-10">
           <p class="form-control-static">
             <span ng-show="totalImageSize!==null">
-              {{totalImageSize/1024/1024 | number: 2}} <b>MB</b> {{totalImageSize / 1024 | number: 2}} <b>KB</b> {{totalImageSize}} <b>B</b>
+              {{totalImageSize/1024/1024 | number: 2}} <b>MB</b>
             </span>
             <button type="submit" class="btn btn-info" ng-click="calculateTotalImageSize()" ng-show="totalImageSize===null">
               <span class="glyphicon glyphicon-stats"></span> Calculate
             </button>
           </p>
         </div>
-      </div> --> 
+      </div>
     </form>
   </tab>
   <tab>
@@ -99,6 +104,16 @@
           </tr>
         </tbody>
       </table>
+  </tab>
+    <tab>
+    <tab-heading>
+      Dockerfile
+    </tab-heading>
+      <pre>
+      <code ng-repeat="instruction in imageDetails.dockerfile track by $index">
+      {{instruction}}
+      </code>
+      </pre>
   </tab>
 </tabset>
 

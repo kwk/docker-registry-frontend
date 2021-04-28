@@ -176,6 +176,9 @@ angular.module('registry-services', ['ngResource'])
           var tmp;
           var resp = angular.fromJson(data);
           var v1Compatibility = undefined;
+          var dockerfile = [];
+          var cmd;
+          var instruction;
 
           for (var idx in resp.history){
 
@@ -195,6 +198,11 @@ angular.module('registry-services', ['ngResource'])
               if(v1Compatibility.config && v1Compatibility.config.Labels){
                 tmp.labels = v1Compatibility.config.Labels;
               }
+              if(v1Compatibility.container_config && v1Compatibility.container_config.Cmd){
+                cmd = v1Compatibility.container_config.Cmd
+                instruction = cmd.join(' ').replace('/bin/sh -c #(nop) ', '').replace('/bin/sh -c ', 'RUN ')
+                dockerfile.unshift(instruction)
+              }
               history.push(tmp);
             }
           }
@@ -205,23 +213,25 @@ angular.module('registry-services', ['ngResource'])
           res.fsLayers = resp.fsLayers;
           res.digest = headers('docker-content-digest');
           res.architecture = resp.architecture;
+          res.dockerfile = dockerfile
+          res.layers = dockerfile.length
           return res;
         },
       }
     });
   }])
-  // This is not totally working right now (problem with big layers)
-  /*
   .factory('Blob', ['$resource', function($resource){
     return $resource('/v2/:repoUser/:repoName/blobs/:digest', {}, {
 
       'query': {
         method:'HEAD',
-        interceptor: function(data, headers){
-          var res = {contentLength: parseInt(headers('content-length'))};
-          return res;
-        } 
+        interceptor: {
+          response: function(response){
+            var res = {contentLength: parseInt(response.headers('content-length'))};
+            return res;
+          }
+        }
       }
 
     });
-  }]) */ ;
+  }])  ;
