@@ -40,6 +40,15 @@ angular.module('repository-list-controller', ['ngRoute', 'ui.bootstrap', 'regist
     // selected repos
     $scope.selectedRepositories = [];
 
+    $scope.disableNextButton = function(){
+      return !$scope.repositories.lastNamespace || !$scope.repositories.lastRepository;
+    }
+
+    $scope.nextPage = function(){
+      if($scope.disableNextButton()) return;
+      $location.path("/repositories/" + $scope.reposPerPage + "/" + $scope.repositories.lastNamespace + "/" + $scope.repositories.lastRepository);
+    }
+
     // helper method to get selected tags
     $scope.selectedRepos = function selectedRepos() {
       return filterFilter($scope.repositories.repos, { selected: true });
