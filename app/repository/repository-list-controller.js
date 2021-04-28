@@ -45,6 +45,10 @@ angular.module('repository-list-controller', ['ngRoute', 'ui.bootstrap', 'regist
       return filterFilter($scope.repositories.repos, { selected: true });
     };
 
+    $scope.page = function(num){
+      $location.path("repositories/" + num + "/" + $scope.lastNamespace + "/" + $scope.lastRepository);
+    }
+
     // Watch repos for changes
     // To watch for changes on a property inside the object "repositories"
     // we first have to make sure the promise is ready.
