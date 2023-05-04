@@ -1,0 +1,81 @@
+FROM registry.bookmate.services/base/nodejs:8
+
+USER root
+
+############################################################
+# Setup environment variables
+############################################################
+
+ENV WWW_DIR         /var/www/html
+ENV SOURCE_DIR      /tmp/source
+ENV START_SCRIPT    /root/entrypoint.sh
+
+RUN mkdir -pv $WWW_DIR
+
+############################################################
+
+# Create dirs
+RUN mkdir -p  $SOURCE_DIR/dist \
+              $SOURCE_DIR/app \
+              $SOURCE_DIR/test \
+              $SOURCE_DIR/.git
+
+# Add dirs
+ADD app             $SOURCE_DIR/app
+ADD test            $SOURCE_DIR/test
+
+# Dot files
+ADD .jshintrc       $SOURCE_DIR/
+ADD .bowerrc        $SOURCE_DIR/
+ADD .editorconfig   $SOURCE_DIR/
+ADD .travis.yml     $SOURCE_DIR/
+
+# Other files
+ADD bower.json      $SOURCE_DIR/
+ADD Gruntfile.js    $SOURCE_DIR/
+ADD LICENSE         $SOURCE_DIR/
+ADD package.json    $SOURCE_DIR/
+ADD README.md       $SOURCE_DIR/
+
+# Add some git files for versioning
+ADD .git/HEAD       $SOURCE_DIR/.git/HEAD
+ADD .git/refs       $SOURCE_DIR/.git/refs
+
+############################################################
+# Install and configure webserver software
+############################################################
+
+RUN yum -y install \
+      httpd \
+      mod_ssl \
+      mod_proxy_html \
+      bzip2 \
+      git && \
+    yum clean all
+
+RUN cd $SOURCE_DIR && \
+    export GITREF=$(cat .git/HEAD | cut -d" " -f2) && \
+    export GITSHA1=$(cat .git/$GITREF) && \
+    echo "{\"git\": {\"sha1\": \"$GITSHA1\", \"ref\": \"$GITREF\"}}" > $WWW_DIR/app-version.json && \
+    cd $SOURCE_DIR && \
+    rm -rf $SOURCE_DIR/.git && \
+    git config --global url."https://".insteadOf git:// && \
+    cd $SOURCE_DIR && \
+    npm install && \
+    node_modules/bower/bin/bower install --allow-root && \
+    node_modules/grunt-cli/bin/grunt build --allow-root && \
+    cp -rf $SOURCE_DIR/dist/* $WWW_DIR && \
+    rm -rf $SOURCE_DIR
+
+############################################################
+# Add and enable the apache site and disable all other sites
+############################################################
+
+ADD httpd.conf /etc/httpd/conf/httpd.conf
+
+ADD apache-site.conf /etc/httpd/conf.d/docker-site.conf
+
+ADD entrypoint-centos.sh $START_SCRIPT
+RUN chmod +x $START_SCRIPT
+
+CMD $START_SCRIPT
